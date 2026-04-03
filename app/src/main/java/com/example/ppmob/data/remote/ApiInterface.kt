@@ -1,5 +1,8 @@
 package com.example.ppmob.data.remote
 
+import com.example.ppmob.data.dto.ActivityDto
+import com.example.ppmob.data.dto.AddressDto
+import com.example.ppmob.data.dto.CompanyDto
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -28,10 +31,17 @@ interface ApiInterface { // Объявление интерфейса для HTT
 //    @GET("rest/v1/user")
 //    suspend fun getUserById(@Query("user_id") userId: String): List<UserDto>
 
-    // GET-запрос для получения списка карточек
-//    @GET("rest/v1/card")
-//    suspend fun getCards(): List<CardDto>
+    // GET-запрос для получения списка адресов
+    @GET("rest/v1/addresses")
+    suspend fun getAddresses(): List<AddressDto>
 
+    // GET-запрос для получения списка видов деятельности
+    @GET("rest/v1/activitys")
+    suspend fun getActivitys(): List<ActivityDto>
+
+    // POST-запрос для создания записи в таблице companys
+    @POST("rest/v1/companys")
+    suspend fun createCompany(@Body company: CompanyDto)
 
 
 //    // POST-запрос для загрузки картинки в бакет
