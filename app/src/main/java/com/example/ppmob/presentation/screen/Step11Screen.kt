@@ -13,32 +13,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.R
+import com.example.ppmob.presentation.components.ButtonCustom
+import com.example.ppmob.ui.theme.ActiveBlue
+import com.example.ppmob.ui.theme.NoActiveBlue
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 
 @Composable
-fun Step1Screen(navController: NavHostController) {
+fun Step11Screen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -66,20 +61,40 @@ fun Step1Screen(navController: NavHostController) {
 
             Box(
                 modifier = Modifier
-                    .padding(start = 100.dp, top = 130.dp)
-                    .size(50.dp)
-                    .clip(CircleShape)
-                    .background(Color.White)
                     .align(Alignment.TopStart)
-                    .clickable { navController.navigate(NavRoutes.step11) },
+                    .padding(start = 70.dp, top = 110.dp)
+                    .size(width = 150.dp, height = 90.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Color.White),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "1",
-                    fontSize = 28.sp,
-                    fontFamily = RadioCanadaRegular,
-                    color = Color(0xff018BD6)
-                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(10.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Офис Учредителя",
+                        fontFamily = RadioCanadaRegular,
+                        fontSize = 13.sp,
+                        color = Color.Black
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    ButtonCustom(
+                        "Начать",
+                        true,
+                        ActiveBlue,
+                        NoActiveBlue,
+                        10.sp,
+                        9.dp,
+                        85.dp,
+                        30.dp
+                    ) {
+                        navController.navigate(NavRoutes.office)
+                    }
+                }
             }
         }
     }

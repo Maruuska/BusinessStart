@@ -5,6 +5,8 @@ object NavRoutes {
     const val splash = "splash"
     const val menu = "menu"
     const val step1 = "step1"
+    const val step11 = "step11"
+    const val office = "office"
     const val signin = "signin"
     const val signup = "signup"
 }
