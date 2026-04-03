@@ -21,41 +21,35 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.artguess.presentation.navigation.NavRoutes
+import com.example.ppmob.ui.theme.RadioCanadaRegular
+import com.example.ppmob.ui.theme.SplashBack
 
 
 import kotlinx.coroutines.delay
 
-// экран загрузки
 @Composable
 fun SplashScreen(navController: NavHostController) {
     Column(
-        modifier = Modifier.fillMaxSize().background(SplashGreen),
+        modifier = Modifier.fillMaxSize().background(SplashBack),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         LaunchedEffect(true) {
             delay(1200L)
-            navController.navigate(NavRoutes.signin){
+            navController.navigate(NavRoutes.main){
                 popUpTo(NavRoutes.splash){
                     inclusive = true
                 }
             }
         }
-        Image(
-            painter = painterResource(id= R.drawable.crocodile100),
-            contentDescription = "",
-            alignment = Alignment.Center,
-            modifier = Modifier.size(100.dp)
-        )
+//        Image(
+//            painter = painterResource(id= R.drawable.crocodile100),
+//            contentDescription = "",
+//            alignment = Alignment.Center,
+//            modifier = Modifier.size(100.dp)
+//        )
         Spacer(modifier = Modifier.height(10.dp))
-        Text(text = "ArtGuess", fontFamily = OpenSansFamily, fontSize = 20.sp, color = Color.Black)
+        Text(text = "Бизнес-Старт", fontFamily = RadioCanadaRegular, fontSize = 28.sp, color = Color.White)
         Spacer(modifier = Modifier.height(10.dp))
-        CustomLinearProgressBar()
     }
-}
-
-@Preview
-@Composable
-fun SplashScreenPreview() {
-    SplashScreen(navController = rememberNavController())
 }

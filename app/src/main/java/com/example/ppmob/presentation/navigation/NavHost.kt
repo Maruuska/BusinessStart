@@ -20,9 +20,9 @@ fun NavigHost() {
 //        composable(route = NavRoutes.signin) {
 //            SignInScreen(navController = navController)
 //        }
-        composable(route = NavRoutes.main) {
-            MainScreen(navController = navController)
-        }
+//        composable(route = NavRoutes.main) {
+//            MainScreen(navController = navController)
+//        }
 //        composable(route = NavRoutes.signup) {
 //            SignUpScreen(navController = navController)
 //        }
