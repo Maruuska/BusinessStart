@@ -7,7 +7,7 @@ data class CompanyDto (
     val name: String,
     @SerializedName("short_name")
     val shortName: String,
-    val address: String,
+    val address: Int,
     @SerializedName("type_of_activity")
     val typeActivity: Int,
     @SerializedName("one_founder")

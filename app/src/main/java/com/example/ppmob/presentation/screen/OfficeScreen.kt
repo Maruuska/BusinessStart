@@ -1,13 +1,18 @@
 package com.example.ppmob.presentation.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -24,10 +29,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.presentation.components.ButtonCustom
+import com.example.ppmob.presentation.components.OutlinedTextFieldDropDown
 import com.example.ppmob.presentation.components.OutlinedTextFieldNormal
 import com.example.ppmob.presentation.viewmodel.OfficeViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
+import com.example.ppmob.ui.theme.ActiveGreen
 import com.example.ppmob.ui.theme.NoActiveBlue
+import com.example.ppmob.ui.theme.NoActiveGreen
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 
@@ -38,8 +46,10 @@ fun OfficeScreen(
 ) {
 
     val stateField by officeViewModel.fieldsOffice.collectAsState()
-    stateField.activityId = 1
     val appState by officeViewModel.appState.collectAsState()
+
+    // Состояние для выбранной радиокнопки
+    var selectedFounderType by remember { mutableStateOf<Boolean?>(true) }
 
     Column(
         modifier = Modifier
@@ -54,7 +64,7 @@ fun OfficeScreen(
             fontSize = 18.sp,
             color = Color.Black
         )
-        Spacer(modifier = Modifier.height(80.dp))
+        Spacer(modifier = Modifier.height(70.dp))
 
         Text(
             text = "Наименование компании",
@@ -90,34 +100,34 @@ fun OfficeScreen(
         )
         Spacer(modifier = Modifier.height(10.dp))
 
-//        var expanded by remember { mutableStateOf(false) }       //развернутость списка
-//        val selectCategory =
-//            viewModel.categories.value?.find { it.id == plantState.categoryId }
-//
-//        Column {
-//            // текстовое поле с выпадающим списком и отображением выбранной категории
-//            OutlinedTextFieldDropDown(
-//                selectCategory?.categoryName ?: "Select a category"
-//            ) {
-//                expanded = it
-//            }
-//            // выпадающее меню
-//            DropdownMenu(
-//                expanded = expanded,
-//                onDismissRequest = { expanded = false }) {
-//                // перебор списка категорий из viewModel
-//                viewModel.categories.value!!.forEach { categoryPlant ->
-//                    DropdownMenuItem(
-//                        text = { Text(categoryPlant.categoryName) },  // отображение имени категории
-//                        onClick = {
-//                            plantState.categoryId =
-//                                categoryPlant.id   // при нажатии устанавливается выбранная категория
-//                            expanded = false
-//                        }
-//                    )
-//                }
-//            }
-//        }
+        var expanded by remember { mutableStateOf(false) }       //развернутость списка
+        val selectAddress = officeViewModel.addresses.value?.find { it.id == stateField.addressId }
+
+        Column {
+            OutlinedTextFieldDropDown(
+                selectAddress?.name ?: "Выберите адрес компании"
+            ) {
+                expanded = it
+            }
+            // выпадающее меню
+            DropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }) {
+                // перебор списка адресов из viewModel
+                officeViewModel.addresses.value!!.forEach { adres ->
+                    DropdownMenuItem(
+                        text = { Text(adres.name) },
+                        onClick = {
+                            //stateField.addressId = adres.id
+                            officeViewModel.updateState(
+                                stateField.copy(addressId = adres.id)
+                            )
+                            expanded = false
+                        }
+                    )
+                }
+            }
+        }
 
         Text(
             text = "Вид деятельности",
@@ -126,6 +136,36 @@ fun OfficeScreen(
             color = Color.Black
         )
         Spacer(modifier = Modifier.height(10.dp))
+
+        var expandedActivity by remember { mutableStateOf(false) }       //развернутость списка
+        val selectActivity = officeViewModel.activitys.value?.find { it.id == stateField.activityId }
+
+        Column {
+            OutlinedTextFieldDropDown(
+                selectActivity?.name ?: "Выберите вид деятельности"
+            ) {
+                expandedActivity = it
+            }
+            // выпадающее меню
+            DropdownMenu(
+                expanded = expandedActivity,
+                onDismissRequest = { expandedActivity = false }) {
+                // перебор списка видов из viewModel
+                officeViewModel.activitys.value!!.forEach { activity ->
+                    DropdownMenuItem(
+                        text = { Text(activity.name) },
+                        onClick = {
+                            //stateField.addressId = adres.id
+                            officeViewModel.updateState(
+                                stateField.copy(activityId = activity.id)
+                            )
+                            expandedActivity = false
+                        }
+                    )
+                }
+            }
+        }
+
 
 
         Text(
@@ -136,9 +176,59 @@ fun OfficeScreen(
         )
         Spacer(modifier = Modifier.height(10.dp))
 
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 50.dp),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                RadioButton(
+                    selected = selectedFounderType == true,
+                    onClick = { selectedFounderType = true },
+                    modifier = Modifier.size(22.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "Один",
+                    fontFamily = RadioCanadaRegular,
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    modifier = Modifier.padding(start = 12.dp)
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                RadioButton(
+                    selected = selectedFounderType == false,
+                    onClick = { selectedFounderType = false },
+                    modifier = Modifier.size(22.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "Несколько",
+                    fontFamily = RadioCanadaRegular,
+                    fontSize = 16.sp,
+                    color = Color.Black,
+                    modifier = Modifier.padding(start = 12.dp)
+                )
+            }
+        }
 
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(35.dp))
         ButtonCustom(
             "Далее",
             true,
@@ -149,6 +239,7 @@ fun OfficeScreen(
             130.dp,
             45.dp
         ) {
+            officeViewModel.save()
             navController.navigate(NavRoutes.office)
         }
 

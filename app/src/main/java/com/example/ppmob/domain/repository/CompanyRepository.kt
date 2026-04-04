@@ -7,7 +7,13 @@ import com.example.ppmob.domain.model.Rezult
 
 interface CompanyRepository {
     // Приостанавливающая функция для создания компании
-    suspend fun createCompany(company: Company): Rezult<Company>
+    suspend fun createCompany(
+        name: String,
+        shortName: String,
+        addressId: Int,
+        activityId: Int,
+        oneFounder: Boolean
+    ): Rezult<Company>
 
     // Приостанавливающая функция для получения списка всех адресов
     suspend fun getAddresses(): Rezult<List<Address>>

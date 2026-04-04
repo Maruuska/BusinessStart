@@ -1,6 +1,7 @@
 package com.example.ppmob.data.repository
 
 import android.util.Log
+import com.example.ppmob.data.dto.CompanyDto
 import com.example.ppmob.data.mapper.ActivityMapper
 import com.example.ppmob.data.mapper.AddressMapper
 import com.example.ppmob.data.mapper.CompanyMapper
@@ -17,11 +18,25 @@ class CompanyRepositoryImpl @Inject constructor(
 ): CompanyRepository {
 
     // переопределение абстрактной функции для создания компании
-    override suspend fun createCompany(company: Company): Rezult<Company> {
+    override suspend fun createCompany(
+        name: String,
+        shortName: String,
+        addressId: Int,
+        activityId: Int,
+        oneFounder: Boolean
+    ): Rezult<Company> {
         return try{
-            val companyDto = CompanyMapper.toDto(company)
+
+
+            val companyDto = CompanyDto(
+                name = name,
+                shortName=shortName,
+                address=addressId,
+                typeActivity = activityId,
+                oneFounder=oneFounder
+            )
             apiInterface.createCompany(companyDto)
-            Rezult.Success(company)
+            Rezult.Success(CompanyMapper.toDomain(companyDto))
         }
         catch (e: Exception) {
             Rezult.Failure(e)

@@ -8,7 +8,13 @@ import javax.inject.Inject
 class CreateCompanyUseCase @Inject constructor(
     private val companyRepository: CompanyRepository
 ) {
-    suspend operator fun invoke(company: Company): Rezult<Company> {
-        return companyRepository.createCompany(company)
+    suspend operator fun invoke(
+        name: String,
+        shortName: String,
+        addressId: Int,
+        activityId: Int,
+        oneFounder: Boolean
+    ): Rezult<Company> {
+        return companyRepository.createCompany(name,shortName,addressId,activityId,oneFounder)
     }
 }

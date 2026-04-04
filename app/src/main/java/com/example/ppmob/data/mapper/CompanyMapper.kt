@@ -7,8 +7,8 @@ import com.google.gson.annotations.SerializedName
 object CompanyMapper {
 
     // Преобразование Company в модель CompanyDto
-    fun toDto(company: Company): CompanyDto {
-        return CompanyDto(
+    fun toDomain(company: CompanyDto ):  Company{
+        return Company(
             name = company.name,
             shortName = company.shortName,
             address= company.address,

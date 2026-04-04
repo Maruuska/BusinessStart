@@ -83,4 +83,20 @@ class OfficeViewModel @Inject constructor(
         }
     }
 
+    fun save(){
+        viewModelScope.launch {
+            _appState.value = AppState.Loading
+            when (val result =
+                createCompanyUseCase(_fieldsOffice.value.name, _fieldsOffice.value.shortName, _fieldsOffice.value.addressId, _fieldsOffice.value.activityId,_fieldsOffice.value.oneFounder)) {
+                is Rezult.Success -> {
+                    _appState.value = AppState.Success
+                }
+                is Rezult.Failure -> {
+                    _appState.value =
+                        AppState.Error(result.exception.message ?: "ошибка создания ооо")
+                }
+            }
+        }
+    }
+
 }

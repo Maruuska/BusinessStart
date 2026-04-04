@@ -5,6 +5,8 @@ import com.example.ppmob.data.remote.ApiInterfaceService
 import com.example.ppmob.data.repository.CompanyRepositoryImpl
 import com.example.ppmob.domain.repository.CompanyRepository
 import com.example.ppmob.domain.usecase.CreateCompanyUseCase
+import com.example.ppmob.domain.usecase.GetActivitysUseCase
+import com.example.ppmob.domain.usecase.GetAddressUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,4 +39,15 @@ object AppModule {
         return CreateCompanyUseCase(companyRepository)
     }
 
+    @Provides
+    @Singleton
+    fun provideGetActivityUseCase(companyRepository: CompanyRepository): GetActivitysUseCase {
+        return GetActivitysUseCase(companyRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAddressUseCase(companyRepository: CompanyRepository): GetAddressUseCase {
+        return GetAddressUseCase(companyRepository)
+    }
 }
