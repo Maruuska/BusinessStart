@@ -3,10 +3,13 @@ package com.example.ppmob.di
 import com.example.ppmob.data.remote.ApiInterface
 import com.example.ppmob.data.remote.ApiInterfaceService
 import com.example.ppmob.data.repository.CompanyRepositoryImpl
+import com.example.ppmob.data.repository.CountryRepositoryImpl
 import com.example.ppmob.domain.repository.CompanyRepository
+import com.example.ppmob.domain.repository.CountryRepository
 import com.example.ppmob.domain.usecase.CreateCompanyUseCase
 import com.example.ppmob.domain.usecase.GetActivitysUseCase
 import com.example.ppmob.domain.usecase.GetAddressUseCase
+import com.example.ppmob.domain.usecase.GetCountriesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,6 +34,13 @@ object AppModule {
         return CompanyRepositoryImpl(apiInterface)
     }
 
+    // реализация CountryRepository
+    @Provides
+    @Singleton
+    fun provideCountryRepository(apiInterface: ApiInterface): CountryRepository {
+        return CountryRepositoryImpl(apiInterface)
+    }
+
 
     // Предоставляет UseCase по созданию компании
     @Provides
@@ -49,5 +59,11 @@ object AppModule {
     @Singleton
     fun provideGetAddressUseCase(companyRepository: CompanyRepository): GetAddressUseCase {
         return GetAddressUseCase(companyRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCountriesUseCase(countryRepository: CountryRepository): GetCountriesUseCase {
+        return GetCountriesUseCase(countryRepository)
     }
 }

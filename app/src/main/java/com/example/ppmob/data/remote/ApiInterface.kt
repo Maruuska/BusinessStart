@@ -3,6 +3,7 @@ package com.example.ppmob.data.remote
 import com.example.ppmob.data.dto.ActivityDto
 import com.example.ppmob.data.dto.AddressDto
 import com.example.ppmob.data.dto.CompanyDto
+import com.example.ppmob.data.dto.CountyDto
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -42,6 +43,10 @@ interface ApiInterface { // Объявление интерфейса для HTT
     // POST-запрос для создания записи в таблице companys
     @POST("rest/v1/companys")
     suspend fun createCompany(@Body company: CompanyDto)
+
+    // GET-запрос для получения списка стран
+    @GET("rest/v1/countries")
+    suspend fun getCountries(): List<CountyDto>
 
 
 //    // POST-запрос для загрузки картинки в бакет

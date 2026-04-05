@@ -1,12 +1,16 @@
 package com.example.artguess.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.ppmob.presentation.screen.DocumentScreen
 import com.example.ppmob.presentation.screen.MenuScreen
 import com.example.ppmob.presentation.screen.OfficeScreen
 import com.example.ppmob.presentation.screen.OneFounderScreen
+import com.example.ppmob.presentation.screen.PalataScreen
 import com.example.ppmob.presentation.screen.SeveralFounderScreen
 import com.example.ppmob.presentation.screen.SplashScreen
 import com.example.ppmob.presentation.screen.Step11Screen
@@ -20,7 +24,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.step2
+        startDestination = NavRoutes.palata
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -49,7 +53,21 @@ fun NavigHost() {
         composable(route = NavRoutes.step11) {
             Step21Screen(navController = navController)
         }
-
+        composable(route = NavRoutes.palata) {
+            PalataScreen(navController = navController)
+        }
+        composable(
+            route = NavRoutes.docWithParam,
+            arguments = listOf(
+                navArgument("needApostille") { type = NavType.BoolType }
+            )
+        ) { backStackEntry ->
+            val needApostille = backStackEntry.arguments?.getBoolean("needApostille") ?: false
+            DocumentScreen(
+                navController = navController,
+                needApostille = needApostille
+            )
+        }
 
 //        composable(route = NavRoutes.signin) {
 //            SignInScreen(navController = navController)

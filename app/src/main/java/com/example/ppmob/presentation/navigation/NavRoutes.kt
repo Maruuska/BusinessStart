@@ -9,8 +9,17 @@ object NavRoutes {
     const val office = "office"
     const val oneFounder = "oneFounder"
     const val severalFounder = "severalFounder"
-    const val step2 = "step1"
-    const val step21 = "step11"
+    const val step2 = "step2"
+    const val step21 = "step21"
+    const val palata = "palata"
+    const val doc = "doc"
+    const val docWithParam = "doc/{needApostille}"
+
+    // Функции для создания маршрутов с параметрами
+    fun docWithParam(needApostille: Boolean): String {
+        return "doc/$needApostille"
+    }
+
     const val signin = "signin"
     const val signup = "signup"
 }
