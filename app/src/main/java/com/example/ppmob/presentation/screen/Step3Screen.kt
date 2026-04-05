@@ -29,7 +29,7 @@ import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 
 @Composable
-fun Step2Screen(navController: NavHostController) {
+fun Step3Screen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -49,7 +49,7 @@ fun Step2Screen(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Image(
-                painter = painterResource(id = R.drawable.step2),
+                painter = painterResource(id = R.drawable.step3),
                 contentDescription = "",
                 modifier = Modifier.fillMaxWidth(),
                 contentScale = ContentScale.Crop
@@ -57,16 +57,16 @@ fun Step2Screen(navController: NavHostController) {
 
             Box(
                 modifier = Modifier
-                    .padding(start = 190.dp, top = 65.dp)
+                    .padding(start = 305.dp, top = 140.dp)
                     .size(50.dp)
                     .clip(CircleShape)
                     .background(Color.White)
                     .align(Alignment.TopStart)
-                    .clickable { navController.navigate(NavRoutes.step21) },
+                    .clickable { navController.navigate(NavRoutes.step31) },
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "2",
+                    text = "3",
                     fontSize = 28.sp,
                     fontFamily = RadioCanadaRegular,
                     color = Color(0xff018BD6)

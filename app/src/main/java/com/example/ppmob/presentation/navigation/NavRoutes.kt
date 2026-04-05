@@ -12,13 +12,13 @@ object NavRoutes {
     const val step2 = "step2"
     const val step21 = "step21"
     const val palata = "palata"
-    const val doc = "doc"
     const val docWithParam = "doc/{needApostille}"
-
-    // Функции для создания маршрутов с параметрами
+    // для создания маршрутов с параметрами
     fun docWithParam(needApostille: Boolean): String {
         return "doc/$needApostille"
     }
+    const val step3 = "step3"
+    const val step31 = "step31"
 
     const val signin = "signin"
     const val signup = "signup"
