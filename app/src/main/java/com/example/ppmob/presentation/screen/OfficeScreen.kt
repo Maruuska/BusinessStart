@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -28,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,9 +42,7 @@ import com.example.ppmob.presentation.components.OutlinedTextFieldDropDown
 import com.example.ppmob.presentation.components.OutlinedTextFieldNormal
 import com.example.ppmob.presentation.viewmodel.OfficeViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
-import com.example.ppmob.ui.theme.ActiveGreen
 import com.example.ppmob.ui.theme.NoActiveBlue
-import com.example.ppmob.ui.theme.NoActiveGreen
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 
@@ -54,6 +54,10 @@ fun OfficeScreen(
 
     val stateField by officeViewModel.fieldsOffice.collectAsState()
     val appState by officeViewModel.appState.collectAsState()
+    val appStateSave by officeViewModel.appStateSave.collectAsState()
+    val nameError by officeViewModel.nameError.collectAsState()
+    val addressError by officeViewModel.addressError.collectAsState()
+    val activityError by officeViewModel.activityError.collectAsState()
 
     // Состояние для выбранной радиокнопки
     var selectedFounderType by remember { mutableStateOf<Boolean?>(true) }
@@ -92,212 +96,317 @@ fun OfficeScreen(
             }
 
             is AppState.Success -> {
-                Text(
-                    text = "Наименование компании",
-                    fontFamily = RadioCanadaRegular,
-                    fontSize = 16.sp,
-                    color = Color.Black,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                OutlinedTextFieldNormal(stateField.name) {
-                    officeViewModel.updateState(
-                        stateField.copy(name = it)
-                    )
-                }
-                Spacer(modifier = Modifier.height(20.dp))
+                LazyColumn(
 
-                Text(
-                    text = "Сокращенное наименование компании",
-                    fontFamily = RadioCanadaRegular,
-                    fontSize = 16.sp,
-                    color = Color.Black,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                OutlinedTextFieldNormal(stateField.shortName) {
-                    officeViewModel.updateState(
-                        stateField.copy(shortName = it)
-                    )
-                }
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Text(
-                    text = "Юридический адрес",
-                    fontFamily = RadioCanadaRegular,
-                    fontSize = 16.sp,
-                    color = Color.Black,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-
-                var expanded by remember { mutableStateOf(false) }       //развернутость списка
-                val selectAddress =
-                    officeViewModel.addresses.value?.find { it.id == stateField.addressId }
-
-                Column {
-                    OutlinedTextFieldDropDown(
-                        selectAddress?.name ?: "Выберите адрес компании"
-                    ) {
-                        expanded = it
-                    }
-                    // выпадающее меню
-                    DropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }) {
-                        // перебор списка адресов из viewModel
-                        officeViewModel.addresses.value!!.forEach { adres ->
-                            DropdownMenuItem(
-                                text = { Text(adres.name) },
-                                onClick = {
-                                    //stateField.addressId = adres.id
-                                    officeViewModel.updateState(
-                                        stateField.copy(addressId = adres.id)
-                                    )
-                                    expanded = false
-                                }
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Text(
-                    text = "Вид деятельности",
-                    fontFamily = RadioCanadaRegular,
-                    fontSize = 16.sp,
-                    color = Color.Black,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-
-                var expandedActivity by remember { mutableStateOf(false) }       //развернутость списка
-                val selectActivity =
-                    officeViewModel.activitys.value?.find { it.id == stateField.activityId }
-
-                Column {
-                    OutlinedTextFieldDropDown(
-                        selectActivity?.name ?: "Выберите вид деятельности"
-                    ) {
-                        expandedActivity = it
-                    }
-                    // выпадающее меню
-                    DropdownMenu(
-                        expanded = expandedActivity,
-                        onDismissRequest = { expandedActivity = false }) {
-                        // перебор списка видов из viewModel
-                        officeViewModel.activitys.value!!.forEach { activity ->
-                            DropdownMenuItem(
-                                text = { Text(activity.name) },
-                                onClick = {
-                                    //stateField.addressId = adres.id
-                                    officeViewModel.updateState(
-                                        stateField.copy(activityId = activity.id)
-                                    )
-                                    expandedActivity = false
-                                }
-                            )
-                        }
-                    }
-                }
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Text(
-                    text = "Количество учредителей",
-                    fontFamily = RadioCanadaRegular,
-                    fontSize = 16.sp,
-                    color = Color.Black,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp),
-                    horizontalAlignment = Alignment.Start
                 ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(56.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start
-                    ) {
-                        RadioButton(
-                            selected = selectedFounderType == true,
-                            onClick = { selectedFounderType = true },
-                            modifier = Modifier.size(22.dp),
-                            colors = androidx.compose.material3.RadioButtonDefaults.colors(
-                                selectedColor = Color.Black,
-                                unselectedColor = Color.Black
-                            )
-                        )
-                        Spacer(modifier = Modifier.height(10.dp))
+                    item {
                         Text(
-                            text = "Один",
+                            text = "Наименование компании",
                             fontFamily = RadioCanadaRegular,
                             fontSize = 16.sp,
                             color = Color.Black,
-                            modifier = Modifier.padding(start = 12.dp)
-                        )
-                        Spacer(modifier = Modifier.width(54.dp))
-                        Image(
-                            painter = painterResource(id = R.drawable.link),
-                            contentDescription = "",
-                            alignment = Alignment.Center,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(30.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start
-                    ) {
-                        RadioButton(
-                            selected = selectedFounderType == false,
-                            onClick = { selectedFounderType = false },
-                            modifier = Modifier.size(22.dp),
-                            colors = androidx.compose.material3.RadioButtonDefaults.colors(
-                                selectedColor = Color.Black,
-                                unselectedColor = Color.Black
-                            )
+                            modifier = Modifier.fillMaxWidth()
                         )
                         Spacer(modifier = Modifier.height(10.dp))
+                        OutlinedTextFieldNormal(stateField.name) {
+                            officeViewModel.updateState(
+                                stateField.copy(name = it)
+                            )
+                        }
+                        // вывод о неправильном формате наименования
+                        if (stateField.errorName) {
+                            Box(
+                                modifier = Modifier.fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = nameError ?: "",
+                                    color = Color.Red,
+                                    fontSize = 12.sp,
+                                    fontFamily = RadioCanadaRegular,
+                                    textAlign = TextAlign.Center,
+                                    lineHeight = 14.sp
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(20.dp))
+
                         Text(
-                            text = "Несколько",
+                            text = "Сокращенное наименование компании",
                             fontFamily = RadioCanadaRegular,
                             fontSize = 16.sp,
                             color = Color.Black,
-                            modifier = Modifier.padding(start = 12.dp)
+                            modifier = Modifier.fillMaxWidth()
                         )
-                        Spacer(modifier = Modifier.width(10.dp))
-                        Image(
-                            painter = painterResource(id = R.drawable.link),
-                            contentDescription = "",
-                            alignment = Alignment.Center,
-                            modifier = Modifier.size(20.dp)
+                        Spacer(modifier = Modifier.height(10.dp))
+                        OutlinedTextFieldNormal(
+                            stateField.shortName,
+                            {
+                                officeViewModel.updateState(
+                                    stateField.copy(shortName = it)
+                                )
+                            },
                         )
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        Text(
+                            text = "Юридический адрес",
+                            fontFamily = RadioCanadaRegular,
+                            fontSize = 16.sp,
+                            color = Color.Black,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        var expanded by remember { mutableStateOf(false) }       //развернутость списка
+                        val selectAddress =
+                            officeViewModel.addresses.value?.find { it.id == stateField.addressId }
+
+                        Column {
+                            OutlinedTextFieldDropDown(
+                                selectAddress?.name ?: "Выберите адрес компании"
+                            ) {
+                                expanded = it
+                            }
+                            // выпадающее меню
+                            DropdownMenu(
+                                expanded = expanded,
+                                onDismissRequest = { expanded = false }) {
+                                // перебор списка адресов из viewModel
+                                officeViewModel.addresses.value!!.forEach { adres ->
+                                    DropdownMenuItem(
+                                        text = { Text(adres.name) },
+                                        onClick = {
+                                            //stateField.addressId = adres.id
+                                            officeViewModel.updateState(
+                                                stateField.copy(addressId = adres.id)
+                                            )
+                                            expanded = false
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                        // вывод о неправильном формате адреса
+                        if (stateField.errorAddress) {
+                            Box(
+                                modifier = Modifier.fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = addressError ?: "",
+                                    color = Color.Red,
+                                    fontSize = 12.sp,
+                                    fontFamily = RadioCanadaRegular
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        Text(
+                            text = "Вид деятельности",
+                            fontFamily = RadioCanadaRegular,
+                            fontSize = 16.sp,
+                            color = Color.Black,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        var expandedActivity by remember { mutableStateOf(false) }       //развернутость списка
+                        val selectActivity =
+                            officeViewModel.activitys.value?.find { it.id == stateField.activityId }
+
+                        Column {
+                            OutlinedTextFieldDropDown(
+                                selectActivity?.name ?: "Выберите вид деятельности"
+                            ) {
+                                expandedActivity = it
+                            }
+                            // выпадающее меню
+                            DropdownMenu(
+                                expanded = expandedActivity,
+                                onDismissRequest = { expandedActivity = false }) {
+                                // перебор списка видов из viewModel
+                                officeViewModel.activitys.value!!.forEach { activity ->
+                                    DropdownMenuItem(
+                                        text = { Text(activity.name) },
+                                        onClick = {
+                                            //stateField.addressId = adres.id
+                                            officeViewModel.updateState(
+                                                stateField.copy(activityId = activity.id)
+                                            )
+                                            expandedActivity = false
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                        // вывод о неправильном формате деятельности
+                        if (stateField.errorActivity) {
+                            Box(
+                                modifier = Modifier.fillMaxWidth(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = activityError ?: "",
+                                    color = Color.Red,
+                                    fontSize = 12.sp,
+                                    fontFamily = RadioCanadaRegular
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        Text(
+                            text = "Количество учредителей",
+                            fontFamily = RadioCanadaRegular,
+                            fontSize = 16.sp,
+                            color = Color.Black,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 20.dp),
+                            horizontalAlignment = Alignment.Start
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(56.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                RadioButton(
+                                    selected = selectedFounderType == true,
+                                    onClick = {
+                                        selectedFounderType = true
+                                        officeViewModel.updateState(
+                                            stateField.copy(oneFounder = true)
+                                        )
+                                    },
+                                    modifier = Modifier.size(22.dp),
+                                    colors = androidx.compose.material3.RadioButtonDefaults.colors(
+                                        selectedColor = Color.Black,
+                                        unselectedColor = Color.Black
+                                    )
+                                )
+                                Spacer(modifier = Modifier.height(10.dp))
+                                Text(
+                                    text = "Один",
+                                    fontFamily = RadioCanadaRegular,
+                                    fontSize = 16.sp,
+                                    color = Color.Black,
+                                    modifier = Modifier.padding(start = 12.dp)
+                                )
+                                Spacer(modifier = Modifier.width(54.dp))
+                                Image(
+                                    painter = painterResource(id = R.drawable.link),
+                                    contentDescription = "",
+                                    alignment = Alignment.Center,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(30.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                RadioButton(
+                                    selected = selectedFounderType == false,
+                                    onClick = {
+                                        selectedFounderType = false
+                                        officeViewModel.updateState(
+                                            stateField.copy(oneFounder = false)
+                                        )
+                                    },
+                                    modifier = Modifier.size(22.dp),
+                                    colors = androidx.compose.material3.RadioButtonDefaults.colors(
+                                        selectedColor = Color.Black,
+                                        unselectedColor = Color.Black
+                                    )
+                                )
+                                Spacer(modifier = Modifier.height(10.dp))
+                                Text(
+                                    text = "Несколько",
+                                    fontFamily = RadioCanadaRegular,
+                                    fontSize = 16.sp,
+                                    color = Color.Black,
+                                    modifier = Modifier.padding(start = 12.dp)
+                                )
+                                Spacer(modifier = Modifier.width(10.dp))
+                                Image(
+                                    painter = painterResource(id = R.drawable.link),
+                                    contentDescription = "",
+                                    alignment = Alignment.Center,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(35.dp))
+
+                        // обработка состояний кнопки
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            when (appStateSave) {
+                                is AppState.Loading -> {
+                                    ButtonCustom(
+                                        "Далее",
+                                        false,
+                                        ActiveBlue,
+                                        NoActiveBlue,
+                                        16.sp,
+                                        14.dp,
+                                        130.dp,
+                                        45.dp
+                                    ) {
+                                        officeViewModel.save()
+                                    }
+                                }
+
+                                is AppState.Initializing -> {
+                                    ButtonCustom(
+                                        "Далее",
+                                        true,
+                                        ActiveBlue,
+                                        NoActiveBlue,
+                                        16.sp,
+                                        14.dp,
+                                        130.dp,
+                                        45.dp
+                                    ) {
+                                        officeViewModel.save()
+                                    }
+                                }
+
+                                is AppState.Error -> {
+                                    ButtonCustom(
+                                        "Далее",
+                                        true,
+                                        ActiveBlue,
+                                        NoActiveBlue,
+                                        16.sp,
+                                        14.dp,
+                                        130.dp,
+                                        45.dp
+                                    ) {
+                                        officeViewModel.save()
+                                    }
+                                }
+
+                                is AppState.Success -> {
+                                    navController.navigate(NavRoutes.step11)
+                                }
+                            }
+                        }
                     }
-                }
-
-
-                Spacer(modifier = Modifier.height(35.dp))
-                ButtonCustom(
-                    "Далее",
-                    true,
-                    ActiveBlue,
-                    NoActiveBlue,
-                    16.sp,
-                    14.dp,
-                    130.dp,
-                    45.dp
-                ) {
-                    officeViewModel.save()
-                    navController.navigate(NavRoutes.office)
                 }
             }
         }

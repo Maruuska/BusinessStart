@@ -8,5 +8,5 @@ data class OfficeState (
     var errorAddress:Boolean = false,
     var activityId: Int = -1,
     var errorActivity: Boolean = false,
-    val oneFounder: Boolean=true  // один учредитель?
+    val oneFounder: Boolean = true  // один учредитель?
 )

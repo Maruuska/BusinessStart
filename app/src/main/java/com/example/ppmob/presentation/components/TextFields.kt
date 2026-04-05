@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.example.ppmob.R
 
 @Composable
-fun OutlinedTextFieldNormal(value: String,  onvaluechange: (String) -> Unit) {
+fun OutlinedTextFieldNormal(value: String, onvaluechange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
         onValueChange = { onvaluechange(it) },
