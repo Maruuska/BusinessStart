@@ -11,6 +11,8 @@ import com.example.ppmob.presentation.screen.SeveralFounderScreen
 import com.example.ppmob.presentation.screen.SplashScreen
 import com.example.ppmob.presentation.screen.Step11Screen
 import com.example.ppmob.presentation.screen.Step1Screen
+import com.example.ppmob.presentation.screen.Step21Screen
+import com.example.ppmob.presentation.screen.Step2Screen
 
 @Composable
 fun NavigHost() {
@@ -18,7 +20,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.oneFounder
+        startDestination = NavRoutes.step2
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -41,7 +43,12 @@ fun NavigHost() {
         composable(route = NavRoutes.severalFounder) {
             SeveralFounderScreen(navController = navController)
         }
-
+        composable(route = NavRoutes.step2) {
+            Step2Screen(navController = navController)
+        }
+        composable(route = NavRoutes.step11) {
+            Step21Screen(navController = navController)
+        }
 
 
 //        composable(route = NavRoutes.signin) {

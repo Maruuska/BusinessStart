@@ -414,7 +414,7 @@ fun OfficeScreen(
                                 }
 
                                 is AppState.Success -> {
-                                    navController.navigate(NavRoutes.step11)
+                                    navController.navigate(NavRoutes.step2)
                                 }
                             }
                         }

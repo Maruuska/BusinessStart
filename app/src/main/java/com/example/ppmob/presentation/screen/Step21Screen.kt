@@ -2,7 +2,6 @@ package com.example.ppmob.presentation.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -11,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,7 +31,7 @@ import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 
 @Composable
-fun Step11Screen(navController: NavHostController) {
+fun Step21Screen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,7 +51,7 @@ fun Step11Screen(navController: NavHostController) {
             modifier = Modifier.fillMaxWidth()
         ) {
             Image(
-                painter = painterResource(id = R.drawable.step1),
+                painter = painterResource(id = R.drawable.step2),
                 contentDescription = "",
                 modifier = Modifier.fillMaxWidth(),
                 contentScale = ContentScale.Crop
@@ -62,8 +60,8 @@ fun Step11Screen(navController: NavHostController) {
             Box(
                 modifier = Modifier
                     .align(Alignment.TopStart)
-                    .padding(start = 70.dp, top = 110.dp)
-                    .size(width = 150.dp, height = 90.dp)
+                    .padding(start = 120.dp, top = 50.dp)
+                    .size(width = 200.dp, height = 90.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .background(Color.White),
                 contentAlignment = Alignment.Center
@@ -75,7 +73,7 @@ fun Step11Screen(navController: NavHostController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Офис Учредителя",
+                        text = "Нотариальная палата",
                         fontFamily = RadioCanadaRegular,
                         fontSize = 13.sp,
                         color = Color.Black
