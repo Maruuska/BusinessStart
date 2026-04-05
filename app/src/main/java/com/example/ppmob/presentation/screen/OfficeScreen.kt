@@ -352,6 +352,11 @@ fun OfficeScreen(
                                     contentDescription = "",
                                     alignment = Alignment.Center,
                                     modifier = Modifier.size(20.dp)
+                                        .clickable {
+                                            navController.navigate(
+                                                NavRoutes.severalFounder
+                                            )
+                                        }
                                 )
                             }
                         }

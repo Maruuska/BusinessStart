@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ppmob.presentation.screen.MenuScreen
 import com.example.ppmob.presentation.screen.OfficeScreen
 import com.example.ppmob.presentation.screen.OneFounderScreen
+import com.example.ppmob.presentation.screen.SeveralFounderScreen
 import com.example.ppmob.presentation.screen.SplashScreen
 import com.example.ppmob.presentation.screen.Step11Screen
 import com.example.ppmob.presentation.screen.Step1Screen
@@ -36,6 +37,9 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.oneFounder) {
             OneFounderScreen(navController = navController)
+        }
+        composable(route = NavRoutes.severalFounder) {
+            SeveralFounderScreen(navController = navController)
         }
 
 
