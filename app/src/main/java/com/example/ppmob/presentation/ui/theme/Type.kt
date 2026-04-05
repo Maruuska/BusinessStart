@@ -46,3 +46,7 @@ val RadioCanadaMedium = FontFamily(
 val RadioCanadaSemiBold = FontFamily(
     Font(R.font.radiocanadasemibold)
 )
+
+val RadioCanadaBold = FontFamily(
+    Font(R.font.radiocanadabold)
+)

@@ -7,6 +7,7 @@ object NavRoutes {
     const val step1 = "step1"
     const val step11 = "step11"
     const val office = "office"
+    const val oneFounder = "oneFounder"
     const val signin = "signin"
     const val signup = "signup"
 }

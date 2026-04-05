@@ -2,6 +2,7 @@ package com.example.ppmob.presentation.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -306,7 +307,13 @@ fun OfficeScreen(
                                     painter = painterResource(id = R.drawable.link),
                                     contentDescription = "",
                                     alignment = Alignment.Center,
-                                    modifier = Modifier.size(20.dp)
+                                    modifier = Modifier
+                                        .size(20.dp)
+                                        .clickable {
+                                            navController.navigate(
+                                                NavRoutes.oneFounder
+                                            )
+                                        }
                                 )
                             }
 
