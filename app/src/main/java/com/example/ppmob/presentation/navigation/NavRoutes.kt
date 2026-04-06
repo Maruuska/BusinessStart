@@ -19,6 +19,7 @@ object NavRoutes {
     }
     const val step3 = "step3"
     const val step31 = "step31"
+    const val regulation = "regulation"
 
     const val signin = "signin"
     const val signup = "signup"
