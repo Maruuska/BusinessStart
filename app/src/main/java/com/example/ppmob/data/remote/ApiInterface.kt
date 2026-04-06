@@ -4,7 +4,9 @@ import com.example.ppmob.data.dto.ActivityDto
 import com.example.ppmob.data.dto.AddressDto
 import com.example.ppmob.data.dto.CompanyDto
 import com.example.ppmob.data.dto.CountyDto
+import com.example.ppmob.data.dto.CreateDutyDto
 import com.example.ppmob.data.dto.CreateRightDto
+import com.example.ppmob.data.dto.DutyDto
 import com.example.ppmob.data.dto.RightsDto
 import okhttp3.MultipartBody
 import retrofit2.http.Body
@@ -60,7 +62,11 @@ interface ApiInterface { // Объявление интерфейса для HTT
 
     // GET-запрос для получения списка обязанностей
     @GET("rest/v1/duties")
-    suspend fun getDuties(): List<RightsDto>
+    suspend fun getDuties(): List<DutyDto>
+
+    // POST-запрос для создания записи в таблице duties
+    @POST("rest/v1/duties")
+    suspend fun createDuties(@Body duty: CreateDutyDto)
 
 
 //    // POST-запрос для загрузки картинки в бакет

@@ -219,7 +219,7 @@ fun RegulationScreen(
                 80.dp,
                 35.dp
             ) {
-
+                navController.navigate(NavRoutes.rights)
             }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -350,7 +350,7 @@ fun RegulationScreen(
                 80.dp,
                 35.dp
             ) {
-
+                navController.navigate(NavRoutes.duties)
             }
         }
         Spacer(modifier = Modifier.height(10.dp))

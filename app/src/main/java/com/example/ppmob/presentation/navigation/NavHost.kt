@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.ppmob.presentation.screen.DocumentScreen
+import com.example.ppmob.presentation.screen.DutiesScreen
 import com.example.ppmob.presentation.screen.MenuScreen
 import com.example.ppmob.presentation.screen.OfficeScreen
 import com.example.ppmob.presentation.screen.OneFounderScreen
@@ -28,7 +29,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.rights
+        startDestination = NavRoutes.regulation
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -83,6 +84,9 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.rights) {
             RightScreen(navController = navController)
+        }
+        composable(route = NavRoutes.duties) {
+            DutiesScreen(navController = navController)
         }
 
 //        composable(route = NavRoutes.signin) {

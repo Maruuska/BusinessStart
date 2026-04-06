@@ -9,10 +9,12 @@ import com.example.ppmob.domain.repository.CompanyRepository
 import com.example.ppmob.domain.repository.CountryRepository
 import com.example.ppmob.domain.repository.RegulationRepository
 import com.example.ppmob.domain.usecase.CreateCompanyUseCase
+import com.example.ppmob.domain.usecase.CreateDutyUseCase
 import com.example.ppmob.domain.usecase.CreateRightUseCase
 import com.example.ppmob.domain.usecase.GetActivitysUseCase
 import com.example.ppmob.domain.usecase.GetAddressUseCase
 import com.example.ppmob.domain.usecase.GetCountriesUseCase
+import com.example.ppmob.domain.usecase.GetDutiesUseCase
 import com.example.ppmob.domain.usecase.GetRightsUseCase
 import dagger.Module
 import dagger.Provides
@@ -88,5 +90,17 @@ object AppModule {
     @Singleton
     fun provideCreateRightUseCase(regulationRepository: RegulationRepository): CreateRightUseCase {
         return CreateRightUseCase(regulationRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetDutiesUseCase(regulationRepository: RegulationRepository): GetDutiesUseCase {
+        return GetDutiesUseCase(regulationRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCreateDutyUseCase(regulationRepository: RegulationRepository): CreateDutyUseCase {
+        return CreateDutyUseCase(regulationRepository)
     }
 }
