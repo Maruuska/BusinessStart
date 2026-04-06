@@ -4,6 +4,8 @@ import com.example.ppmob.data.dto.ActivityDto
 import com.example.ppmob.data.dto.AddressDto
 import com.example.ppmob.data.dto.CompanyDto
 import com.example.ppmob.data.dto.CountyDto
+import com.example.ppmob.data.dto.CreateRightDto
+import com.example.ppmob.data.dto.RightsDto
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -47,6 +49,18 @@ interface ApiInterface { // Объявление интерфейса для HTT
     // GET-запрос для получения списка стран
     @GET("rest/v1/countries")
     suspend fun getCountries(): List<CountyDto>
+
+    // GET-запрос для получения списка прав
+    @GET("rest/v1/rights")
+    suspend fun getRights(): List<RightsDto>
+
+    // POST-запрос для создания записи в таблице права
+    @POST("rest/v1/rights")
+    suspend fun createRights(@Body right: CreateRightDto)
+
+    // GET-запрос для получения списка обязанностей
+    @GET("rest/v1/duties")
+    suspend fun getDuties(): List<RightsDto>
 
 
 //    // POST-запрос для загрузки картинки в бакет

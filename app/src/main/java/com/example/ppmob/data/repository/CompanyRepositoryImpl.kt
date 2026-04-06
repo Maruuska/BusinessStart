@@ -26,8 +26,6 @@ class CompanyRepositoryImpl @Inject constructor(
         oneFounder: Boolean
     ): Rezult<Company> {
         return try{
-
-
             val companyDto = CompanyDto(
                 name = name,
                 shortName=shortName,
