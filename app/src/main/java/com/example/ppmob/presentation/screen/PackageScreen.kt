@@ -275,7 +275,7 @@ fun PackageScreen(
         }
         if (showDialog) {
             showDialog = false
-            navController.navigate(NavRoutes.menu)
+            navController.navigate(NavRoutes.endCompany)
         }
     }
 }

@@ -26,6 +26,7 @@ object NavRoutes {
     const val step41 = "step41"
     const val bank = "bank"
     const val packageS = "packageS"
+    const val endCompany = "endCompany"
 
     const val signin = "signin"
     const val signup = "signup"
