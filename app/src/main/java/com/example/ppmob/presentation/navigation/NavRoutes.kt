@@ -22,6 +22,9 @@ object NavRoutes {
     const val regulation = "regulation"
     const val rights = "rights"
     const val duties = "duties"
+    const val step4 = "step4"
+    const val step41 = "step41"
+    const val bank = "bank"
 
     const val signin = "signin"
     const val signup = "signup"

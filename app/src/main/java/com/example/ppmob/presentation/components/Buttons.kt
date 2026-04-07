@@ -32,15 +32,9 @@ fun ButtonCustom(
     rounded:Dp,
     buttonWidth: Dp = 150.dp,
     buttonHeight: Dp = 53.dp,
-    isActive: Boolean = true, // новый параметр для определения активного состояния кнопки
+    isActive: Boolean = true,
     onClick: () -> Unit
 ) {
-
-//    val colorCont: Color = if (enbl) {
-//        activeColor
-//    } else {
-//        noActiveColor
-//    }
 
     val buttonColor = when {
         !enbl -> noActiveColor
@@ -64,19 +58,4 @@ fun ButtonCustom(
             color = Color.White
         )
     }
-
-//    Button(
-//        onClick = onClick,
-//        colors = ButtonDefaults.buttonColors(
-//            containerColor = colorCont,
-//            contentColor = Color.White
-//        ),
-//        shape = RoundedCornerShape(rounded),
-//        enabled = enbl,
-//        modifier = Modifier
-//            .width(buttonWidth)
-//            .height(buttonHeight)
-//    ) {
-//        Text(text = label, color = Color.White, fontFamily = RadioCanadaRegular, fontSize = fontSize)
-//    }
 }

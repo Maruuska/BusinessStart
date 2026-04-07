@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.ppmob.presentation.screen.BankScreen
 import com.example.ppmob.presentation.screen.DocumentScreen
 import com.example.ppmob.presentation.screen.DutiesScreen
 import com.example.ppmob.presentation.screen.MenuScreen
@@ -22,6 +23,8 @@ import com.example.ppmob.presentation.screen.Step21Screen
 import com.example.ppmob.presentation.screen.Step2Screen
 import com.example.ppmob.presentation.screen.Step31Screen
 import com.example.ppmob.presentation.screen.Step3Screen
+import com.example.ppmob.presentation.screen.Step41Screen
+import com.example.ppmob.presentation.screen.Step4Screen
 
 @Composable
 fun NavigHost() {
@@ -29,7 +32,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.regulation
+        startDestination = NavRoutes.bank
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -87,6 +90,15 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.duties) {
             DutiesScreen(navController = navController)
+        }
+        composable(route = NavRoutes.step4) {
+            Step4Screen(navController = navController)
+        }
+        composable(route = NavRoutes.step41) {
+            Step41Screen(navController = navController)
+        }
+        composable(route = NavRoutes.bank) {
+            BankScreen(navController = navController)
         }
 
 //        composable(route = NavRoutes.signin) {
