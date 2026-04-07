@@ -12,6 +12,7 @@ import com.example.ppmob.presentation.screen.DutiesScreen
 import com.example.ppmob.presentation.screen.MenuScreen
 import com.example.ppmob.presentation.screen.OfficeScreen
 import com.example.ppmob.presentation.screen.OneFounderScreen
+import com.example.ppmob.presentation.screen.PackageScreen
 import com.example.ppmob.presentation.screen.PalataScreen
 import com.example.ppmob.presentation.screen.RegulationScreen
 import com.example.ppmob.presentation.screen.RightScreen
@@ -32,7 +33,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.bank
+        startDestination = NavRoutes.packageS
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -99,6 +100,9 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.bank) {
             BankScreen(navController = navController)
+        }
+        composable(route = NavRoutes.packageS) {
+            PackageScreen(navController = navController)
         }
 
 //        composable(route = NavRoutes.signin) {

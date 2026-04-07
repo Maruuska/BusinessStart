@@ -76,6 +76,7 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("io.coil-kt:coil-gif:2.6.0")
 
     //Core
     implementation("androidx.core:core-ktx:1.12.0")
