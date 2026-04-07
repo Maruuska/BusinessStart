@@ -19,12 +19,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PalataViewModel @Inject constructor(
+class AccountingViewModel @Inject constructor(
     private val getCountriesUseCase: GetCountriesUseCase,
 ) : ViewModel() {
 
-    private val _fieldsPalata = MutableStateFlow(CountryState())
-    val fieldsPalata: StateFlow<CountryState> = _fieldsPalata.asStateFlow()
+    private val _fields = MutableStateFlow(CountryState())
+    val fields: StateFlow<CountryState> = _fields.asStateFlow()
 
     private val _appState = MutableStateFlow<AppState>(AppState.Initializing)
     val appState: StateFlow<AppState> = _appState.asStateFlow()
@@ -37,7 +37,12 @@ class PalataViewModel @Inject constructor(
     val countries: LiveData<List<Country>> get() = _countries
 
     fun updateState(newState: CountryState) {
-        _fieldsPalata.value = newState
+        // сброс ошибки при изменении страны
+        if (_fields.value.countryId != newState.countryId) {
+            _fields.value = newState.copy(errorCountry = false)
+        } else {
+            _fields.value = newState
+        }
     }
 
     init {
@@ -60,21 +65,12 @@ class PalataViewModel @Inject constructor(
         }
     }
 
-    fun transition(navController: NavHostController? = null){
-        if(_fieldsPalata.value.countryId!=-1){
-            // Получаем выбранную страну
-            val selectedCountry = _countries.value?.find { it.id == _fieldsPalata.value.countryId }
-
-            // Определяем, нужен ли апостиль (legal == "Апостиль")
-            val needApostille = selectedCountry?.legal == "Апостиль"
-
+    fun transition(){
+        if(_fields.value.countryId!=-1){
             _appStateSave.value = AppState.Success
-
-            // Передаем параметр на экран DocumentScreen
-            navController?.navigate(NavRoutes.docWithParam(needApostille))
         }
         else{
-            _fieldsPalata.value.errorCountry=true
+            _fields.value.errorCountry=true
             _appStateSave.value = AppState.Error("страна не выбрана")
         }
     }

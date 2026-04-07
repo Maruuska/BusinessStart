@@ -27,6 +27,8 @@ object NavRoutes {
     const val bank = "bank"
     const val packageS = "packageS"
     const val endCompany = "endCompany"
+    const val accounting = "accounting" //налоговый учет
+
 
     const val signin = "signin"
     const val signup = "signup"
