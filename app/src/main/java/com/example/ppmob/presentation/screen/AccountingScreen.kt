@@ -39,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.R
 import com.example.ppmob.domain.state.AppState
 import com.example.ppmob.presentation.components.ButtonCustom
@@ -378,7 +379,7 @@ fun AccountingScreen(
                     }
 
                     is AppState.Success -> {
-                        //navController.navigate(NavRoutes.step21)
+                        navController.navigate(NavRoutes.apostil)
                     }
                 }
             }

@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.ppmob.presentation.screen.AccountingScreen
+import com.example.ppmob.presentation.screen.ApostilScreen
 import com.example.ppmob.presentation.screen.BankScreen
 import com.example.ppmob.presentation.screen.DocumentScreen
 import com.example.ppmob.presentation.screen.DutiesScreen
@@ -35,7 +36,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.accounting
+        startDestination = NavRoutes.apostil
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -111,6 +112,9 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.accounting) {
             AccountingScreen(navController = navController)
+        }
+        composable(route = NavRoutes.apostil) {
+            ApostilScreen(navController = navController)
         }
 
 
