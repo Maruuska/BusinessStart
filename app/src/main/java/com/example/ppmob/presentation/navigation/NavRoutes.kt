@@ -30,7 +30,8 @@ object NavRoutes {
     const val accounting = "accounting" //налоговый учет
     const val apostil = "apostil"
     const val statement = "statement"
-    const val packageStatement = "packageS"
+    const val packageStatement = "packageStatement"
+    const val endStatement = "endStatement"
 
 
     const val signin = "signin"

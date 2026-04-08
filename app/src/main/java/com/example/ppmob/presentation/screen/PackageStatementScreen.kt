@@ -271,7 +271,7 @@ fun PackageStatementScreen(navController: NavHostController){
         }
         if (showDialog) {
             showDialog = false
-            navController.navigate(NavRoutes.endCompany)
+            navController.navigate(NavRoutes.endStatement)
         }
     }
 }
