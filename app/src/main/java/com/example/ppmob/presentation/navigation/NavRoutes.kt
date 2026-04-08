@@ -25,10 +25,12 @@ object NavRoutes {
     const val step4 = "step4"
     const val step41 = "step41"
     const val bank = "bank"
-    const val packageS = "packageS"
+    const val packageRegistration = "packageS"
     const val endCompany = "endCompany"
     const val accounting = "accounting" //налоговый учет
-    const val apostil = "apostil" //налоговый учет
+    const val apostil = "apostil"
+    const val statement = "statement"
+    const val packageStatement = "packageS"
 
 
     const val signin = "signin"

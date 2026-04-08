@@ -5,16 +5,20 @@ import com.example.ppmob.data.remote.ApiInterfaceService
 import com.example.ppmob.data.repository.CompanyRepositoryImpl
 import com.example.ppmob.data.repository.CountryRepositoryImpl
 import com.example.ppmob.data.repository.RegulationRepositoryImpl
+import com.example.ppmob.data.repository.StatementRepositoryImpl
 import com.example.ppmob.domain.repository.CompanyRepository
 import com.example.ppmob.domain.repository.CountryRepository
 import com.example.ppmob.domain.repository.RegulationRepository
+import com.example.ppmob.domain.repository.StatementRepository
 import com.example.ppmob.domain.usecase.CreateCompanyUseCase
 import com.example.ppmob.domain.usecase.CreateDutyUseCase
 import com.example.ppmob.domain.usecase.CreateRightUseCase
 import com.example.ppmob.domain.usecase.GetActivitysUseCase
 import com.example.ppmob.domain.usecase.GetAddressUseCase
+import com.example.ppmob.domain.usecase.GetCodeCountryUseCase
 import com.example.ppmob.domain.usecase.GetCountriesUseCase
 import com.example.ppmob.domain.usecase.GetDutiesUseCase
+import com.example.ppmob.domain.usecase.GetFormsUseCase
 import com.example.ppmob.domain.usecase.GetRightsUseCase
 import dagger.Module
 import dagger.Provides
@@ -52,6 +56,13 @@ object AppModule {
     @Singleton
     fun provideRegulationRepository(apiInterface: ApiInterface): RegulationRepository {
         return RegulationRepositoryImpl(apiInterface)
+    }
+
+    // реализация StatementRepository
+    @Provides
+    @Singleton
+    fun provideStatementRepository(apiInterface: ApiInterface): StatementRepository {
+        return StatementRepositoryImpl(apiInterface)
     }
 
 
@@ -102,5 +113,17 @@ object AppModule {
     @Singleton
     fun provideCreateDutyUseCase(regulationRepository: RegulationRepository): CreateDutyUseCase {
         return CreateDutyUseCase(regulationRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCodeCountryUseCase(statementRepository: StatementRepository): GetCodeCountryUseCase {
+        return GetCodeCountryUseCase(statementRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetFormsUseCase(statementRepository: StatementRepository): GetFormsUseCase {
+        return GetFormsUseCase(statementRepository)
     }
 }

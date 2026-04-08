@@ -15,12 +15,14 @@ import com.example.ppmob.presentation.screen.MenuScreen
 import com.example.ppmob.presentation.screen.OfficeScreen
 import com.example.ppmob.presentation.screen.OneFounderScreen
 import com.example.ppmob.presentation.screen.PackageScreen
+import com.example.ppmob.presentation.screen.PackageStatementScreen
 import com.example.ppmob.presentation.screen.PalataScreen
 import com.example.ppmob.presentation.screen.RegulationScreen
 import com.example.ppmob.presentation.screen.ResultCompanyScreen
 import com.example.ppmob.presentation.screen.RightScreen
 import com.example.ppmob.presentation.screen.SeveralFounderScreen
 import com.example.ppmob.presentation.screen.SplashScreen
+import com.example.ppmob.presentation.screen.StatementScreen
 import com.example.ppmob.presentation.screen.Step11Screen
 import com.example.ppmob.presentation.screen.Step1Screen
 import com.example.ppmob.presentation.screen.Step21Screen
@@ -36,7 +38,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.apostil
+        startDestination = NavRoutes.statement
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -104,7 +106,7 @@ fun NavigHost() {
         composable(route = NavRoutes.bank) {
             BankScreen(navController = navController)
         }
-        composable(route = NavRoutes.packageS) {
+        composable(route = NavRoutes.packageRegistration) {
             PackageScreen(navController = navController)
         }
         composable(route = NavRoutes.endCompany) {
@@ -115,6 +117,12 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.apostil) {
             ApostilScreen(navController = navController)
+        }
+        composable(route = NavRoutes.statement) {
+            StatementScreen(navController = navController)
+        }
+        composable(route = NavRoutes.packageStatement) {
+            PackageStatementScreen(navController = navController)
         }
 
 

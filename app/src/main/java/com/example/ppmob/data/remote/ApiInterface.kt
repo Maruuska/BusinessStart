@@ -2,11 +2,13 @@ package com.example.ppmob.data.remote
 
 import com.example.ppmob.data.dto.ActivityDto
 import com.example.ppmob.data.dto.AddressDto
+import com.example.ppmob.data.dto.CodeCountryDto
 import com.example.ppmob.data.dto.CompanyDto
 import com.example.ppmob.data.dto.CountyDto
 import com.example.ppmob.data.dto.CreateDutyDto
 import com.example.ppmob.data.dto.CreateRightDto
 import com.example.ppmob.data.dto.DutyDto
+import com.example.ppmob.data.dto.FormDto
 import com.example.ppmob.data.dto.RightsDto
 import okhttp3.MultipartBody
 import retrofit2.http.Body
@@ -68,10 +70,14 @@ interface ApiInterface { // Объявление интерфейса для HTT
     @POST("rest/v1/duties")
     suspend fun createDuties(@Body duty: CreateDutyDto)
 
+    // GET-запрос для получения списка кодов стран
+    @GET("rest/v1/code_countries")
+    suspend fun getCodeCountries(): List<CodeCountryDto>
 
-//    // POST-запрос для загрузки картинки в бакет
-//    @Multipart
-//    @POST("storage/v1/object/pictures/{imageName}")
-//    suspend fun addImageToBucket(@Path("imageName") imageName: String,/* @Body byteArray: ByteArray*/ @Part file: MultipartBody.Part)
+    // GET-запрос для получения списка форм
+    @GET("rest/v1/forms")
+    suspend fun getForms(): List<FormDto>
+
+
 
 }
