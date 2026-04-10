@@ -36,6 +36,7 @@ import com.example.ppmob.presentation.screen.Step3Screen
 import com.example.ppmob.presentation.screen.Step41Screen
 import com.example.ppmob.presentation.screen.Step4Screen
 import com.example.ppmob.presentation.screen.TbankScreen
+import com.example.ppmob.presentation.screen.VtbScreen
 
 @Composable
 fun NavigHost() {
@@ -145,7 +146,7 @@ fun NavigHost() {
            AlfaScreen(navController)
         }
         composable(NavRoutes.vtbScreen) {
-            //VtbScreen(navController)
+            VtbScreen(navController)
         }
         composable(NavRoutes.raiffeisenScreen) {
             //RaiffeisenScreen(navController)
