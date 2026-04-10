@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.ppmob.presentation.screen.AccountingScreen
+import com.example.ppmob.presentation.screen.AlfaScreen
 import com.example.ppmob.presentation.screen.ApostilScreen
 import com.example.ppmob.presentation.screen.BankScreen
 import com.example.ppmob.presentation.screen.DocumentScreen
@@ -141,7 +142,7 @@ fun NavigHost() {
             TbankScreen(navController)
         }
         composable(NavRoutes.alfaScreen) {
-           //AlfaScreen(navController)
+           AlfaScreen(navController)
         }
         composable(NavRoutes.vtbScreen) {
             //VtbScreen(navController)
