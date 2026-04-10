@@ -18,6 +18,7 @@ import com.example.ppmob.presentation.screen.OneFounderScreen
 import com.example.ppmob.presentation.screen.PackageScreen
 import com.example.ppmob.presentation.screen.PackageStatementScreen
 import com.example.ppmob.presentation.screen.PalataScreen
+import com.example.ppmob.presentation.screen.RaiffeisenScreen
 import com.example.ppmob.presentation.screen.RegulationScreen
 import com.example.ppmob.presentation.screen.ResultCompanyScreen
 import com.example.ppmob.presentation.screen.ResultStatementScreen
@@ -149,7 +150,7 @@ fun NavigHost() {
             VtbScreen(navController)
         }
         composable(NavRoutes.raiffeisenScreen) {
-            //RaiffeisenScreen(navController)
+            RaiffeisenScreen(navController)
         }
         composable(NavRoutes.otkritieScreen) {
             //OtkritieScreen(navController)
