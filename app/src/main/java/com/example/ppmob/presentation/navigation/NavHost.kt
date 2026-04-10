@@ -34,6 +34,7 @@ import com.example.ppmob.presentation.screen.Step31Screen
 import com.example.ppmob.presentation.screen.Step3Screen
 import com.example.ppmob.presentation.screen.Step41Screen
 import com.example.ppmob.presentation.screen.Step4Screen
+import com.example.ppmob.presentation.screen.TbankScreen
 
 @Composable
 fun NavigHost() {
@@ -41,7 +42,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.sberScreen
+        startDestination = NavRoutes.score
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -137,10 +138,10 @@ fun NavigHost() {
             SberScreen(navController)
         }
         composable(NavRoutes.tbankScreen) {
-            //TbankScreen(navController)
+            TbankScreen(navController)
         }
         composable(NavRoutes.alfaScreen) {
-           // AlfaScreen(navController)
+           //AlfaScreen(navController)
         }
         composable(NavRoutes.vtbScreen) {
             //VtbScreen(navController)
