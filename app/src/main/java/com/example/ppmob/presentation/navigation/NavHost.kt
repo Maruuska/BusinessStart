@@ -21,6 +21,8 @@ import com.example.ppmob.presentation.screen.RegulationScreen
 import com.example.ppmob.presentation.screen.ResultCompanyScreen
 import com.example.ppmob.presentation.screen.ResultStatementScreen
 import com.example.ppmob.presentation.screen.RightScreen
+import com.example.ppmob.presentation.screen.SberScreen
+import com.example.ppmob.presentation.screen.ScoreScreen
 import com.example.ppmob.presentation.screen.SeveralFounderScreen
 import com.example.ppmob.presentation.screen.SplashScreen
 import com.example.ppmob.presentation.screen.StatementScreen
@@ -39,7 +41,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.endStatement
+        startDestination = NavRoutes.score
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -127,6 +129,27 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.endStatement) {
             ResultStatementScreen(navController = navController)
+        }
+        composable(route = NavRoutes.score) {
+            ScoreScreen(navController = navController)
+        }
+        composable(NavRoutes.sberScreen) {
+            SberScreen(navController)
+        }
+        composable(NavRoutes.tbankScreen) {
+            //TbankScreen(navController)
+        }
+        composable(NavRoutes.alfaScreen) {
+           // AlfaScreen(navController)
+        }
+        composable(NavRoutes.vtbScreen) {
+            //VtbScreen(navController)
+        }
+        composable(NavRoutes.raiffeisenScreen) {
+            //RaiffeisenScreen(navController)
+        }
+        composable(NavRoutes.otkritieScreen) {
+            //OtkritieScreen(navController)
         }
 
 

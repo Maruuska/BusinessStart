@@ -2,6 +2,7 @@ package com.example.ppmob.data.remote
 
 import com.example.ppmob.data.dto.ActivityDto
 import com.example.ppmob.data.dto.AddressDto
+import com.example.ppmob.data.dto.BankDto
 import com.example.ppmob.data.dto.CodeCountryDto
 import com.example.ppmob.data.dto.CompanyDto
 import com.example.ppmob.data.dto.CountyDto
@@ -10,6 +11,7 @@ import com.example.ppmob.data.dto.CreateRightDto
 import com.example.ppmob.data.dto.DutyDto
 import com.example.ppmob.data.dto.FormDto
 import com.example.ppmob.data.dto.RightsDto
+import com.example.ppmob.domain.model.Bank
 import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -78,6 +80,8 @@ interface ApiInterface { // Объявление интерфейса для HTT
     @GET("rest/v1/forms")
     suspend fun getForms(): List<FormDto>
 
-
+    // GET-запрос для получения списка банков
+    @GET("rest/v1/banks")
+    suspend fun getBanks(): List<BankDto>
 
 }

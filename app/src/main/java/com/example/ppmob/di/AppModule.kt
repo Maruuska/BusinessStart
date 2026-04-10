@@ -2,10 +2,12 @@ package com.example.ppmob.di
 
 import com.example.ppmob.data.remote.ApiInterface
 import com.example.ppmob.data.remote.ApiInterfaceService
+import com.example.ppmob.data.repository.BankRepositoryImpl
 import com.example.ppmob.data.repository.CompanyRepositoryImpl
 import com.example.ppmob.data.repository.CountryRepositoryImpl
 import com.example.ppmob.data.repository.RegulationRepositoryImpl
 import com.example.ppmob.data.repository.StatementRepositoryImpl
+import com.example.ppmob.domain.repository.BankRepository
 import com.example.ppmob.domain.repository.CompanyRepository
 import com.example.ppmob.domain.repository.CountryRepository
 import com.example.ppmob.domain.repository.RegulationRepository
@@ -15,6 +17,7 @@ import com.example.ppmob.domain.usecase.CreateDutyUseCase
 import com.example.ppmob.domain.usecase.CreateRightUseCase
 import com.example.ppmob.domain.usecase.GetActivitysUseCase
 import com.example.ppmob.domain.usecase.GetAddressUseCase
+import com.example.ppmob.domain.usecase.GetBanksUseCase
 import com.example.ppmob.domain.usecase.GetCodeCountryUseCase
 import com.example.ppmob.domain.usecase.GetCountriesUseCase
 import com.example.ppmob.domain.usecase.GetDutiesUseCase
@@ -63,6 +66,13 @@ object AppModule {
     @Singleton
     fun provideStatementRepository(apiInterface: ApiInterface): StatementRepository {
         return StatementRepositoryImpl(apiInterface)
+    }
+
+    // реализация BankRepository
+    @Provides
+    @Singleton
+    fun provideBankRepository(apiInterface: ApiInterface): BankRepository {
+        return BankRepositoryImpl(apiInterface)
     }
 
 
@@ -125,5 +135,11 @@ object AppModule {
     @Singleton
     fun provideGetFormsUseCase(statementRepository: StatementRepository): GetFormsUseCase {
         return GetFormsUseCase(statementRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetBanksUseCase(bankRepository: BankRepository): GetBanksUseCase {
+        return GetBanksUseCase(bankRepository)
     }
 }

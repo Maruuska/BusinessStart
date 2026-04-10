@@ -62,14 +62,14 @@ fun MenuScreen(navController: NavHostController) {
 
         MenuItem(
             text = "Постановка на налоговый учет",
-            onClick = { /* TODO: навигация */ }
+            onClick = { navController.navigate(NavRoutes.accounting) }
         )
 
         Spacer(modifier = Modifier.height(30.dp))
 
         MenuItem(
             text = "Открытие счета",
-            onClick = { /* TODO: навигация */ }
+            onClick = { navController.navigate(NavRoutes.score) }
         )
 
         Spacer(modifier = Modifier.height(30.dp))

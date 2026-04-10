@@ -32,7 +32,13 @@ object NavRoutes {
     const val statement = "statement"
     const val packageStatement = "packageStatement"
     const val endStatement = "endStatement"
-
+    const val score = "score"  // открытие счета
+    const val sberScreen = "sber_screen"
+    const val tbankScreen = "tbank_screen"
+    const val alfaScreen = "alfa_screen"
+    const val vtbScreen = "vtb_screen"
+    const val raiffeisenScreen = "raiffeisen_screen"
+    const val otkritieScreen = "otkritie_screen"
 
     const val signin = "signin"
     const val signup = "signup"
