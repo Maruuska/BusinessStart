@@ -68,12 +68,12 @@ fun ScoreScreen(
     // Функция для перехода на экран деталей банка
     fun navigateToBankDetail(bankName: String) {
         when (bankName.lowercase()) {
-            "СберБанк" -> navController.navigate("sber_screen")
-            "Т-Банк" -> navController.navigate("tbank_screen")
-            "Альфа-Банк" -> navController.navigate("alfa_screen")
-            "ВТБ" -> navController.navigate("vtb_screen")
-            "Райффайзенбанк" -> navController.navigate("raiffeisen_screen")
-            "Открытие" -> navController.navigate("otkritie_screen")
+            "сбербанк" -> navController.navigate(NavRoutes.sberScreen)
+            "т-банк" -> navController.navigate("tbank_screen")
+            "альфа-банк" -> navController.navigate("alfa_screen")
+            "втб" -> navController.navigate("vtb_screen")
+            "райффайзенбанк" -> navController.navigate("raiffeisen_screen")
+            "открытие" -> navController.navigate("otkritie_screen")
         }
     }
 
@@ -82,7 +82,6 @@ fun ScoreScreen(
             .fillMaxSize()
             .background(Color.White)
     ) {
-        // Основной контент (скроллится)
         Column(
             modifier = Modifier
                 .weight(1f)
