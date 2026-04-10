@@ -15,6 +15,7 @@ import com.example.ppmob.presentation.screen.DutiesScreen
 import com.example.ppmob.presentation.screen.MenuScreen
 import com.example.ppmob.presentation.screen.OfficeScreen
 import com.example.ppmob.presentation.screen.OneFounderScreen
+import com.example.ppmob.presentation.screen.OtkritieScreen
 import com.example.ppmob.presentation.screen.PackageScreen
 import com.example.ppmob.presentation.screen.PackageStatementScreen
 import com.example.ppmob.presentation.screen.PalataScreen
@@ -153,7 +154,7 @@ fun NavigHost() {
             RaiffeisenScreen(navController)
         }
         composable(NavRoutes.otkritieScreen) {
-            //OtkritieScreen(navController)
+            OtkritieScreen(navController)
         }
 
 
