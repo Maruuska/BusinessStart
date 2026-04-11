@@ -23,6 +23,7 @@ import com.example.ppmob.presentation.screen.PalataScreen
 import com.example.ppmob.presentation.screen.RaiffeisenScreen
 import com.example.ppmob.presentation.screen.RegulationScreen
 import com.example.ppmob.presentation.screen.ResultCompanyScreen
+import com.example.ppmob.presentation.screen.ResultScoreScreen
 import com.example.ppmob.presentation.screen.ResultStatementScreen
 import com.example.ppmob.presentation.screen.RightScreen
 import com.example.ppmob.presentation.screen.SberScreen
@@ -47,7 +48,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.anketa
+        startDestination = NavRoutes.endScore
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -159,6 +160,9 @@ fun NavigHost() {
         }
         composable(NavRoutes.anketa) {
             AnketaScreen(navController)
+        }
+        composable(NavRoutes.endScore) {
+            ResultScoreScreen(navController)
         }
 
 

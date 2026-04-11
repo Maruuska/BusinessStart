@@ -355,7 +355,7 @@ fun AnketaScreen(
                         }
 
                         is AppState.Success -> {
-                            navController.navigate(NavRoutes.endStatement)
+                            navController.navigate(NavRoutes.endScore)
                         }
                     }
                 }
