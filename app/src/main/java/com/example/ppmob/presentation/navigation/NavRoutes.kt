@@ -39,6 +39,7 @@ object NavRoutes {
     const val vtbScreen = "vtb_screen"
     const val raiffeisenScreen = "raiffeisen_screen"
     const val otkritieScreen = "otkritie_screen"
+    const val anketa = "anketa"
 
     const val signin = "signin"
     const val signup = "signup"

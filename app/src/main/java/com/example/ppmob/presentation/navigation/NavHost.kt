@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.ppmob.presentation.screen.AccountingScreen
 import com.example.ppmob.presentation.screen.AlfaScreen
+import com.example.ppmob.presentation.screen.AnketaScreen
 import com.example.ppmob.presentation.screen.ApostilScreen
 import com.example.ppmob.presentation.screen.BankScreen
 import com.example.ppmob.presentation.screen.DocumentScreen
@@ -46,7 +47,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.score
+        startDestination = NavRoutes.anketa
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -155,6 +156,9 @@ fun NavigHost() {
         }
         composable(NavRoutes.otkritieScreen) {
             OtkritieScreen(navController)
+        }
+        composable(NavRoutes.anketa) {
+            AnketaScreen(navController)
         }
 
 

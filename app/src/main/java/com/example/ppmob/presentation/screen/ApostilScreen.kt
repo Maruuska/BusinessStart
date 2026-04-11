@@ -328,7 +328,7 @@ fun ApostilScreen(
                     }
 
                     is AppState.Success -> {
-                        navController.navigate(NavRoutes.menu)
+                        navController.navigate(NavRoutes.statement)
                     }
                 }
             }
