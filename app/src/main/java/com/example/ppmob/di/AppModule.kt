@@ -24,6 +24,7 @@ import com.example.ppmob.domain.usecase.GetCodeCountryUseCase
 import com.example.ppmob.domain.usecase.GetCountriesUseCase
 import com.example.ppmob.domain.usecase.GetDutiesUseCase
 import com.example.ppmob.domain.usecase.GetFormsUseCase
+import com.example.ppmob.domain.usecase.GetLastCompanyUseCase
 import com.example.ppmob.domain.usecase.GetRightsUseCase
 import com.example.ppmob.domain.usecase.SignInUseCase
 import com.example.ppmob.domain.usecase.SignUpUseCase
@@ -163,5 +164,11 @@ object AppModule {
     @Singleton
     fun provideSignUpUseCase(userRepository: UserRepository): SignUpUseCase {
         return SignUpUseCase(userRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetLastCompanyUseCase(companyRepository: CompanyRepository): GetLastCompanyUseCase {
+        return GetLastCompanyUseCase(companyRepository)
     }
 }

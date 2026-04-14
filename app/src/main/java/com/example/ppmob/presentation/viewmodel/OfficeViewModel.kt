@@ -67,6 +67,8 @@ class OfficeViewModel @Inject constructor(
 
     init {
         GetCurentUser()
+        loadingActivitys()
+        loadingAddresses()
     }
 
     // Публичная функция для получения текущего пользователя
@@ -97,11 +99,6 @@ class OfficeViewModel @Inject constructor(
             _activityError.value = null
             _fieldsOffice.value.errorActivity = false
         }
-    }
-
-    init {
-        loadingActivitys()
-        loadingAddresses()
     }
 
     fun loadingAddresses (){

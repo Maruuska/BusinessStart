@@ -11,6 +11,7 @@ import com.example.ppmob.domain.model.Company
 import com.example.ppmob.domain.model.Address
 import com.example.ppmob.domain.model.Rezult
 import com.example.ppmob.domain.repository.CompanyRepository
+import java.sql.Timestamp
 import java.util.UUID
 import javax.inject.Inject
 
@@ -34,7 +35,8 @@ class CompanyRepositoryImpl @Inject constructor(
                 address=addressId,
                 typeActivity = activityId,
                 oneFounder=oneFounder,
-                userId =userId
+                userId =userId,
+                date = Timestamp(System.currentTimeMillis())
             )
             apiInterface.createCompany(companyDto)
             Rezult.Success(CompanyMapper.toDomain(companyDto))
@@ -63,6 +65,23 @@ class CompanyRepositoryImpl @Inject constructor(
             Rezult.Success(activitys)
         } catch (e: Exception) {
             Rezult.Failure(e)
+        }
+    }
+
+    override suspend fun getLastCompany(userId: String): Rezult<Company> {
+        return try {
+            val listCompanies = apiInterface.getCompaniesByUserId("eq." + userId)
+
+            if (listCompanies.isEmpty()) {
+                return Rezult.Failure(Exception("компании пользователя не найдены: $userId"))
+            }
+
+            val lastCompanyDto = listCompanies.first()
+            val company = CompanyMapper.toDomain(lastCompanyDto)
+
+            Rezult.Success(company)
+        } catch (e: Exception) {
+            Rezult.Failure(Exception("ошибка получения компаний: ${e.message}"))
         }
     }
 }

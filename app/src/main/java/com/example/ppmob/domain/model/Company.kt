@@ -1,5 +1,6 @@
 package com.example.ppmob.domain.model
 
+import java.sql.Timestamp
 import java.util.UUID
 
 data class Company (
@@ -8,5 +9,6 @@ data class Company (
     val address: Int,
     val typeActivity: Int,
     val oneFounder: Boolean,
-    val userId: UUID
+    val userId: UUID,
+    val date: Timestamp
 )

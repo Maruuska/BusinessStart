@@ -22,4 +22,7 @@ interface CompanyRepository {
 
     // Приостанавливающая функция для получения списка всех видов деятельности
     suspend fun getActivitys(): Rezult<List<Activity>>
+
+    // Приостанавливающая функция для получения последней компании пользователя
+    suspend fun getLastCompany(userId: String): Rezult<Company>
 }

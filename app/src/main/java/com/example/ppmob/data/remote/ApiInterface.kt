@@ -23,6 +23,7 @@ import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.util.UUID
 
 // Интерфейс REST API Supabase
 interface ApiInterface { // Объявление интерфейса для HTTP-запросов
@@ -82,5 +83,12 @@ interface ApiInterface { // Объявление интерфейса для HTT
     // GET-запрос для получения списка банков
     @GET("rest/v1/banks")
     suspend fun getBanks(): List<BankDto>
+
+    @GET("rest/v1/companys")
+    suspend fun getCompaniesByUserId(
+        @Query("user_id") userId: String,
+        @Query("order") order: String = "date.desc",
+        @Query("limit") limit: Int = 1  // Ограничиваем результат одной записью
+    ): List<CompanyDto>
 
 }
