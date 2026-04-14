@@ -135,26 +135,27 @@ class OfficeViewModel @Inject constructor(
 
     fun save(){
         viewModelScope.launch {
+            _appStateSave.value = AppState.Loading
             if(verificationFields()) {
-                _appStateSave.value = AppState.Loading
-                when (val result =
-                    createCompanyUseCase(
-                        _fieldsOffice.value.name,
-                        _fieldsOffice.value.shortName,
-                        _fieldsOffice.value.addressId,
-                        _fieldsOffice.value.activityId,
-                        _fieldsOffice.value.oneFounder,
-                        currentUserId
-                    )) {
-                    is Rezult.Success -> {
-                        _appStateSave.value = AppState.Success
-                    }
-
-                    is Rezult.Failure -> {
-                        _appStateSave.value =
-                            AppState.Error(result.exception.message ?: "ошибка создания ооо")
-                    }
-                }
+                _appStateSave.value = AppState.Success
+//                when (val result =
+//                    createCompanyUseCase(
+//                        _fieldsOffice.value.name,
+//                        _fieldsOffice.value.shortName,
+//                        _fieldsOffice.value.addressId,
+//                        _fieldsOffice.value.activityId,
+//                        _fieldsOffice.value.oneFounder,
+//                        currentUserId
+//                    )) {
+//                    is Rezult.Success -> {
+//                        _appStateSave.value = AppState.Success
+//                    }
+//
+//                    is Rezult.Failure -> {
+//                        _appStateSave.value =
+//                            AppState.Error(result.exception.message ?: "ошибка создания ооо")
+//                    }
+//                }
             }
         }
     }

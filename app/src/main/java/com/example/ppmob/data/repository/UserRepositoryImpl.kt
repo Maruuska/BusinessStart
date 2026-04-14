@@ -24,13 +24,13 @@ class UserRepositoryImpl @Inject constructor(
     ): Rezult<AuthResponseDomain> {
         return try {
             // Регистрация
-            val response = apiInterface.signUp(AuthRequest(email, password))  // AuthResponse
+            val response = apiInterface.signUp(AuthRequest(email, password))
 
             if (response.accessToken == null) {
                 return Rezult.Failure(Exception("Registration failed: No access token"))
             }
 
-            val authData = AuthMapper.mapToDomain(response)  //AuthResponseDomain
+            val authData = AuthMapper.mapToDomain(response)
             currentUser = User(
                 id = authData.user.id,
                 email = authData.user.email
@@ -39,6 +39,14 @@ class UserRepositoryImpl @Inject constructor(
             // создание записи в таблице user
             apiInterface.createUser(response.user)
             Rezult.Success(authData)
+        } catch (e: retrofit2.HttpException) {
+            // Обработка HTTP ошибок
+            when (e.code()) {
+                409 -> Rezult.Failure(Exception("Некорректный формат email или пароля"))
+                422 -> Rezult.Failure(Exception("Пользователь с таким email уже существует"))
+                400 -> Rezult.Failure(Exception("Неверный запрос. Проверьте введенные данные"))
+                else -> Rezult.Failure(Exception("Ошибка сервера: ${e.message()}"))
+            }
         } catch (e: Exception) {
             Rezult.Failure(Exception("Registration failed: ${e.message}"))
         }
@@ -59,8 +67,16 @@ class UserRepositoryImpl @Inject constructor(
                 email = authData.user.email
             )
             Rezult.Success(authData)
+        } catch (e: retrofit2.HttpException) {
+            // Обработка HTTP ошибок
+            when (e.code()) {
+                409 -> Rezult.Failure(Exception("Некорректный формат email или пароля"))
+                422 -> Rezult.Failure(Exception("Пользователь с таким email уже существует"))
+                400 -> Rezult.Failure(Exception("Неверный запрос. Проверьте введенные данные"))
+                else -> Rezult.Failure(Exception("Ошибка сервера: ${e.message()}"))
+            }
         } catch (e: Exception) {
-            Rezult.Failure(e)
+            Rezult.Failure(Exception("Authorization failed: ${e.message}"))
         }
     }
 

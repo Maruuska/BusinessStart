@@ -83,8 +83,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 
     //Tests
-    testImplementation("org.mockito:mockito-core:4.11.0")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:4.1.0")
     testImplementation(kotlin("test"))
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.0")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    testImplementation("io.mockk:mockk:1.13.10")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0") //для мокирования HTTP-сервера
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0") //для тестирования suspend-функций
 }
