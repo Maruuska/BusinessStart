@@ -27,19 +27,19 @@ import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.domain.state.AppState
 import com.example.ppmob.presentation.components.ButtonCustom
 import com.example.ppmob.presentation.components.OutlinedTextFieldNormal
-import com.example.ppmob.presentation.viewmodel.SignInViewModel
+import com.example.ppmob.presentation.viewmodel.SignUpViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 
 @Composable
-fun SignInScreen(
+fun SignUpScreen(
     navController: NavHostController,
-    signInViewModel: SignInViewModel = hiltViewModel(),
+    signUpViewModel: SignUpViewModel = hiltViewModel()
 ) {
-    val fieldsSignIn by signInViewModel.fieldsSignIn.collectAsState()
-    val appState by signInViewModel.appState.collectAsState()
+    val fieldsSignUp by signUpViewModel.fieldsSignUp.collectAsState()
+    val appState by signUpViewModel.appState.collectAsState()
 
     Box(
         modifier = Modifier
@@ -47,7 +47,7 @@ fun SignInScreen(
             .background(Color.White)
     ) {
         Text(
-            text = "Авторизация",
+            text = "Регистрация",
             fontFamily = RadioCanadaSemiBold,
             fontSize = 19.sp,
             color = Color.Black,
@@ -72,13 +72,13 @@ fun SignInScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextFieldNormal(fieldsSignIn.email) {
-                signInViewModel.updateState(
-                    fieldsSignIn.copy(email = it)
+            OutlinedTextFieldNormal(fieldsSignUp.email) {
+                signUpViewModel.updateState(
+                    fieldsSignUp.copy(email = it)
                 )
             }
             // Вывод о неправильном формате email
-            if (fieldsSignIn.errorEmail) {
+            if (fieldsSignUp.errorEmail) {
                 Box(
                     modifier = Modifier.fillMaxWidth(),
                     contentAlignment = Alignment.Center
@@ -104,57 +104,75 @@ fun SignInScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextFieldNormal(fieldsSignIn.password) {
-                signInViewModel.updateState(
-                    fieldsSignIn.copy(password = it)
+            OutlinedTextFieldNormal(fieldsSignUp.password) {
+                signUpViewModel.updateState(
+                    fieldsSignUp.copy(password = it)
                 )
             }
             // Вывод о неправильном формате пароля
-            if (fieldsSignIn.errorPassword) {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "пароль меньше 6 символов",
-                        color = Color.Red,
-                        fontSize = 12.sp,
-                        fontFamily = RadioCanadaRegular,
-                        textAlign = TextAlign.Center,
-                        lineHeight = 14.sp
-                    )
-                }
+//            if (fieldsSignUp.errorPassword) {
+//                Box(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    contentAlignment = Alignment.Center
+//                ) {
+//                    Text(
+//                        text = "пароль меньше 6 символов",
+//                        color = Color.Red,
+//                        fontSize = 12.sp,
+//                        fontFamily = RadioCanadaRegular,
+//                        textAlign = TextAlign.Center,
+//                        lineHeight = 14.sp
+//                    )
+//                }
+//            }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Поле ввода подтверждения пароля
+            Text(
+                text = "Подтверждение пароля",
+                fontFamily = RadioCanadaRegular,
+                fontSize = 16.sp,
+                color = Color.Black,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            OutlinedTextFieldNormal(fieldsSignUp.confirmPassword) {
+                signUpViewModel.updateState(
+                    fieldsSignUp.copy(confirmPassword = it)
+                )
             }
+
             Spacer(modifier = Modifier.height(30.dp))
+
 
             when (appState) {
                 is AppState.Loading -> {
                     ButtonCustom(
-                        "Войти",
+                        "Зарегистрироваться",
                         false,
                         ActiveBlue,
                         NoActiveBlue,
                         16.sp,
                         14.dp,
-                        130.dp,
+                        190.dp,
                         45.dp
                     ) {
-                        signInViewModel.signIn()
+                        signUpViewModel.signUp()
                     }
                 }
 
                 is AppState.Initializing -> {
                     ButtonCustom(
-                        "Войти",
+                        "Зарегистрироваться",
                         true,
                         ActiveBlue,
                         NoActiveBlue,
                         16.sp,
                         14.dp,
-                        130.dp,
+                        190.dp,
                         45.dp
                     ) {
-                        signInViewModel.signIn()
+                        signUpViewModel.signUp()
                     }
                 }
 
@@ -166,16 +184,16 @@ fun SignInScreen(
 
                 is AppState.Error -> {
                     ButtonCustom(
-                        "Войти",
+                        "Зарегистрироваться",
                         true,
                         ActiveBlue,
                         NoActiveBlue,
                         16.sp,
                         14.dp,
-                        130.dp,
+                        190.dp,
                         45.dp
                     ) {
-                        signInViewModel.signIn()
+                        signUpViewModel.signUp()
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
@@ -187,30 +205,6 @@ fun SignInScreen(
                     )
                 }
             }
-        }
-
-        Row(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(bottom = 50.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Нет аккаунта? ",
-                fontFamily = RadioCanadaRegular,
-                fontSize = 14.sp,
-                color = Color.Gray
-            )
-            Text(
-                text = "Зарегистрироваться",
-                fontFamily = RadioCanadaSemiBold,
-                fontSize = 14.sp,
-                color = ActiveBlue,
-                modifier = Modifier.clickable {
-                    navController.navigate(NavRoutes.signup)
-                }
-            )
         }
     }
 }
