@@ -90,7 +90,7 @@ fun Step41Screen(navController: NavHostController) {
                         85.dp,
                         30.dp
                     ) {
-                        navController.navigate(NavRoutes.palata)
+                        navController.navigate(NavRoutes.bank)
                     }
                 }
             }

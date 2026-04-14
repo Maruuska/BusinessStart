@@ -179,7 +179,7 @@ fun DocumentScreen(
             270.dp,
             45.dp
         ) {
-            navController.navigate(NavRoutes.step21)
+            navController.navigate(NavRoutes.step3)
         }
     }
 }

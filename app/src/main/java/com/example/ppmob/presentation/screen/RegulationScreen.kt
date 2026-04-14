@@ -530,7 +530,7 @@ fun RegulationScreen(
             270.dp,
             45.dp
         ) {
-
+            navController.navigate(NavRoutes.step4)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.ppmob.data.dto
 
 import com.google.gson.annotations.SerializedName
+import java.util.UUID
 
 data class CompanyDto (
     //val id:Int,
@@ -12,4 +13,6 @@ data class CompanyDto (
     val typeActivity: Int,
     @SerializedName("one_founder")
     val oneFounder: Boolean,
+    @SerializedName("user_id")
+    val userId: UUID
 )

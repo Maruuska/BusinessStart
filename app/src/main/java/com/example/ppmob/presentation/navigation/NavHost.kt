@@ -50,7 +50,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.splash
+        startDestination = NavRoutes.step4
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)

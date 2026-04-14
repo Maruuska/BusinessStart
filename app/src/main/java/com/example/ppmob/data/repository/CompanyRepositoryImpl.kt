@@ -11,6 +11,7 @@ import com.example.ppmob.domain.model.Company
 import com.example.ppmob.domain.model.Address
 import com.example.ppmob.domain.model.Rezult
 import com.example.ppmob.domain.repository.CompanyRepository
+import java.util.UUID
 import javax.inject.Inject
 
 class CompanyRepositoryImpl @Inject constructor(
@@ -23,7 +24,8 @@ class CompanyRepositoryImpl @Inject constructor(
         shortName: String,
         addressId: Int,
         activityId: Int,
-        oneFounder: Boolean
+        oneFounder: Boolean,
+        userId: UUID
     ): Rezult<Company> {
         return try{
             val companyDto = CompanyDto(
@@ -31,7 +33,8 @@ class CompanyRepositoryImpl @Inject constructor(
                 shortName=shortName,
                 address=addressId,
                 typeActivity = activityId,
-                oneFounder=oneFounder
+                oneFounder=oneFounder,
+                userId =userId
             )
             apiInterface.createCompany(companyDto)
             Rezult.Success(CompanyMapper.toDomain(companyDto))

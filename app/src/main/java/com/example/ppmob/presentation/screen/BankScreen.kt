@@ -57,7 +57,7 @@ fun BankScreen(
     LaunchedEffect(navigate) {
         if (navigate) {
             delay(1000L)
-            navController.navigate(NavRoutes.menu)
+            navController.navigate(NavRoutes.packageRegistration)
         }
     }
 

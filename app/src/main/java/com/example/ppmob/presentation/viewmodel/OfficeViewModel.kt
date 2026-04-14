@@ -12,11 +12,13 @@ import com.example.ppmob.domain.state.OfficeState
 import com.example.ppmob.domain.usecase.CreateCompanyUseCase
 import com.example.ppmob.domain.usecase.GetActivitysUseCase
 import com.example.ppmob.domain.usecase.GetAddressUseCase
+import com.example.ppmob.domain.usecase.GetCurrentUserUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +26,7 @@ class OfficeViewModel @Inject constructor(
     private val createCompanyUseCase: CreateCompanyUseCase,
     private val getAddressUseCase: GetAddressUseCase,
     private val getActivitysUseCase: GetActivitysUseCase,
+    private val getCurrentUserUseCase: GetCurrentUserUseCase
 ) : ViewModel() {
 
     private val _fieldsOffice = MutableStateFlow(OfficeState())
@@ -52,11 +55,35 @@ class OfficeViewModel @Inject constructor(
     private val _addresses = MutableLiveData<List<Address>>()
     val addresses: LiveData<List<Address>> get() = _addresses
 
+    var currentUserId: UUID = UUID.fromString("00000000-0000-0000-0000-000000000000")
+
     fun updateState(newState: OfficeState) {
         _fieldsOffice.value = newState
         // При изменении activityId проверка лицензии
         if (newState.activityId != -1) {
             checkActivityLicense()
+        }
+    }
+
+    init {
+        GetCurentUser()
+    }
+
+    // Публичная функция для получения текущего пользователя
+    fun GetCurentUser() {
+        viewModelScope.launch {
+            _appState.value = AppState.Loading
+            when (val result = getCurrentUserUseCase()) {
+                is Rezult.Success -> {
+                    currentUserId = result.data.id
+                    _appState.value = AppState.Success
+                }
+
+                is Rezult.Failure -> {
+                    _appState.value =
+                        AppState.Error(result.exception.message ?: "get current user error")
+                }
+            }
         }
     }
 
@@ -119,7 +146,8 @@ class OfficeViewModel @Inject constructor(
                         _fieldsOffice.value.shortName,
                         _fieldsOffice.value.addressId,
                         _fieldsOffice.value.activityId,
-                        _fieldsOffice.value.oneFounder
+                        _fieldsOffice.value.oneFounder,
+                        currentUserId
                     )) {
                     is Rezult.Success -> {
                         _appStateSave.value = AppState.Success
