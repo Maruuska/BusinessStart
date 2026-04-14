@@ -34,7 +34,7 @@ fun SplashScreen(navController: NavHostController) {
     ) {
         LaunchedEffect(true) {
             delay(1200L)
-            navController.navigate(NavRoutes.menu){
+            navController.navigate(NavRoutes.signin){
                 popUpTo(NavRoutes.splash){
                     inclusive = true
                 }

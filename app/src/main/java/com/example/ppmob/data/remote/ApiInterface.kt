@@ -2,6 +2,9 @@ package com.example.ppmob.data.remote
 
 import com.example.ppmob.data.dto.ActivityDto
 import com.example.ppmob.data.dto.AddressDto
+import com.example.ppmob.data.dto.AuthRequest
+import com.example.ppmob.data.dto.AuthResponse
+import com.example.ppmob.data.dto.AuthUserDto
 import com.example.ppmob.data.dto.BankDto
 import com.example.ppmob.data.dto.CodeCountryDto
 import com.example.ppmob.data.dto.CompanyDto
@@ -25,20 +28,16 @@ import retrofit2.http.Query
 interface ApiInterface { // Объявление интерфейса для HTTP-запросов
 
     // POST-запрос для авторизации
-//    @POST("auth/v1/token?grant_type=password")
-//    suspend fun signIn(@Body authRequest: AuthRequest): AuthResponse
-//
-//    // POST-запрос для регистрации
-//    @POST("auth/v1/signup")
-//    suspend fun signUp(@Body authRequest: AuthRequest): AuthResponse
+    @POST("auth/v1/token?grant_type=password")
+    suspend fun signIn(@Body authRequest: AuthRequest): AuthResponse
+
+    // POST-запрос для регистрации
+    @POST("auth/v1/signup")
+    suspend fun signUp(@Body authRequest: AuthRequest): AuthResponse
 
     // POST-запрос для создания записи в таблице user
-//    @POST("rest/v1/user")
-//    suspend fun createUser(@Body user: UserDto)
-
-    // GET-запрос для получения пользователя по ID
-//    @GET("rest/v1/user")
-//    suspend fun getUserById(@Query("user_id") userId: String): List<UserDto>
+    @POST("rest/v1/users")
+    suspend fun createUser(@Body user: AuthUserDto)
 
     // GET-запрос для получения списка адресов
     @GET("rest/v1/addresses")

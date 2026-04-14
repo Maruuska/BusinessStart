@@ -29,6 +29,7 @@ import com.example.ppmob.presentation.screen.RightScreen
 import com.example.ppmob.presentation.screen.SberScreen
 import com.example.ppmob.presentation.screen.ScoreScreen
 import com.example.ppmob.presentation.screen.SeveralFounderScreen
+import com.example.ppmob.presentation.screen.SignInScreen
 import com.example.ppmob.presentation.screen.SplashScreen
 import com.example.ppmob.presentation.screen.StatementScreen
 import com.example.ppmob.presentation.screen.Step11Screen
@@ -164,11 +165,9 @@ fun NavigHost() {
         composable(NavRoutes.endScore) {
             ResultScoreScreen(navController)
         }
-
-
-//        composable(route = NavRoutes.signin) {
-//            SignInScreen(navController = navController)
-//        }
+        composable(route = NavRoutes.signin) {
+            SignInScreen(navController = navController)
+        }
 //
 //        composable(route = NavRoutes.signup) {
 //            SignUpScreen(navController = navController)

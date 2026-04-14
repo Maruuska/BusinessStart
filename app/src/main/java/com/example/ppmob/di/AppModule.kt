@@ -7,11 +7,13 @@ import com.example.ppmob.data.repository.CompanyRepositoryImpl
 import com.example.ppmob.data.repository.CountryRepositoryImpl
 import com.example.ppmob.data.repository.RegulationRepositoryImpl
 import com.example.ppmob.data.repository.StatementRepositoryImpl
+import com.example.ppmob.data.repository.UserRepositoryImpl
 import com.example.ppmob.domain.repository.BankRepository
 import com.example.ppmob.domain.repository.CompanyRepository
 import com.example.ppmob.domain.repository.CountryRepository
 import com.example.ppmob.domain.repository.RegulationRepository
 import com.example.ppmob.domain.repository.StatementRepository
+import com.example.ppmob.domain.repository.UserRepository
 import com.example.ppmob.domain.usecase.CreateCompanyUseCase
 import com.example.ppmob.domain.usecase.CreateDutyUseCase
 import com.example.ppmob.domain.usecase.CreateRightUseCase
@@ -23,6 +25,8 @@ import com.example.ppmob.domain.usecase.GetCountriesUseCase
 import com.example.ppmob.domain.usecase.GetDutiesUseCase
 import com.example.ppmob.domain.usecase.GetFormsUseCase
 import com.example.ppmob.domain.usecase.GetRightsUseCase
+import com.example.ppmob.domain.usecase.SignInUseCase
+import com.example.ppmob.domain.usecase.SignUpUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -75,6 +79,12 @@ object AppModule {
         return BankRepositoryImpl(apiInterface)
     }
 
+    // реализация UserRepository
+    @Provides
+    @Singleton
+    fun provideUserRepository(apiInterface: ApiInterface): UserRepository {
+        return UserRepositoryImpl(apiInterface)
+    }
 
     // Предоставляет UseCase по созданию компании
     @Provides
@@ -141,5 +151,17 @@ object AppModule {
     @Singleton
     fun provideGetBanksUseCase(bankRepository: BankRepository): GetBanksUseCase {
         return GetBanksUseCase(bankRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSignInUseCase(userRepository: UserRepository): SignInUseCase {
+        return SignInUseCase(userRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSignUpUseCase(userRepository: UserRepository): SignUpUseCase {
+        return SignUpUseCase(userRepository)
     }
 }
