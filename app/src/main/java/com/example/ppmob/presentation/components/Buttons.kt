@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -38,11 +40,11 @@ fun ButtonCustom(
     activeColor: Color,
     noActiveColor: Color,
     fontSize: TextUnit,
-    rounded:Dp,
+    rounded: Dp,
     buttonWidth: Dp = 150.dp,
     buttonHeight: Dp = 53.dp,
     isActive: Boolean = true,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
 
     val buttonColor = when {
@@ -79,7 +81,7 @@ fun ButtonCustomOutline(
     buttonHeight: Dp = 53.dp,
     fontSize: TextUnit = 16.sp,
     rounded: Dp = 14.dp,
-    iconRes: Int = R.drawable.skrepka // иконка скрепки
+    iconRes: Int = R.drawable.skrepka, // иконка скрепки
 ) {
     Box(
         modifier = Modifier
@@ -113,6 +115,57 @@ fun ButtonCustomOutline(
                 color = Color.Black,
                 modifier = Modifier.padding(start = 8.dp)
             )
+        }
+    }
+}
+
+@Composable
+fun ButtonCustomOutline2(
+    label: String,
+    enbl: Boolean = true,
+    onClick: () -> Unit,
+    buttonWidth: Dp = 150.dp,
+    buttonHeight: Dp = 53.dp,
+    fontSize: TextUnit = 16.sp,
+    rounded: Dp = 10.dp,
+    iconRes: Int = R.drawable.skrepka,
+) {
+    Box(
+        modifier = Modifier
+            .width(buttonWidth)
+            .height(buttonHeight)
+            .clip(RoundedCornerShape(rounded))
+            .border(
+                width = 1.dp,
+                color = ActiveBlue,
+                shape = RoundedCornerShape(rounded)
+            )
+            .background(Color.White)
+            .clickable(enabled = enbl) { onClick() },
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Spacer(modifier = Modifier.width(10.dp))
+            Icon(
+                painter = painterResource(id = iconRes),
+                contentDescription = "",
+                modifier = Modifier.size(20.dp),
+                tint = Color.Black
+            )
+
+            Text(
+                text = label,
+                fontSize = fontSize,
+                fontFamily = RadioCanadaRegular,
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+                lineHeight = 14.sp
+            )
+
         }
     }
 }

@@ -16,6 +16,7 @@ import com.example.ppmob.presentation.screen.DutiesScreen
 import com.example.ppmob.presentation.screen.MeetingScreen
 import com.example.ppmob.presentation.screen.MenuScreen
 import com.example.ppmob.presentation.screen.NotificationScreen
+import com.example.ppmob.presentation.screen.NotifyScreen
 import com.example.ppmob.presentation.screen.OfficeScreen
 import com.example.ppmob.presentation.screen.OneFounderScreen
 import com.example.ppmob.presentation.screen.OtkritieScreen
@@ -53,7 +54,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.meeting
+        startDestination = NavRoutes.notify
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -183,6 +184,9 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.meeting) {
             MeetingScreen(navController = navController)
+        }
+        composable(route = NavRoutes.notify) {
+            NotifyScreen(navController = navController)
         }
     }
 }

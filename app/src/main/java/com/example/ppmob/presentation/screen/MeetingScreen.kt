@@ -68,7 +68,7 @@ fun MeetingScreen(navController: NavHostController) {
                     progress = 1f
                     delay(1000)
 
-                    navController.navigate(NavRoutes.menu)
+                    navController.navigate(NavRoutes.notify)
                 }
             }
         }
