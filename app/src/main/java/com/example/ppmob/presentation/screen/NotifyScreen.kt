@@ -184,11 +184,8 @@ fun NotifyScreen(navController: NavHostController) {
                 buttonWidth = 200.dp,
                 buttonHeight = 45.dp
             ) {
-                // Переход на следующий экран
-                navController.navigate(NavRoutes.menu) // Замените на ваш следующий экран
+                navController.navigate(NavRoutes.debit)
             }
-
-
         }
     }
 }

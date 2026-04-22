@@ -47,4 +47,5 @@ object NavRoutes {
     const val votingScreen = "votingScreen"
     const val meeting = "meeting"
     const val notify = "notify"
+    const val debit = "debit"
 }

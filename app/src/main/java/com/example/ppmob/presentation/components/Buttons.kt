@@ -71,6 +71,46 @@ fun ButtonCustom(
     }
 }
 
+@Composable
+fun ButtonCustom2(
+    label: String,
+    enbl: Boolean,
+    activeColor: Color,
+    noActiveColor: Color,
+    fontSize: TextUnit,
+    rounded: Dp,
+    buttonWidth: Dp = 150.dp,
+    buttonHeight: Dp = 53.dp,
+    isActive: Boolean = true,
+    onClick: () -> Unit,
+) {
+
+    val buttonColor = when {
+        !enbl -> noActiveColor
+        isActive -> activeColor
+        else -> noActiveColor
+    }
+
+    Box(
+        modifier = Modifier
+            .width(buttonWidth)
+            .height(buttonHeight)
+            .clip(RoundedCornerShape(rounded))
+            .background(buttonColor)
+            .clickable(enabled = enbl) { onClick() },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = label,
+            fontSize = fontSize,
+            fontFamily = RadioCanadaRegular,
+            color = Color.White,
+            lineHeight = 12.sp,
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
 
 @Composable
 fun ButtonCustomOutline(
