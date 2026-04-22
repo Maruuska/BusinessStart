@@ -45,12 +45,10 @@ fun VotingScreen(navController: NavHostController) {
     var isVoted by remember { mutableStateOf(false) }
     var voteResult by remember { mutableStateOf<String?>(null) } // "AGAINST" или "FOR"
     var currentImage by remember { mutableStateOf(R.drawable.tablevoting) }
-    var isTransitioning by remember { mutableStateOf(false) }
 
     // Эффект для обработки голосования и анимации
     LaunchedEffect(voteResult) {
-        if (voteResult != null && !isTransitioning) {
-            isTransitioning = true
+        if (voteResult != null ) {
 
             when (voteResult) {
                 "FOR" -> {
@@ -65,7 +63,7 @@ fun VotingScreen(navController: NavHostController) {
                     progress = 1f
                     delay(1000)
 
-                    navController.navigate(NavRoutes.menu)
+                    navController.navigate(NavRoutes.meeting)
                 }
                 "AGAINST" -> {
                     delay(1000)
@@ -75,7 +73,7 @@ fun VotingScreen(navController: NavHostController) {
                     currentImage = R.drawable.two
                     progress = 0.66f
                     delay(1000)
-                    navController.navigate(NavRoutes.menu)
+                    navController.navigate(NavRoutes.meeting)
                 }
             }
         }
