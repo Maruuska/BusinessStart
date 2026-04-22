@@ -88,7 +88,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:1.9.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
 
-    testImplementation("io.mockk:mockk:1.13.10")
-    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0") //для мокирования HTTP-сервера
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0") //для тестирования suspend-функций
+    testImplementation("io.mockk:mockk:1.11.0")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.10.0") //для мокирования HTTP-сервера
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2") //для тестирования suspend-функций
 }

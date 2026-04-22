@@ -76,7 +76,7 @@ fun MenuScreen(navController: NavHostController) {
 
         MenuItem(
             text = "Закрытие бизнеса",
-            onClick = { /* TODO: навигация */ }
+            onClick = { navController.navigate(NavRoutes.notification)  }
         )
     }
 }

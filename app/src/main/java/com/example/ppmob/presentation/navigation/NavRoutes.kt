@@ -43,4 +43,5 @@ object NavRoutes {
     const val endScore = "endScore"
     const val signin = "signin"
     const val signup = "signup"
+    const val notification = "notification"
 }
