@@ -44,4 +44,5 @@ object NavRoutes {
     const val signin = "signin"
     const val signup = "signup"
     const val notification = "notification"
+    const val votingScreen = "votingScreen"
 }

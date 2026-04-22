@@ -78,7 +78,7 @@ fun NotificationScreen(navController: NavHostController) {
                     230.dp,
                     45.dp
                 ) {
-
+                    navController.navigate(NavRoutes.votingScreen)
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))

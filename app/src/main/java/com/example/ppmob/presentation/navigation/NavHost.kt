@@ -43,6 +43,7 @@ import com.example.ppmob.presentation.screen.Step3Screen
 import com.example.ppmob.presentation.screen.Step41Screen
 import com.example.ppmob.presentation.screen.Step4Screen
 import com.example.ppmob.presentation.screen.TbankScreen
+import com.example.ppmob.presentation.screen.VotingScreen
 import com.example.ppmob.presentation.screen.VtbScreen
 
 @Composable
@@ -175,6 +176,9 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.notification) {
             NotificationScreen(navController = navController)
+        }
+        composable(route = NavRoutes.votingScreen) {
+            VotingScreen(navController = navController)
         }
     }
 }
