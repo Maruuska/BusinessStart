@@ -49,4 +49,5 @@ object NavRoutes {
     const val notify = "notify"
     const val debit = "debit"
     const val balance = "balance"
+    const val staff = "staff"
 }
