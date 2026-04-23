@@ -289,9 +289,8 @@ fun DebitScreen(navController: NavHostController) {
                 buttonWidth = 200.dp,
                 buttonHeight = 45.dp
             ) {
-                navController.navigate(NavRoutes.menu)
+                navController.navigate(NavRoutes.balance)
             }
-
         }
     }
 }

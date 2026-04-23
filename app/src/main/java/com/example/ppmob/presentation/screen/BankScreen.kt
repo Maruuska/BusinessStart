@@ -110,8 +110,8 @@ fun BankScreen(
             ButtonCustom(
                 "15 000 ₽",
                 true,
-                Color(0xFF353835),
-                Color(0xFF353835),
+                Color(0xFF6D716D),
+                Color(0xFF6D716D),
                 14.sp,
                 15.dp,
                 90.dp,
@@ -123,8 +123,8 @@ fun BankScreen(
             ButtonCustom(
                 "20 000 ₽",
                 true,
-                Color(0xFF353835),
-                Color(0xFF353835),
+                Color(0xFF6D716D),
+                Color(0xFF6D716D),
                 14.sp,
                 15.dp,
                 90.dp,
@@ -136,8 +136,8 @@ fun BankScreen(
             ButtonCustom(
                 "25 000 ₽",
                 true,
-                Color(0xFF353835),
-                Color(0xFF353835),
+                Color(0xFF6D716D),
+                Color(0xFF6D716D),
                 14.sp,
                 15.dp,
                 90.dp,

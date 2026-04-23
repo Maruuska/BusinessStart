@@ -1,29 +1,50 @@
 package com.example.ppmob.presentation.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ppmob.R
+import com.example.ppmob.ui.theme.RadioCanadaRegular
 
 @Composable
 fun OutlinedTextFieldNormal(value: String, onvaluechange: (String) -> Unit) {
@@ -121,10 +142,10 @@ fun OutlinedTextFieldDigital(value: String, onvaluechange: (String) -> Unit) {
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = Color.Transparent,
             focusedBorderColor = Color.Transparent,
-            focusedTextColor = Color.White,
-            unfocusedTextColor = Color.White,
-            focusedContainerColor = Color(0xFF353835),
-            unfocusedContainerColor = Color(0xFF353835),
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedContainerColor = Color(0xFFD9D9D9),
+            unfocusedContainerColor = Color(0xFFD9D9D9),
         ),
     )
 }
@@ -168,15 +189,15 @@ fun OutlinedTextFieldDigitalNoEdit(value: String, onvaluechange: (String) -> Uni
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedBorderColor = Color.Transparent,
             focusedBorderColor = Color.Transparent,
-            focusedTextColor = Color.White,
-            unfocusedTextColor = Color.White,
-            focusedContainerColor = Color(0xFF353835),
-            unfocusedContainerColor = Color(0xFF353835),
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            focusedContainerColor = Color(0xFFD9D9D9),
+            unfocusedContainerColor = Color(0xFFD9D9D9),
             disabledBorderColor = Color.Transparent,
-            disabledTextColor = Color.White,
+            disabledTextColor = Color.Black,
             disabledLabelColor = Color.Gray,
             disabledPlaceholderColor = Color.Gray,
-            disabledContainerColor = Color(0xFF353835),
+            disabledContainerColor = Color(0xFFD9D9D9),
             disabledSupportingTextColor = Color.Gray,
             disabledLeadingIconColor = Color.Gray,
             disabledTrailingIconColor = Color.Gray
@@ -229,4 +250,56 @@ fun OutlinedTextFieldNormalDigital(value: Int, onvaluechange: (String) -> Unit) 
             unfocusedSupportingTextColor = Color.Gray
         ),
     )
+}
+
+@Composable
+fun MoneyAmountTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+) {
+    Box(
+        modifier = Modifier
+            .height(35.dp)
+            .width(85.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .border(1.dp, Color.Gray, RoundedCornerShape(12.dp))
+            .background(Color.White)
+            .padding(start = 8.dp, end = 10.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        BasicTextField(
+            value = value,
+            onValueChange = { newValue ->
+                val digitsOnly = newValue.filter { it.isDigit() }
+                val limitedDigits = digitsOnly.take(7)
+                val formatted = limitedDigits.reversed().chunked(3).joinToString(" ").reversed()
+                onValueChange(formatted)
+            },
+            textStyle = TextStyle(
+                fontFamily = RadioCanadaRegular,
+                fontSize = 14.sp,
+                color = Color.Black,
+                textAlign = TextAlign.Center
+            ),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            singleLine = true,
+            modifier = Modifier.fillMaxSize(),
+            decorationBox = { innerTextField ->
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    if (value.isEmpty()) {
+                        Text(
+                            text = "0",
+                            fontSize = 15.sp,
+                            fontFamily = RadioCanadaRegular,
+                            color = Color.Gray
+                        )
+                    }
+                    innerTextField()
+                }
+            }
+        )
+    }
 }

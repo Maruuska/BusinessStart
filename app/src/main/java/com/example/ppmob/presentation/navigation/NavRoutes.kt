@@ -48,4 +48,5 @@ object NavRoutes {
     const val meeting = "meeting"
     const val notify = "notify"
     const val debit = "debit"
+    const val balance = "balance"
 }
