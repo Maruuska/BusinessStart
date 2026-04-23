@@ -303,3 +303,41 @@ fun MoneyAmountTextField(
         )
     }
 }
+
+@Composable
+fun TextFieldDigital(value: String, onvaluechange: (String) -> Unit) {
+
+
+    OutlinedTextField(
+        value = value,
+        onValueChange = { newValue ->
+            // Извлекаем только цифры из введённого текста
+            val digitsOnly = newValue.filter { it.isDigit() }
+            onvaluechange(digitsOnly)
+        },
+        placeholder = {
+            Text(
+                text = "1234",
+                color = Color.Gray,
+                fontSize = 14.sp
+            )
+        },
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(17.dp),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number,
+            imeAction = ImeAction.Next
+        ),
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedBorderColor = Color.Transparent,
+            focusedBorderColor = Color.Transparent,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            unfocusedLabelColor = Color.Black,
+            focusedContainerColor = Color(0xFFE7E7E9),
+            unfocusedContainerColor = Color(0xFFE7E7E9),
+            focusedSupportingTextColor = Color.Gray,
+            unfocusedSupportingTextColor = Color.Gray
+        ),
+    )
+}

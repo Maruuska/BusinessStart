@@ -50,4 +50,5 @@ object NavRoutes {
     const val debit = "debit"
     const val balance = "balance"
     const val staff = "staff"
+    const val creditors = "creditors"
 }

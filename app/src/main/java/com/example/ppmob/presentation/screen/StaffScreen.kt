@@ -214,7 +214,7 @@ fun StaffScreen(navController: NavHostController) {
                 buttonWidth = 200.dp,
                 buttonHeight = 45.dp
             ) {
-                navController.navigate(NavRoutes.staff)
+                navController.navigate(NavRoutes.creditors)
             }
         }
     }
