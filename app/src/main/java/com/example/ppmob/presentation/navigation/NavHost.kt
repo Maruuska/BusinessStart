@@ -30,6 +30,7 @@ import com.example.ppmob.presentation.screen.PalataScreen
 import com.example.ppmob.presentation.screen.RaiffeisenScreen
 import com.example.ppmob.presentation.screen.RegulationScreen
 import com.example.ppmob.presentation.screen.ResultCompanyScreen
+import com.example.ppmob.presentation.screen.ResultLiquidationScreen
 import com.example.ppmob.presentation.screen.ResultScoreScreen
 import com.example.ppmob.presentation.screen.ResultStatementScreen
 import com.example.ppmob.presentation.screen.RightScreen
@@ -59,7 +60,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.creditors
+        startDestination = NavRoutes.resultLiq
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -207,6 +208,9 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.packageLiq) {
             PackageLiquidationScreen(navController = navController)
+        }
+        composable(route = NavRoutes.resultLiq) {
+            ResultLiquidationScreen(navController = navController)
         }
     }
 }

@@ -232,7 +232,7 @@ fun PackageLiquidationScreen(navController: NavHostController) {
         }
         if (showDialog) {
             showDialog = false
-            navController.navigate(NavRoutes.endStatement)
+            navController.navigate(NavRoutes.resultLiq)
         }
     }
 }

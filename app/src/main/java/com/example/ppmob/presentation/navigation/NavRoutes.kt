@@ -52,4 +52,5 @@ object NavRoutes {
     const val staff = "staff"
     const val creditors = "creditors"
     const val packageLiq = "packageLiq"
+    const val resultLiq = "resultLiq"
 }
