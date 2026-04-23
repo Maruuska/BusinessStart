@@ -23,6 +23,7 @@ import com.example.ppmob.presentation.screen.NotifyScreen
 import com.example.ppmob.presentation.screen.OfficeScreen
 import com.example.ppmob.presentation.screen.OneFounderScreen
 import com.example.ppmob.presentation.screen.OtkritieScreen
+import com.example.ppmob.presentation.screen.PackageLiquidationScreen
 import com.example.ppmob.presentation.screen.PackageScreen
 import com.example.ppmob.presentation.screen.PackageStatementScreen
 import com.example.ppmob.presentation.screen.PalataScreen
@@ -203,6 +204,9 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.creditors) {
             CreditorsScreen(navController = navController)
+        }
+        composable(route = NavRoutes.packageLiq) {
+            PackageLiquidationScreen(navController = navController)
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.ppmob.presentation.screen
 
-import android.os.Build.VERSION.SDK_INT
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,7 +23,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,11 +30,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavHostController
-import coil.ImageLoader
-import coil.compose.rememberAsyncImagePainter
-import coil.decode.GifDecoder
-import coil.decode.ImageDecoderDecoder
-import coil.request.ImageRequest
 import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.R
 import com.example.ppmob.presentation.components.ButtonCustom
@@ -47,7 +40,7 @@ import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 import kotlinx.coroutines.delay
 
 @Composable
-fun PackageStatementScreen(navController: NavHostController){
+fun PackageLiquidationScreen(navController: NavHostController) {
 
     // Состояние для диалога
     var showDialog by remember { mutableStateOf(false) }
@@ -88,7 +81,7 @@ fun PackageStatementScreen(navController: NavHostController){
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Выписка из реестра",
+                    text = "Окончательный ликвидационный баланс",
                     fontFamily = RadioCanadaRegular,
                     fontSize = 13.sp,
                     color = Color.Black,
@@ -111,39 +104,7 @@ fun PackageStatementScreen(navController: NavHostController){
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Заявление по форме 11БС-Учет",
-                    fontFamily = RadioCanadaRegular,
-                    fontSize = 13.sp,
-                    color = Color.Black,
-                    textAlign = TextAlign.Center,
-                    lineHeight = 14.sp,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Text(
-                    text = "(1 учредитель)",
-                    fontFamily = RadioCanadaRegular,
-                    fontSize = 13.sp,
-                    color = Color.Black,
-                    textAlign = TextAlign.Center,
-                    lineHeight = 14.sp,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(4.dp)
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.dogovor),
-                    contentDescription = "",
-                    modifier = Modifier.size(70.dp)
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Документ о полномочиях руководителя",
+                    text = "Заявление по форме Р15016",
                     fontFamily = RadioCanadaRegular,
                     fontSize = 13.sp,
                     color = Color.Black,
@@ -168,13 +129,13 @@ fun PackageStatementScreen(navController: NavHostController){
                     .padding(4.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ystav),
+                    painter = painterResource(id = R.drawable.sertificat),
                     contentDescription = "",
                     modifier = Modifier.size(70.dp)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Устав компании",
+                    text = "Квитанция об оплате госпошлины (800 ₽)",
                     fontFamily = RadioCanadaRegular,
                     fontSize = 13.sp,
                     color = Color.Black,
@@ -191,13 +152,13 @@ fun PackageStatementScreen(navController: NavHostController){
                     .padding(4.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.sertificat),
+                    painter = painterResource(id = R.drawable.dogovor),
                     contentDescription = "",
                     modifier = Modifier.size(70.dp)
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "Сертификат резидентства (при отсутствии налогового кода в выписке)",
+                    text = "Справка из СФР",
                     fontFamily = RadioCanadaRegular,
                     fontSize = 13.sp,
                     color = Color.Black,
@@ -209,7 +170,7 @@ fun PackageStatementScreen(navController: NavHostController){
         }
         Spacer(modifier = Modifier.height(80.dp))
         ButtonCustom(
-            "Поставить на учет",
+            "Закрыть компанию",
             true,
             ActiveBlue,
             NoActiveBlue,

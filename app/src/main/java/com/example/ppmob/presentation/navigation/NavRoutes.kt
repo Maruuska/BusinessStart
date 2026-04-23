@@ -51,4 +51,5 @@ object NavRoutes {
     const val balance = "balance"
     const val staff = "staff"
     const val creditors = "creditors"
+    const val packageLiq = "packageLiq"
 }

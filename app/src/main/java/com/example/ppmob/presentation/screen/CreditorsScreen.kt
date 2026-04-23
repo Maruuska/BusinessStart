@@ -56,7 +56,7 @@ fun CreditorsScreen(navController: NavHostController) {
         if (isCorrect) {
             scope.launch {
                 delay(2000)
-                navController.navigate(NavRoutes.menu)
+                navController.navigate(NavRoutes.packageLiq)
             }
         }
     }
@@ -112,7 +112,7 @@ fun CreditorsScreen(navController: NavHostController) {
                 lineHeight = 15.sp
             )
             Spacer(modifier = Modifier.height(20.dp))
-            
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
