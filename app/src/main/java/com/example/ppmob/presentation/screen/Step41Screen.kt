@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,6 +34,10 @@ import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 
 @Composable
 fun Step41Screen(navController: NavHostController) {
+    val configuration = LocalConfiguration.current
+    val screenWidthDp = configuration.screenWidthDp.dp
+    val screenHeightDp = configuration.screenHeightDp.dp
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,8 +65,10 @@ fun Step41Screen(navController: NavHostController) {
 
             Box(
                 modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(start = 130.dp, top = 175.dp)
+                    .offset(
+                        x = screenWidthDp * 0.20f,
+                        y = screenHeightDp * 0.20f
+                    )
                     .size(width = 200.dp, height = 90.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .background(Color.White),

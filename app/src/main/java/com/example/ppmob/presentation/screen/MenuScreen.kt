@@ -90,11 +90,11 @@ fun MenuItem(
         modifier = Modifier
             .fillMaxWidth()
             .height(90.dp)
-            .padding(horizontal = 30.dp)
+            .padding(horizontal = 20.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(ActiveBlue)
             .clickable { onClick() }
-            .padding(start = 30.dp, end = 15.dp),
+            .padding(start = 15.dp, end = 15.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -102,7 +102,10 @@ fun MenuItem(
             text = text,
             fontFamily = RadioCanadaSemiBold,
             fontSize = 17.sp,
-            color = Color.White
+            color = Color.White,
+            softWrap = true,
+            maxLines = Int.MAX_VALUE,
+            modifier = Modifier.weight(1f)
         )
         Image(
             painter = painterResource(id = R.drawable.next),

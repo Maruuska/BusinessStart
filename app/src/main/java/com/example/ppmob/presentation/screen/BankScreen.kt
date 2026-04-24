@@ -152,7 +152,7 @@ fun BankScreen(
 
         if (sumValue < 10000 && stateField.sum.isNotEmpty()) {
             Text(
-                text = "Минимальный размер уставного капитала для ООО с иностранным учредителем - 10 000 ₽",
+                text = "Минимальный размер уставного капитала для ООО с иностранным учредителем - 10000 ₽",
                 fontFamily = RadioCanadaRegular,
                 fontSize = 13.sp,
                 color = Color.Red,

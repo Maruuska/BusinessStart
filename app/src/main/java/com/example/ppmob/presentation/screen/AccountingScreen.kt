@@ -9,6 +9,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -89,7 +90,7 @@ fun AccountingScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 100.dp, start = 25.dp, end = 25.dp),
+            .padding(top = 70.dp, start = 25.dp, end = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -153,7 +154,7 @@ fun AccountingScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 25.dp),
+                        .padding(start = 27.dp),
                     verticalAlignment = Alignment.Top
                 ) {
                     Box(
@@ -162,7 +163,7 @@ fun AccountingScreen(
                             .height(50.dp)
                             .background(ActiveBlue)
                     )
-                    Spacer(modifier = Modifier.width(12.dp))
+                    Spacer(modifier = Modifier.width(9.dp))
                     Text(
                         text = "Или иной документ, имеющий равную юридическую силу, подтверждающий юридический статус иностранной компании",
                         fontFamily = RadioCanadaRegular,
@@ -199,7 +200,7 @@ fun AccountingScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 15.dp),
+                        .padding(start = 27.dp),
                     verticalAlignment = Alignment.Top
                 ) {
                     Box(
@@ -208,7 +209,7 @@ fun AccountingScreen(
                             .height(64.dp)
                             .background(ActiveBlue)
                     )
-                    Spacer(modifier = Modifier.width(15.dp))
+                    Spacer(modifier = Modifier.width(9.dp))
                     Text(
                         text = "Если в выписке из торгового реестра уже указан налоговый код (TIN, EIN, VAT ID), этот документ НЕ требуется. В иных случаях — сертификат резидентства или справка из налоговой страны происхождения",
                         fontFamily = RadioCanadaRegular,
@@ -297,23 +298,25 @@ fun AccountingScreen(
 
                 Spacer(modifier = Modifier.height(30.dp))
 
-                Row {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
                     ButtonCustomOutline(
                         "Образец выписки",
                         true,
                         { checkAndSaveVipiska() },
-                        180.dp,
+                        Modifier.weight(1f), // Вместо фиксированной ширины используем weight
                         40.dp,
                         12.sp,
                         18.dp
                     )
-                    Spacer(modifier = Modifier.width(12.dp))
 
                     ButtonCustomOutline(
                         "Образец сертификата",
                         true,
                         { checkAndSaveSpravka() },
-                        200.dp,
+                        Modifier.weight(1f), // Вместо фиксированной ширины используем weight
                         40.dp,
                         12.sp,
                         18.dp

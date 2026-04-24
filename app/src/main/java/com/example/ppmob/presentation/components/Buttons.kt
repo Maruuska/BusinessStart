@@ -117,15 +117,14 @@ fun ButtonCustomOutline(
     label: String,
     enbl: Boolean = true,
     onClick: () -> Unit,
-    buttonWidth: Dp = 150.dp,
+    modifier: Modifier = Modifier,
     buttonHeight: Dp = 53.dp,
     fontSize: TextUnit = 16.sp,
     rounded: Dp = 14.dp,
     iconRes: Int = R.drawable.skrepka, // иконка скрепки
 ) {
     Box(
-        modifier = Modifier
-            .width(buttonWidth)
+        modifier = modifier
             .height(buttonHeight)
             .clip(RoundedCornerShape(rounded))
             .border(
@@ -153,7 +152,8 @@ fun ButtonCustomOutline(
                 fontSize = fontSize,
                 fontFamily = RadioCanadaRegular,
                 color = Color.Black,
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier.padding(start = 8.dp),
+                lineHeight = 13.sp
             )
         }
     }

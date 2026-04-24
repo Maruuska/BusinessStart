@@ -64,7 +64,6 @@ fun Step31Screen(navController: NavHostController) {
                 contentScale = ContentScale.Crop
             )
 
-            // Блок с фиксированным процентным смещением
             Box(
                 modifier = Modifier
                     .offset(
