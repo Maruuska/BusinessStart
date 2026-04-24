@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -29,9 +31,14 @@ import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
+import kotlin.math.roundToInt
 
 @Composable
 fun Step31Screen(navController: NavHostController) {
+    val configuration = LocalConfiguration.current
+    val screenWidthDp = configuration.screenWidthDp.dp
+    val screenHeightDp = configuration.screenHeightDp.dp
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -57,10 +64,13 @@ fun Step31Screen(navController: NavHostController) {
                 contentScale = ContentScale.Crop
             )
 
+            // Блок с фиксированным процентным смещением
             Box(
                 modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(start = 210.dp, top = 120.dp)
+                    .offset(
+                        x = screenWidthDp * 0.40f,
+                        y = screenHeightDp * 0.15f
+                    )
                     .size(width = 200.dp, height = 90.dp)
                     .clip(RoundedCornerShape(10.dp))
                     .background(Color.White),

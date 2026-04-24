@@ -72,7 +72,7 @@ fun DocumentScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 110.dp, start = 25.dp, end = 25.dp),
+            .padding(top = 80.dp, start = 25.dp, end = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
