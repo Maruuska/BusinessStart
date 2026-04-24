@@ -36,7 +36,7 @@ fun SeveralFounderScreen(navController: NavHostController){
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 90.dp, start = 30.dp, end = 30.dp),
+            .padding(top = 70.dp, start = 30.dp, end = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
@@ -48,14 +48,7 @@ fun SeveralFounderScreen(navController: NavHostController){
         )
         Spacer(modifier = Modifier.height(20.dp))
         Text(
-            text = "Необходимо заключить договор об",
-            fontFamily = RadioCanadaMedium,
-            fontSize = 18.sp,
-            color = Color.Black,
-            textAlign = TextAlign.Center
-        )
-        Text(
-            text = "учреждении ООО",
+            text = "Необходимо заключить договор об учреждении ООО",
             fontFamily = RadioCanadaMedium,
             fontSize = 18.sp,
             color = Color.Black,
