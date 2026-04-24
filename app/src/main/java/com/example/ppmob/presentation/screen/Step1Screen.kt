@@ -12,25 +12,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.R
@@ -66,11 +59,20 @@ fun Step1Screen(navController: NavHostController) {
 
             Box(
                 modifier = Modifier
-                    .padding(start = 100.dp, top = 130.dp)
+                    .align(Alignment.TopStart)
+                    .layout { measurable, constraints ->
+                        val placeable = measurable.measure(constraints)
+                        val parentWidth = constraints.maxWidth
+                        val parentHeight = constraints.maxHeight
+                        val x = (parentWidth * 0.22f).toInt()
+                        val y = (parentHeight * 0.18f).toInt()
+                        layout(placeable.width, placeable.height) {
+                            placeable.place(x, y)
+                        }
+                    }
                     .size(50.dp)
                     .clip(CircleShape)
                     .background(Color.White)
-                    .align(Alignment.TopStart)
                     .clickable { navController.navigate(NavRoutes.step11) },
                 contentAlignment = Alignment.Center
             ) {
@@ -83,6 +85,4 @@ fun Step1Screen(navController: NavHostController) {
             }
         }
     }
-
-
 }

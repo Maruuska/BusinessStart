@@ -73,7 +73,7 @@ fun OfficeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 100.dp, start = 25.dp, end = 25.dp),
+            .padding(top = 70.dp, start = 25.dp, end = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
@@ -82,7 +82,7 @@ fun OfficeScreen(
             fontSize = 18.sp,
             color = Color.Black
         )
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         when (appState) {
             is AppState.Loading -> {  //когда страница загружается
@@ -424,6 +424,7 @@ fun OfficeScreen(
                                 }
                             }
                         }
+                        Column(modifier = Modifier.height(50.dp).background(Color.Transparent)) {  }
                     }
                 }
             }

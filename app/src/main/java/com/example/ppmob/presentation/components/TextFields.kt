@@ -76,11 +76,14 @@ fun OutlinedTextFieldDropDown(value: String, onExpandedChange: (Boolean) -> Unit
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(17.dp),
         colors = OutlinedTextFieldDefaults.colors(
+            focusedLabelColor = Color.Gray,
+            disabledTextColor = Color.Gray,
+            unfocusedLabelColor = Color.Gray,
+            errorLabelColor = Color.Gray,
             unfocusedBorderColor = Color.Transparent,
             focusedBorderColor = Color.Transparent,
             focusedTextColor = Color.Black,
             unfocusedTextColor = Color.Black,
-            unfocusedLabelColor = Color.Black,
             focusedContainerColor = Color(0xFFE7E7E9), // цвет поля при фокусе
             unfocusedContainerColor = Color(0xFFE7E7E9), // цвет поля без фокуса
             focusedSupportingTextColor = Color.Gray,
