@@ -172,7 +172,7 @@ fun SeveralFounderScreen(navController: NavHostController){
             130.dp,
             45.dp
         ) {
-            navController.navigate(NavRoutes.office)
+            navController.popBackStack()  // возврат назад без пересоздания экрана
         }
     }
 }

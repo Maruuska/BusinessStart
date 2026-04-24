@@ -21,6 +21,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -62,6 +63,11 @@ fun OfficeScreen(
 
     // Состояние для выбранной радиокнопки
     var selectedFounderType by remember { mutableStateOf<Boolean?>(true) }
+
+    // Сохраняем selectedFounderType при изменении stateField
+    LaunchedEffect(stateField.oneFounder) {
+        selectedFounderType = stateField.oneFounder
+    }
 
     Column(
         modifier = Modifier
