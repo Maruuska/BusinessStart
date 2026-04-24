@@ -80,7 +80,7 @@ fun RightScreen(
             modifier = Modifier
                 .size(30.dp)
                 .clickable {
-                    navController.navigate(NavRoutes.regulation)
+                    navController.popBackStack()  // возврат назад без пересоздания экрана
                 }
         )
         Spacer(modifier = Modifier.height(15.dp))

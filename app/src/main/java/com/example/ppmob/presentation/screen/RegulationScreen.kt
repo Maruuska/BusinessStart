@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,10 +30,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.R
 import com.example.ppmob.presentation.components.ButtonCustom
+import com.example.ppmob.presentation.viewmodel.OfficeViewModel
+import com.example.ppmob.presentation.viewmodel.RegulationViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
 import com.example.ppmob.ui.theme.RadioCanadaMedium
@@ -41,12 +46,21 @@ import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 @Composable
 fun RegulationScreen(
     navController: NavHostController,
-    //palataViewModel: PalataViewModel = hiltViewModel(),
+    regulationViewModel: RegulationViewModel = hiltViewModel(),
 ) {
+    val stateField by regulationViewModel.fields.collectAsState()
 
     // Состояние для выбранной радиокнопки
     var selectedYstavType by remember { mutableStateOf<Boolean>(true) }
     var selectedExitOption by remember { mutableStateOf(0) }
+
+    LaunchedEffect(stateField.ystavType) {
+        selectedYstavType= stateField.ystavType
+    }
+
+    LaunchedEffect(stateField.exitOption) {
+        selectedExitOption= stateField.exitOption
+    }
 
     Column(
         modifier = Modifier
@@ -87,6 +101,9 @@ fun RegulationScreen(
                     selected = selectedYstavType == true,
                     onClick = {
                         selectedYstavType = true
+                        regulationViewModel.updateState(
+                            stateField.copy(ystavType = true)
+                        )
                     },
                     modifier = Modifier.size(20.dp),
                     colors = androidx.compose.material3.RadioButtonDefaults.colors(
@@ -148,6 +165,9 @@ fun RegulationScreen(
                     selected = selectedYstavType == false,
                     onClick = {
                         selectedYstavType = false
+                        regulationViewModel.updateState(
+                            stateField.copy(ystavType = false)
+                        )
                     },
                     modifier = Modifier.size(20.dp),
                     colors = androidx.compose.material3.RadioButtonDefaults.colors(
@@ -445,6 +465,9 @@ fun RegulationScreen(
                 selected = selectedExitOption == 0,
                 onClick = {
                     selectedExitOption = 0
+                    regulationViewModel.updateState(
+                        stateField.copy(exitOption = 0)
+                    )
                 },
                 modifier = Modifier.size(22.dp),
                 colors = androidx.compose.material3.RadioButtonDefaults.colors(
@@ -474,6 +497,9 @@ fun RegulationScreen(
                 selected = selectedExitOption == 1,
                 onClick = {
                     selectedExitOption = 1
+                    regulationViewModel.updateState(
+                        stateField.copy(exitOption = 1)
+                    )
                 },
                 modifier = Modifier.size(22.dp),
                 colors = androidx.compose.material3.RadioButtonDefaults.colors(
@@ -503,6 +529,9 @@ fun RegulationScreen(
                 selected = selectedExitOption == 2,
                 onClick = {
                     selectedExitOption = 2
+                    regulationViewModel.updateState(
+                        stateField.copy(exitOption = 2)
+                    )
                 },
                 modifier = Modifier.size(22.dp),
                 colors = androidx.compose.material3.RadioButtonDefaults.colors(
