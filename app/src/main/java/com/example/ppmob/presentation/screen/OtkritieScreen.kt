@@ -1,10 +1,13 @@
 package com.example.ppmob.presentation.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,31 +34,34 @@ import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 fun OtkritieScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
-            .padding(top = 80.dp, start = 20.dp, end = 20.dp),
+            .fillMaxSize()
+            .background(Color.White)
+            .padding(top = 70.dp, start = 20.dp, end = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Row(
+
+        Box(
             modifier = Modifier
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+                .fillMaxWidth()
+                .height(40.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.back),
-                contentDescription = "Назад",
+                contentDescription = "",
                 modifier = Modifier
                     .size(30.dp)
+                    .align(Alignment.CenterStart)
                     .clickable {
-                        navController.popBackStack()  // возврат назад без пересоздания экрана
+                        navController.popBackStack()
                     }
             )
 
             Image(
                 painter = painterResource(id = R.drawable.open),
                 contentDescription = "",
-                alignment = Alignment.Center,
                 modifier = Modifier
-                    .weight(1f)
                     .size(40.dp)
+                    .align(Alignment.Center)
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
