@@ -80,7 +80,7 @@ fun BalanceScreen(
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(top = 90.dp, start = 20.dp, end = 20.dp),
+                .padding(top = 70.dp, start = 20.dp, end = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -149,22 +149,25 @@ fun BalanceScreen(
                     .fillMaxWidth()
                     .padding(bottom = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
                     text = "Раздел",
                     fontFamily = RadioCanadaMedium,
                     fontSize = 16.sp,
                     color = Color.Black,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center
+                    modifier = Modifier.weight(0.8f), // Соответствует весу в BalanceRowItem
+                    textAlign = TextAlign.Center,
+                    maxLines = 1 // Запрещаем перенос
                 )
                 Text(
                     text = "Наименование",
                     fontFamily = RadioCanadaMedium,
                     fontSize = 16.sp,
                     color = Color.Black,
-                    modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center
+                    modifier = Modifier.weight(1.5f), // Соответствует весу в BalanceRowItem
+                    textAlign = TextAlign.Center,
+                    maxLines = 1 // Запрещаем перенос
                 )
                 Text(
                     text = "Сумма (₽)",
@@ -172,7 +175,8 @@ fun BalanceScreen(
                     fontSize = 16.sp,
                     color = Color.Black,
                     modifier = Modifier.weight(1f),
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
+                    maxLines = 1 // Запрещаем перенос
                 )
             }
 
@@ -321,7 +325,8 @@ fun BalanceRowItem(
             fontSize = 11.sp,
             color = Color.Black,
             modifier = Modifier.weight(1.5f),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            lineHeight = 14.sp
         )
 
         MoneyAmountTextField(

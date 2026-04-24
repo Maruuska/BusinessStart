@@ -69,7 +69,7 @@ fun StaffScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(top = 90.dp, start = 20.dp, end = 20.dp),
+                .padding(top = 70.dp, start = 20.dp, end = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(

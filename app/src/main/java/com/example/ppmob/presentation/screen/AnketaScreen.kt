@@ -65,7 +65,7 @@ fun AnketaScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 100.dp, start = 25.dp, end = 25.dp, bottom = 15.dp),
+            .padding(top = 70.dp, start = 25.dp, end = 25.dp, bottom = 15.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
