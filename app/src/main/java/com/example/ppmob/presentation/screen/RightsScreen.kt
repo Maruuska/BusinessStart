@@ -45,6 +45,7 @@ import com.example.ppmob.presentation.components.OutlinedTextFieldNormal
 import com.example.ppmob.presentation.viewmodel.RightsViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
+import com.example.ppmob.ui.theme.RadioCanadaBold
 import com.example.ppmob.ui.theme.RadioCanadaMedium
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 
@@ -70,7 +71,7 @@ fun RightScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 80.dp, start = 25.dp, end = 25.dp),
+            .padding(top = 70.dp, start = 25.dp, end = 25.dp),
         horizontalAlignment = Alignment.Start,
     ) {
 
@@ -83,21 +84,50 @@ fun RightScreen(
                     navController.popBackStack()  // возврат назад без пересоздания экрана
                 }
         )
-        Spacer(modifier = Modifier.height(15.dp))
-        Text(
-            text = "Дополнительные права участников:",
-            fontFamily = RadioCanadaMedium,
-            fontSize = 17.sp,
-            color = Color.Black,
-            textAlign = TextAlign.Left,
-            modifier = Modifier.padding(start = 5.dp)
-        )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column {
+                Text(
+                    text = "Дополнительные права",
+                    fontFamily = RadioCanadaBold,
+                    fontSize = 17.sp,
+                    color = Color.Black,
+                    textAlign = TextAlign.Left,
+                    lineHeight = 14.sp,
+                )
+                Text(
+                    text = "участников:",
+                    fontFamily = RadioCanadaBold,
+                    fontSize = 17.sp,
+                    color = Color.Black,
+                    textAlign = TextAlign.Left,
+                )
+            }
+
+            ButtonCustom(
+                "Создать",
+                true,
+                ActiveBlue,
+                NoActiveBlue,
+                12.sp,
+                16.dp,
+                80.dp,
+                35.dp
+            ) {
+                showDialog = true
+                newRightName = ""
+            }
+        }
+        Spacer(modifier = Modifier.height(25.dp))
 
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 15.dp),
+                .fillMaxWidth(),
             verticalAlignment = Alignment.Top
         ) {
             Box(
@@ -145,8 +175,10 @@ fun RightScreen(
 
             is AppState.Success, AppState.Initializing -> {
                 Column(
-                    modifier = Modifier.weight(1f)
-                ) {
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(290.dp)
+                )  {
                     LazyColumn(
                         modifier = Modifier.weight(1f),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -194,21 +226,20 @@ fun RightScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 16.dp, bottom = 400.dp),
+                            .padding(top = 16.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         ButtonCustom(
-                            "Добавить",
+                            "Добавить в устав",
                             true,
                             ActiveBlue,
                             NoActiveBlue,
                             16.sp,
                             15.dp,
-                            110.dp,
+                            200.dp,
                             40.dp
                         ) {
-                            showDialog = true
-                            newRightName = ""
+                            navController.popBackStack()
                         }
                     }
                 }
