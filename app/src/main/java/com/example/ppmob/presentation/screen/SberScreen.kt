@@ -47,7 +47,7 @@ fun SberScreen(navController: NavHostController) {
                 modifier = Modifier
                     .size(30.dp)
                     .clickable {
-                        navController.navigate(NavRoutes.score)
+                        navController.popBackStack()  // возврат назад без пересоздания экрана
                     }
             )
 

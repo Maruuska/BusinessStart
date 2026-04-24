@@ -10,6 +10,8 @@ import androidx.navigation.NavHostController
 import com.example.ppmob.domain.model.Bank
 import com.example.ppmob.domain.model.Rezult
 import com.example.ppmob.domain.state.AppState
+import com.example.ppmob.domain.state.RegulationState
+import com.example.ppmob.domain.state.ScoreState
 import com.example.ppmob.domain.usecase.GetBanksUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,6 +35,9 @@ class ScoreViewModel @Inject constructor(
     private val _banks = mutableStateOf<List<Bank>>(emptyList())
     val banks: State<List<Bank>> = _banks
 
+    private val _scoreState = MutableStateFlow(ScoreState())
+    val scoreState: StateFlow<ScoreState> = _scoreState.asStateFlow()
+
     init {
         loadingBanks()
     }
@@ -52,5 +57,8 @@ class ScoreViewModel @Inject constructor(
         }
     }
 
+    fun updateState(newState: ScoreState) {
+        _scoreState.value = newState
+    }
 
 }

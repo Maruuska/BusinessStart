@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +37,7 @@ import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.R
 import com.example.ppmob.domain.state.AppState
+import com.example.ppmob.domain.state.ScoreState
 import com.example.ppmob.presentation.components.BankCard
 import com.example.ppmob.presentation.components.ButtonCustom
 import com.example.ppmob.presentation.viewmodel.ScoreViewModel
@@ -52,9 +54,14 @@ fun ScoreScreen(
     val appState by scoreViewModel.appState.collectAsState()
     val appStateSave by scoreViewModel.appStateSave.collectAsState()
     val banks by scoreViewModel.banks
+    val scoreState by scoreViewModel.scoreState.collectAsState()
 
     // Состояние для отслеживания выбранных банков
     var selectedBankIds by remember { mutableStateOf(setOf<Int>()) }
+
+    LaunchedEffect(scoreState.selectedBankIds) {
+        selectedBankIds = scoreState.selectedBankIds
+    }
 
     // Функция для выбора/отмены выбора банка
     fun toggleBankSelection(bankId: Int) {
@@ -143,7 +150,12 @@ fun ScoreScreen(
                         items(banks) { bank ->
                             BankCard(
                                 bank = bank,
-                                onClick = {  toggleBankSelection(bank.id)},
+                                onClick = {
+                                    toggleBankSelection(bank.id)
+                                    scoreViewModel.updateState(
+                                        scoreState.copy(selectedBankIds = selectedBankIds)
+                                    )
+                                },
                                 isSelected = selectedBankIds.contains(bank.id),
                                 onDetailClick = { navigateToBankDetail(bank.name) },
                                 modifier = Modifier
@@ -162,7 +174,9 @@ fun ScoreScreen(
 
         Column(
             modifier = Modifier
-                .fillMaxWidth().height(80.dp).padding(top = 7.dp),
+                .fillMaxWidth()
+                .height(80.dp)
+                .padding(top = 7.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when {
@@ -185,6 +199,7 @@ fun ScoreScreen(
                         textAlign = TextAlign.Center,
                     )
                 }
+
                 appStateSave is AppState.Loading -> {
                     ButtonCustom(
                         "Далее",
@@ -197,6 +212,7 @@ fun ScoreScreen(
                         45.dp
                     ) { }
                 }
+
                 else -> {
                     ButtonCustom(
                         "Далее",
