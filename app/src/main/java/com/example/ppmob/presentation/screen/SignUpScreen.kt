@@ -1,11 +1,8 @@
 package com.example.ppmob.presentation.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,7 +23,9 @@ import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.domain.state.AppState
 import com.example.ppmob.presentation.components.ButtonCustom
+import com.example.ppmob.presentation.components.OutlinedTextFieldEmail
 import com.example.ppmob.presentation.components.OutlinedTextFieldNormal
+import com.example.ppmob.presentation.components.OutlinedTextFieldPassword
 import com.example.ppmob.presentation.viewmodel.SignUpViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
@@ -72,7 +71,7 @@ fun SignUpScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextFieldNormal(fieldsSignUp.email) {
+            OutlinedTextFieldEmail(fieldsSignUp.email){
                 signUpViewModel.updateState(
                     fieldsSignUp.copy(email = it)
                 )
@@ -104,27 +103,11 @@ fun SignUpScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextFieldNormal(fieldsSignUp.password) {
+            OutlinedTextFieldPassword(fieldsSignUp.password,""){
                 signUpViewModel.updateState(
                     fieldsSignUp.copy(password = it)
                 )
             }
-            // Вывод о неправильном формате пароля
-//            if (fieldsSignUp.errorPassword) {
-//                Box(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    contentAlignment = Alignment.Center
-//                ) {
-//                    Text(
-//                        text = "пароль меньше 6 символов",
-//                        color = Color.Red,
-//                        fontSize = 12.sp,
-//                        fontFamily = RadioCanadaRegular,
-//                        textAlign = TextAlign.Center,
-//                        lineHeight = 14.sp
-//                    )
-//                }
-//            }
             Spacer(modifier = Modifier.height(20.dp))
 
             // Поле ввода подтверждения пароля
@@ -136,7 +119,7 @@ fun SignUpScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextFieldNormal(fieldsSignUp.confirmPassword) {
+            OutlinedTextFieldPassword(fieldsSignUp.confirmPassword,""){
                 signUpViewModel.updateState(
                     fieldsSignUp.copy(confirmPassword = it)
                 )
