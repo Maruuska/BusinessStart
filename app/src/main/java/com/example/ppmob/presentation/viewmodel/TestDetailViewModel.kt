@@ -60,18 +60,27 @@ class TestDetailViewModel @Inject constructor(
 
         _uiState.value = _uiState.value.copy(
             selectedAnswer = answer,
-            isAnswerCorrect = answer.isCorrect,
-            showResultMessage = true
+            showResultMessage = false,
         )
     }
 
     fun checkAnswer() {
-        val isCorrect = _uiState.value.isAnswerCorrect
+        val selectedAnswer = _uiState.value.selectedAnswer
+        if (selectedAnswer == null) return
+
+        // поиск правильного ответа для текущего вопроса
+        val currentQuestion = _uiState.value.currentQuestion
+        val correctAnswer = currentQuestion?.answers?.find { it.isCorrect }
+        val correctAnswerText = correctAnswer?.text ?: ""
+        val isCorrect = selectedAnswer.isCorrect
         val currentCount = _uiState.value.correctAnswersCount
 
         _uiState.value = _uiState.value.copy(
             isAnswerChecked = true,
-            correctAnswersCount = if (isCorrect) currentCount + 1 else currentCount
+            showResultMessage = true,
+            isAnswerCorrect = isCorrect,
+            correctAnswersCount = if (isCorrect) currentCount + 1 else currentCount,
+            correctAnswerText = if (!isCorrect) correctAnswerText else ""
         )
     }
 
@@ -86,7 +95,8 @@ class TestDetailViewModel @Inject constructor(
                 selectedAnswer = null,
                 isAnswerChecked = false,
                 showResultMessage = false,
-                isAnswerCorrect = false
+                isAnswerCorrect = false,
+                correctAnswerText = ""
             )
         } else {
             // тест завершен

@@ -64,7 +64,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.signin
+        startDestination = NavRoutes.tests
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -230,7 +230,7 @@ fun NavigHost() {
                 TestDetailScreen(navController = navController,id)
             }
         }
-        composable("passed_screen/{testName}/{score}/{total}") { backStackEntry ->
+        composable(NavRoutes.passed + "/{testName}/{score}/{total}") { backStackEntry ->
             val testName = backStackEntry.arguments?.getString("testName")?.let { name ->
                 java.net.URLDecoder.decode(name, "UTF-8")
             } ?: "Тест"
@@ -245,7 +245,7 @@ fun NavigHost() {
             )
         }
 
-        composable("not_passed_screen/{testName}/{score}/{total}") { backStackEntry ->
+        composable(NavRoutes.noPassed + "/{testName}/{score}/{total}") { backStackEntry ->
             val testName = backStackEntry.arguments?.getString("testName")?.let { name ->
                 java.net.URLDecoder.decode(name, "UTF-8")
             } ?: "Тест"

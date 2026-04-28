@@ -14,7 +14,8 @@ data class TestDetailUiState(
     val isAnswerCorrect: Boolean = false,
     val isFinished: Boolean = false,
     val error: String? = null,
-    val correctAnswersCount: Int = 0  // счетчик правильных ответов
+    val correctAnswersCount: Int = 0,  // счетчик правильных ответов
+    val correctAnswerText: String = ""  // поле для правильного ответа
 ) {
     val currentQuestion: QuestionWithAnswers?
         get() = questions.getOrNull(currentQuestionIndex)

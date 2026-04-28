@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,8 +33,12 @@ import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.domain.model.Answer
 import com.example.ppmob.domain.state.TestDetailUiState
+import com.example.ppmob.presentation.components.ButtonCustom
 import com.example.ppmob.presentation.viewmodel.TestDetailViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
+import com.example.ppmob.ui.theme.ActiveGreen
+import com.example.ppmob.ui.theme.NoActiveBlue
+import com.example.ppmob.ui.theme.NoActiveGreen
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 
@@ -50,11 +55,11 @@ fun TestDetailScreen(
             val isPassed = countBalls == total
 
             if (isPassed) {
-                navController.navigate("passed_screen/${uiState.testName}/$countBalls/$total") {
+                navController.navigate(NavRoutes.passed + "/${uiState.testName}/$countBalls/$total") {
                     popUpTo(NavRoutes.tests) { inclusive = false }
                 }
             } else {
-                navController.navigate("not_passed_screen/${uiState.testName}/$countBalls/$total") {
+                navController.navigate(NavRoutes.noPassed + "/${uiState.testName}/$countBalls/$total") {
                     popUpTo(NavRoutes.tests) { inclusive = false }
                 }
             }
@@ -95,7 +100,7 @@ private fun TestContent(
     uiState: TestDetailUiState,
     onAnswerSelected: (Answer) -> Unit,
     onCheckAnswer: () -> Unit,
-    onNextQuestion: () -> Unit
+    onNextQuestion: () -> Unit,
 ) {
     val currentQuestion = uiState.currentQuestion
 
@@ -103,38 +108,40 @@ private fun TestContent(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(16.dp)
+            .padding(top = 65.dp, start = 20.dp, end = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // Название теста
         Text(
-            text = uiState.testName,
+            text = "Тест. " + uiState.testName,
             fontFamily = RadioCanadaSemiBold,
-            fontSize = 24.sp,
+            fontSize = 18.sp,
             color = Color.Black,
             modifier = Modifier.padding(bottom = 24.dp)
         )
+        Spacer(modifier = Modifier.height(15.dp))
 
-        // Блок с вопросом (синий фон)
+        // блок с вопросом
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp))
                 .background(ActiveBlue)
-                .padding(24.dp),
+                .padding(start = 20.dp, end = 20.dp, top = 35.dp, bottom = 35.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = currentQuestion?.question?.text ?: "",
                 fontFamily = RadioCanadaSemiBold,
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 color = Color.White,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = Modifier.align(Alignment.Center),
+                textAlign = TextAlign.Center
             )
         }
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // Варианты ответов
+        // варианты ответов
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
@@ -153,58 +160,76 @@ private fun TestContent(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Сообщение о результате
-        if (uiState.showResultMessage && !uiState.isAnswerChecked) {
-            Text(
-                text = if (uiState.isAnswerCorrect) "✓ Верно!" else "✗ Неверно",
-                color = if (uiState.isAnswerCorrect) Color.Green else Color.Red,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
+        if (uiState.showResultMessage) {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 12.dp)
-            )
-        }
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = if (uiState.isAnswerCorrect) "Верно!" else "Неверно",
+                    color = if (uiState.isAnswerCorrect) Color(0xFF2E7D32) else Color(0xFFFF0000),
+                    fontSize = 14.sp,
+                    fontFamily = RadioCanadaRegular,
+                    textAlign = TextAlign.Center
+                )
 
-        // Кнопка "Ответить"
-        Button(
-            onClick = onCheckAnswer,
-            enabled = uiState.selectedAnswer != null && !uiState.isAnswerChecked,
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF4CAF50),
-                disabledContainerColor = Color.LightGray
-            ),
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Text(
-                text = "Ответить",
-                color = Color.White,
-                fontSize = 16.sp
-            )
+                if (!uiState.isAnswerCorrect && uiState.correctAnswerText.isNotEmpty()) {
+                    Text(
+                        text = "Правильный ответ: ${uiState.correctAnswerText}",
+                        color = Color.Red,
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Center,
+                        fontFamily = RadioCanadaRegular
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+
+        if (!uiState.isAnswerChecked) {
+            Button(
+                onClick = onCheckAnswer,
+                enabled = uiState.selectedAnswer != null && !uiState.isAnswerChecked,
+                modifier = Modifier
+                    .padding(horizontal = 80.dp)
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = ActiveGreen,
+                    disabledContainerColor = NoActiveGreen
+                ),
+                shape = RoundedCornerShape(14.dp)
+            ) {
+                Text(
+                    text = "Ответить",
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // Кнопка "Далее"
-        Button(
-            onClick = onNextQuestion,
-            enabled = uiState.isAnswerChecked,
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = ActiveBlue,
-                disabledContainerColor = Color.LightGray
-            ),
-            shape = RoundedCornerShape(12.dp)
-        ) {
-            Text(
-                text = if (uiState.currentQuestionIndex + 1 < uiState.questions.size) "Далее" else "Завершить",
-                color = Color.White,
-                fontSize = 16.sp
-            )
+        if (uiState.isAnswerChecked) {
+            Button(
+                onClick = onNextQuestion,
+                enabled = uiState.isAnswerChecked,
+                modifier = Modifier
+                    .padding(horizontal = 80.dp)
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = ActiveBlue,
+                    disabledContainerColor = NoActiveBlue
+                ),
+                shape = RoundedCornerShape(14.dp)
+            ) {
+                Text(
+                    text = if (uiState.currentQuestionIndex + 1 < uiState.questions.size) "Далее" else "Завершить",
+                    color = Color.White,
+                    fontSize = 16.sp
+                )
+            }
         }
-
-
     }
 }
 
@@ -213,27 +238,29 @@ private fun AnswerItem(
     answer: Answer,
     isSelected: Boolean,
     isDisabled: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Box(
         modifier = Modifier
+            .padding(horizontal = 15.dp, vertical = 8.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(
                 when {
-                    isSelected && !isDisabled -> ActiveBlue
-                    else -> Color(0xFFE0E0E0)
+                    isSelected && !isDisabled -> Color(0xFFB4D6E8)
+                    else -> Color(0xFFECECED)
                 }
             )
             .clickable(enabled = !isDisabled) { onClick() }
-            .padding(16.dp),
+            .padding(8.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
             text = answer.text,
-            color = if (isSelected && !isDisabled) Color.White else Color.Black,
-            fontSize = 16.sp,
-            fontFamily = RadioCanadaRegular
+            color = Color.Black,
+            fontSize = 15.sp,
+            fontFamily = RadioCanadaRegular,
+            textAlign = TextAlign.Center
         )
     }
 }
