@@ -26,7 +26,9 @@ import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.domain.state.AppState
 import com.example.ppmob.presentation.components.ButtonCustom
+import com.example.ppmob.presentation.components.OutlinedTextFieldEmail
 import com.example.ppmob.presentation.components.OutlinedTextFieldNormal
+import com.example.ppmob.presentation.components.OutlinedTextFieldPassword
 import com.example.ppmob.presentation.viewmodel.SignInViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
@@ -72,7 +74,7 @@ fun SignInScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextFieldNormal(fieldsSignIn.email) {
+            OutlinedTextFieldEmail(fieldsSignIn.email){
                 signInViewModel.updateState(
                     fieldsSignIn.copy(email = it)
                 )
@@ -104,7 +106,7 @@ fun SignInScreen(
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(10.dp))
-            OutlinedTextFieldNormal(fieldsSignIn.password) {
+            OutlinedTextFieldPassword(fieldsSignIn.password,""){
                 signInViewModel.updateState(
                     fieldsSignIn.copy(password = it)
                 )

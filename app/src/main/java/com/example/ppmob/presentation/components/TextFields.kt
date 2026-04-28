@@ -40,6 +40,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -64,6 +66,84 @@ fun OutlinedTextFieldNormal(value: String, onvaluechange: (String) -> Unit) {
             focusedSupportingTextColor = Color.Gray,
             unfocusedSupportingTextColor = Color.Gray
         ),
+    )
+}
+
+@Composable
+fun OutlinedTextFieldEmail(
+    value: String,
+    onValueChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = { onValueChange(it) },
+        modifier = Modifier.fillMaxWidth(),
+        placeholder = {
+            Text(
+                text = "example@email.com",
+                fontFamily = RadioCanadaRegular,
+                color = Color.Gray
+            )
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        shape = RoundedCornerShape(17.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedBorderColor = Color.Transparent,
+            focusedBorderColor = Color.Transparent,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            unfocusedLabelColor = Color.Black,
+            focusedContainerColor = Color(0xFFE7E7E9),
+            unfocusedContainerColor = Color(0xFFE7E7E9),
+            focusedSupportingTextColor = Color.Gray,
+            unfocusedSupportingTextColor = Color.Gray
+        ),
+    )
+}
+
+@Composable
+fun OutlinedTextFieldPassword(
+    value: String,
+    label: String,
+    onValueChange: (String) -> Unit
+) {
+    var passwordVisible by remember { mutableStateOf(false) }
+
+    OutlinedTextField(
+        value = value,
+        onValueChange = { onValueChange(it) },
+        label = { Text(label, fontFamily = RadioCanadaRegular) },
+        modifier = Modifier.fillMaxWidth(),
+        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Password),
+        trailingIcon = {
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                Icon(
+                    painter = painterResource(
+                        id = if (passwordVisible) R.drawable.openeyes else R.drawable.closeeyes
+                    ),
+                    contentDescription = if (passwordVisible) "Скрыть пароль" else "Показать пароль",
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
+        },
+        shape = RoundedCornerShape(17.dp),
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedBorderColor = Color.Transparent,
+            focusedBorderColor = Color.Transparent,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
+            unfocusedLabelColor = Color.Black,
+            focusedLabelColor = Color.Black,
+            focusedContainerColor = Color(0xFFE7E7E9),
+            unfocusedContainerColor = Color(0xFFE7E7E9),
+            focusedSupportingTextColor = Color.Gray,
+            unfocusedSupportingTextColor = Color.Gray,
+            errorContainerColor = Color(0xFFE7E7E9),
+            errorTextColor = Color.Red,
+            errorLabelColor = Color.Red,
+            errorBorderColor = Color.Red
+        )
     )
 }
 
