@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -54,45 +55,58 @@ fun MenuScreen(navController: NavHostController) {
             fontSize = 18.sp,
             color = Color.Black
         )
-        Spacer(modifier = Modifier.height(50.dp))
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "Обучающие сценарии",
+            fontFamily = RadioCanadaRegular,
+            fontSize = 14.sp,
+            color = Color.Gray
+        )
+
+        Spacer(modifier = Modifier.height(40.dp))
 
         MenuItem(
-            text = "Регистрация бизнеса",
+            title = "Регистрация бизнеса",
+            description = "Заполнение анкеты, проверка требований, нотариальное заверение и составление устава",
             onClick = { navController.navigate(NavRoutes.step1) }
         )
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         MenuItem(
-            text = "Постановка на налоговый учет",
+            title = "Постановка на налоговый учет",
+            description = "Сбор документов, апостилирование, заполнение формы 11БС-Учет",
             onClick = { navController.navigate(NavRoutes.accounting) }
         )
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         MenuItem(
-            text = "Открытие счета",
+            title = "Открытие счета",
+            description = "Выбор банка, изучение требований, заполнение анкеты",
             onClick = { navController.navigate(NavRoutes.score) }
         )
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         MenuItem(
-            text = "Закрытие бизнеса",
-            onClick = { navController.navigate(NavRoutes.notification)  }
+            title = "Закрытие бизнеса",
+            description = "Участие в голосовании, сбор задолженностей, расчет с кредиторами",
+            onClick = { navController.navigate(NavRoutes.notification) }
         )
 
-        Spacer(modifier = Modifier.height(70.dp))
+        Spacer(modifier = Modifier.height(50.dp))
 
         Button(
             onClick = { navController.navigate(NavRoutes.tests) },
             modifier = Modifier
-
                 .padding(horizontal = 70.dp)
                 .height(47.dp),
-            shape = RoundedCornerShape(50.dp), // Овальная форма
+            shape = RoundedCornerShape(50.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF7DC23F), // Зеленый цвет
+                containerColor = Color(0xFF7DC23F),
                 contentColor = Color.White
             )
         ) {
@@ -108,34 +122,55 @@ fun MenuScreen(navController: NavHostController) {
 
 @Composable
 fun MenuItem(
-    text: String,
+    title: String,
+    description: String,
     onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(90.dp)
             .padding(horizontal = 20.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(ActiveBlue)
             .clickable { onClick() }
-            .padding(start = 15.dp, end = 15.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+            .padding(horizontal = 15.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text = text,
-            fontFamily = RadioCanadaSemiBold,
-            fontSize = 17.sp,
-            color = Color.White,
-            softWrap = true,
-            maxLines = Int.MAX_VALUE,
-            modifier = Modifier.weight(1f)
-        )
-        Image(
-            painter = painterResource(id = R.drawable.next),
-            contentDescription = "",
-            modifier = Modifier.size(30.dp)
-        )
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = title,
+                fontFamily = RadioCanadaSemiBold,
+                fontSize = 18.sp,
+                color = Color.White,
+                softWrap = true,
+                maxLines = Int.MAX_VALUE
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = description,
+                fontFamily = RadioCanadaRegular,
+                fontSize = 12.sp,
+                color = Color.White.copy(alpha = 0.85f),
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                lineHeight = 12.sp
+            )
+        }
+
+        Column(
+            modifier = Modifier.padding(start = 8.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.next),
+                contentDescription = "",
+                modifier = Modifier.size(30.dp)
+            )
+        }
     }
 }
