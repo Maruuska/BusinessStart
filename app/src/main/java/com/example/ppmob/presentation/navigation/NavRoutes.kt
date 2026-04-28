@@ -55,4 +55,6 @@ object NavRoutes {
     const val resultLiq = "resultLiq"
     const val tests = "tests"
     const val detailTest = "detailTest"
+    const val noPassed = "noPassed"
+    const val passed = "passed"
 }

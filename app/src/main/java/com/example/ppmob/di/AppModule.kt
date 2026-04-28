@@ -21,12 +21,16 @@ import com.example.ppmob.domain.usecase.CreateDutyUseCase
 import com.example.ppmob.domain.usecase.CreateRightUseCase
 import com.example.ppmob.domain.usecase.GetActivitysUseCase
 import com.example.ppmob.domain.usecase.GetAddressUseCase
+import com.example.ppmob.domain.usecase.GetAnswersByQuestionIdUseCase
 import com.example.ppmob.domain.usecase.GetBanksUseCase
 import com.example.ppmob.domain.usecase.GetCodeCountryUseCase
 import com.example.ppmob.domain.usecase.GetCountriesUseCase
 import com.example.ppmob.domain.usecase.GetDutiesUseCase
 import com.example.ppmob.domain.usecase.GetFormsUseCase
+import com.example.ppmob.domain.usecase.GetFullTestDataUseCase
+import com.example.ppmob.domain.usecase.GetQuestionsByTestIdUseCase
 import com.example.ppmob.domain.usecase.GetRightsUseCase
+import com.example.ppmob.domain.usecase.GetTestByIdUseCase
 import com.example.ppmob.domain.usecase.GetTestsUseCase
 import com.example.ppmob.domain.usecase.SignInUseCase
 import com.example.ppmob.domain.usecase.SignUpUseCase
@@ -50,7 +54,7 @@ object AppModule {
     // реализация CompanyRepository
     @Provides
     @Singleton
-    fun provideCompanyRepository(apiInterface: ApiInterface): CompanyRepository{
+    fun provideCompanyRepository(apiInterface: ApiInterface): CompanyRepository {
         return CompanyRepositoryImpl(apiInterface)
     }
 
@@ -179,5 +183,37 @@ object AppModule {
     @Singleton
     fun provideGetTestsUseCase(testRepository: TestRepository): GetTestsUseCase {
         return GetTestsUseCase(testRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAnswersByQuestionIdUseCase(testRepository: TestRepository): GetAnswersByQuestionIdUseCase {
+        return GetAnswersByQuestionIdUseCase(testRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetQuestionsByTestIdUseCase(testRepository: TestRepository): GetQuestionsByTestIdUseCase {
+        return GetQuestionsByTestIdUseCase(testRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetTestByIdUseCase(testRepository: TestRepository): GetTestByIdUseCase {
+        return GetTestByIdUseCase(testRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetFullTestDataUseCase(
+        getTestByIdUseCase: GetTestByIdUseCase,
+        getQuestionsByTestIdUseCase: GetQuestionsByTestIdUseCase,
+        getAnswersByQuestionIdUseCase: GetAnswersByQuestionIdUseCase,
+    ): GetFullTestDataUseCase {
+        return GetFullTestDataUseCase(
+            getTestByIdUseCase,
+            getQuestionsByTestIdUseCase,
+            getAnswersByQuestionIdUseCase
+        )
     }
 }

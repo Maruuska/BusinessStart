@@ -18,6 +18,7 @@ import com.example.ppmob.presentation.screen.DocumentScreen
 import com.example.ppmob.presentation.screen.DutiesScreen
 import com.example.ppmob.presentation.screen.MeetingScreen
 import com.example.ppmob.presentation.screen.MenuScreen
+import com.example.ppmob.presentation.screen.NoPassedScreen
 import com.example.ppmob.presentation.screen.NotificationScreen
 import com.example.ppmob.presentation.screen.NotifyScreen
 import com.example.ppmob.presentation.screen.OfficeScreen
@@ -27,6 +28,7 @@ import com.example.ppmob.presentation.screen.PackageLiquidationScreen
 import com.example.ppmob.presentation.screen.PackageScreen
 import com.example.ppmob.presentation.screen.PackageStatementScreen
 import com.example.ppmob.presentation.screen.PalataScreen
+import com.example.ppmob.presentation.screen.PassedScreen
 import com.example.ppmob.presentation.screen.RaiffeisenScreen
 import com.example.ppmob.presentation.screen.RegulationScreen
 import com.example.ppmob.presentation.screen.ResultCompanyScreen
@@ -227,6 +229,35 @@ fun NavigHost() {
             if (id != null) {
                 TestDetailScreen(navController = navController,id)
             }
+        }
+        composable("passed_screen/{testName}/{score}/{total}") { backStackEntry ->
+            val testName = backStackEntry.arguments?.getString("testName")?.let { name ->
+                java.net.URLDecoder.decode(name, "UTF-8")
+            } ?: "Тест"
+            val score = backStackEntry.arguments?.getString("score")?.toIntOrNull() ?: 0
+            val total = backStackEntry.arguments?.getString("total")?.toIntOrNull() ?: 6
+
+            PassedScreen(
+                testName = testName,
+                countBalls = score,
+                totalQuestions = total,
+                navController = navController
+            )
+        }
+
+        composable("not_passed_screen/{testName}/{score}/{total}") { backStackEntry ->
+            val testName = backStackEntry.arguments?.getString("testName")?.let { name ->
+                java.net.URLDecoder.decode(name, "UTF-8")
+            } ?: "Тест"
+            val score = backStackEntry.arguments?.getString("score")?.toIntOrNull() ?: 0
+            val total = backStackEntry.arguments?.getString("total")?.toIntOrNull() ?: 6
+
+            NoPassedScreen(
+                testName = testName,
+                countBalls = score,
+                totalQuestions = total,
+                navController = navController
+            )
         }
     }
 }
