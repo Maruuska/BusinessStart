@@ -99,7 +99,7 @@ fun OneFounderScreen(navController: NavHostController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                         Text(
-                            text = "учредителя ООО \"Сникерс\"",
+                            text = "учредителя ООО \"Название\"",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 16.sp,
                             color = Color.Black,

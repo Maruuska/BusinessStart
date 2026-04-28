@@ -78,7 +78,7 @@ fun NoPassedScreen(testName: String, countBalls: Int,totalQuestions: Int = 6, na
             230.dp,
             45.dp
         ) {
-            navController.navigate(NavRoutes.tests)
+            navController.navigate(NavRoutes.menu)
         }
     }
 }

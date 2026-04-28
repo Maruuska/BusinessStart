@@ -71,7 +71,7 @@ fun SeveralFounderScreen(navController: NavHostController){
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "ООО \"Сникерс\"",
+                    text = "ООО \"Название\"",
                     fontFamily = RadioCanadaMedium,
                     fontSize = 16.sp,
                     color = Color.Black,
