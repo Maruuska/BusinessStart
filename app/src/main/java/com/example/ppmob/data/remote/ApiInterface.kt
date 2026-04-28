@@ -2,6 +2,7 @@ package com.example.ppmob.data.remote
 
 import com.example.ppmob.data.dto.ActivityDto
 import com.example.ppmob.data.dto.AddressDto
+import com.example.ppmob.data.dto.AnswerDto
 import com.example.ppmob.data.dto.AuthRequest
 import com.example.ppmob.data.dto.AuthResponse
 import com.example.ppmob.data.dto.AuthUserDto
@@ -13,7 +14,9 @@ import com.example.ppmob.data.dto.CreateDutyDto
 import com.example.ppmob.data.dto.CreateRightDto
 import com.example.ppmob.data.dto.DutyDto
 import com.example.ppmob.data.dto.FormDto
+import com.example.ppmob.data.dto.QuestionDto
 import com.example.ppmob.data.dto.RightsDto
+import com.example.ppmob.data.dto.TestDto
 import com.example.ppmob.domain.model.Bank
 import okhttp3.MultipartBody
 import retrofit2.http.Body
@@ -84,11 +87,16 @@ interface ApiInterface { // Объявление интерфейса для HTT
     @GET("rest/v1/banks")
     suspend fun getBanks(): List<BankDto>
 
-    @GET("rest/v1/companys")
-    suspend fun getCompaniesByUserId(
-        @Query("user_id") userId: String,
-        @Query("order") order: String = "date.desc",
-        @Query("limit") limit: Int = 1  // Ограничиваем результат одной записью
-    ): List<CompanyDto>
+    // GET-запрос для получения списка тестов
+    @GET("rest/v1/tests")
+    suspend fun getTests(): List<TestDto>
+
+    // GET-запрос для получения списка вопросов
+    @GET("rest/v1/questions")
+    suspend fun getQuestions(): List<QuestionDto>
+
+    // GET-запрос для получения списка ответов
+    @GET("rest/v1/answers")
+    suspend fun getAnswers(): List<AnswerDto>
 
 }

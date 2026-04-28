@@ -13,7 +13,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -78,6 +81,28 @@ fun MenuScreen(navController: NavHostController) {
             text = "Закрытие бизнеса",
             onClick = { navController.navigate(NavRoutes.notification)  }
         )
+
+        Spacer(modifier = Modifier.height(70.dp))
+
+        Button(
+            onClick = { navController.navigate(NavRoutes.tests) },
+            modifier = Modifier
+
+                .padding(horizontal = 70.dp)
+                .height(47.dp),
+            shape = RoundedCornerShape(50.dp), // Овальная форма
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF7DC23F), // Зеленый цвет
+                contentColor = Color.White
+            )
+        ) {
+            Text(
+                text = "Пройти тест",
+                fontFamily = RadioCanadaSemiBold,
+                fontSize = 15.sp,
+                color = Color.White
+            )
+        }
     }
 }
 

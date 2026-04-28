@@ -51,6 +51,8 @@ import com.example.ppmob.presentation.screen.Step3Screen
 import com.example.ppmob.presentation.screen.Step41Screen
 import com.example.ppmob.presentation.screen.Step4Screen
 import com.example.ppmob.presentation.screen.TbankScreen
+import com.example.ppmob.presentation.screen.TestDetailScreen
+import com.example.ppmob.presentation.screen.TestsScreen
 import com.example.ppmob.presentation.screen.VotingScreen
 import com.example.ppmob.presentation.screen.VtbScreen
 
@@ -60,7 +62,7 @@ fun NavigHost() {
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.creditors
+        startDestination = NavRoutes.signin
     ) {
         composable(route = NavRoutes.splash) {
             SplashScreen(navController = navController)
@@ -159,7 +161,7 @@ fun NavigHost() {
             TbankScreen(navController)
         }
         composable(NavRoutes.alfaScreen) {
-           AlfaScreen(navController)
+            AlfaScreen(navController)
         }
         composable(NavRoutes.vtbScreen) {
             VtbScreen(navController)
@@ -211,6 +213,20 @@ fun NavigHost() {
         }
         composable(route = NavRoutes.resultLiq) {
             ResultLiquidationScreen(navController = navController)
+        }
+        composable(route = NavRoutes.tests) {
+            TestsScreen(navController = navController)
+        }
+        composable(
+            route = NavRoutes.detailTest + "/{id}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.StringType
+            })
+        ) {
+            val id = it.arguments?.getString("id")
+            if (id != null) {
+                TestDetailScreen(navController = navController,id)
+            }
         }
     }
 }

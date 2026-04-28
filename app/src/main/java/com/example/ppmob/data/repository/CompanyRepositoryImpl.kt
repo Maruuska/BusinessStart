@@ -68,20 +68,5 @@ class CompanyRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getLastCompany(userId: String): Rezult<Company> {
-        return try {
-            val listCompanies = apiInterface.getCompaniesByUserId("eq." + userId)
 
-            if (listCompanies.isEmpty()) {
-                return Rezult.Failure(Exception("компании пользователя не найдены: $userId"))
-            }
-
-            val lastCompanyDto = listCompanies.first()
-            val company = CompanyMapper.toDomain(lastCompanyDto)
-
-            Rezult.Success(company)
-        } catch (e: Exception) {
-            Rezult.Failure(Exception("ошибка получения компаний: ${e.message}"))
-        }
-    }
 }

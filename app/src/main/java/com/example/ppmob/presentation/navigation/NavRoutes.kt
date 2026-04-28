@@ -53,4 +53,6 @@ object NavRoutes {
     const val creditors = "creditors"
     const val packageLiq = "packageLiq"
     const val resultLiq = "resultLiq"
+    const val tests = "tests"
+    const val detailTest = "detailTest"
 }

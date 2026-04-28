@@ -7,12 +7,14 @@ import com.example.ppmob.data.repository.CompanyRepositoryImpl
 import com.example.ppmob.data.repository.CountryRepositoryImpl
 import com.example.ppmob.data.repository.RegulationRepositoryImpl
 import com.example.ppmob.data.repository.StatementRepositoryImpl
+import com.example.ppmob.data.repository.TestRepositoryImpl
 import com.example.ppmob.data.repository.UserRepositoryImpl
 import com.example.ppmob.domain.repository.BankRepository
 import com.example.ppmob.domain.repository.CompanyRepository
 import com.example.ppmob.domain.repository.CountryRepository
 import com.example.ppmob.domain.repository.RegulationRepository
 import com.example.ppmob.domain.repository.StatementRepository
+import com.example.ppmob.domain.repository.TestRepository
 import com.example.ppmob.domain.repository.UserRepository
 import com.example.ppmob.domain.usecase.CreateCompanyUseCase
 import com.example.ppmob.domain.usecase.CreateDutyUseCase
@@ -24,8 +26,8 @@ import com.example.ppmob.domain.usecase.GetCodeCountryUseCase
 import com.example.ppmob.domain.usecase.GetCountriesUseCase
 import com.example.ppmob.domain.usecase.GetDutiesUseCase
 import com.example.ppmob.domain.usecase.GetFormsUseCase
-import com.example.ppmob.domain.usecase.GetLastCompanyUseCase
 import com.example.ppmob.domain.usecase.GetRightsUseCase
+import com.example.ppmob.domain.usecase.GetTestsUseCase
 import com.example.ppmob.domain.usecase.SignInUseCase
 import com.example.ppmob.domain.usecase.SignUpUseCase
 import dagger.Module
@@ -85,6 +87,13 @@ object AppModule {
     @Singleton
     fun provideUserRepository(apiInterface: ApiInterface): UserRepository {
         return UserRepositoryImpl(apiInterface)
+    }
+
+    // реализация TestRepository
+    @Provides
+    @Singleton
+    fun provideTestRepository(apiInterface: ApiInterface): TestRepository {
+        return TestRepositoryImpl(apiInterface)
     }
 
     // Предоставляет UseCase по созданию компании
@@ -168,7 +177,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideGetLastCompanyUseCase(companyRepository: CompanyRepository): GetLastCompanyUseCase {
-        return GetLastCompanyUseCase(companyRepository)
+    fun provideGetTestsUseCase(testRepository: TestRepository): GetTestsUseCase {
+        return GetTestsUseCase(testRepository)
     }
 }
