@@ -30,12 +30,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.R
 import com.example.ppmob.presentation.components.ButtonCustom
-import com.example.ppmob.presentation.viewmodel.DocumentViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.ActiveGreen
 import com.example.ppmob.ui.theme.NoActiveBlue
@@ -48,7 +46,7 @@ import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 fun DocumentScreen(
     navController: NavHostController,
     needApostille: Boolean,
-    documentViewModel: DocumentViewModel = hiltViewModel(),
+    isSimplified: Boolean = false  // новый параметр для Беларуси
 ) {
     var isApostilleCompleted by remember { mutableStateOf(false) }
     var isTranslationCompleted by remember { mutableStateOf(false) }
@@ -57,6 +55,13 @@ fun DocumentScreen(
     var showInstructionDialog by remember { mutableStateOf(true) }
 
     val imageRes = when {
+        isSimplified -> {
+            when {
+                !isTranslationCompleted -> R.drawable.passportenglish
+                isTranslationCompleted && !isNotaryCompleted -> R.drawable.passportrus
+                else -> R.drawable.translateandnotarius
+            }
+        }
         needApostille -> {
             when {
                 !isApostilleCompleted -> R.drawable.passportenglish
@@ -72,6 +77,13 @@ fun DocumentScreen(
                 else -> R.drawable.translateandnotarius
             }
         }
+    }
+
+    // Текст описания в зависимости от типа
+    val descriptionText = when {
+        isSimplified -> "Упрощённый порядок - достаточно нотариального перевода и заверения"
+        needApostille -> "Ваша страна является участницей Гаагской конвенции. Требуется апостилирование документов."
+        else -> "Ваша страна не является участницей Гаагской конвенции. Требуется консульская легализация."
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -128,11 +140,7 @@ fun DocumentScreen(
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Text(
-                    text = if (needApostille) {
-                        "Ваша страна является участницей Гаагской конвенции. Требуется апостилирование документов."
-                    } else {
-                        "Ваша страна не является участницей Гаагской конвенции. Требуется консульская легализация."
-                    },
+                    text = descriptionText,
                     fontFamily = RadioCanadaRegular,
                     fontSize = 13.sp,
                     color = Color.Black,
@@ -143,8 +151,8 @@ fun DocumentScreen(
             }
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Кнопка апостилирования (только если нужен апостиль)
-            if (needApostille) {
+            // Кнопка апостилирования (только если нужен апостиль и не упрощённый порядок)
+            if (needApostille && !isSimplified) {
                 ButtonCustom(
                     "Апостилировать",
                     !isApostilleCompleted,
@@ -160,10 +168,10 @@ fun DocumentScreen(
                 Spacer(modifier = Modifier.height(12.dp))
             }
 
-            val isTranslationEnabled = if (needApostille) {
-                isApostilleCompleted && !isTranslationCompleted
-            } else {
-                !isTranslationCompleted
+            val isTranslationEnabled = when {
+                isSimplified -> !isTranslationCompleted
+                needApostille -> isApostilleCompleted && !isTranslationCompleted
+                else -> !isTranslationCompleted
             }
             ButtonCustom(
                 "Перевести на русский язык",
@@ -179,10 +187,10 @@ fun DocumentScreen(
             }
             Spacer(modifier = Modifier.height(12.dp))
 
-            val isNotaryEnabled = if (needApostille) {
-                isTranslationCompleted && !isNotaryCompleted
-            } else {
-                isTranslationCompleted && !isNotaryCompleted
+            val isNotaryEnabled = when {
+                isSimplified -> isTranslationCompleted && !isNotaryCompleted
+                needApostille -> isTranslationCompleted && !isNotaryCompleted
+                else -> isTranslationCompleted && !isNotaryCompleted
             }
             ButtonCustom(
                 "Заверить перевод у нотариуса",
@@ -198,10 +206,10 @@ fun DocumentScreen(
             }
             Spacer(modifier = Modifier.height(32.dp))
 
-            val isSendEnabled = if (needApostille) {
-                isApostilleCompleted && isTranslationCompleted && isNotaryCompleted
-            } else {
-                isTranslationCompleted && isNotaryCompleted
+            val isSendEnabled = when {
+                isSimplified -> isTranslationCompleted && isNotaryCompleted
+                needApostille -> isApostilleCompleted && isTranslationCompleted && isNotaryCompleted
+                else -> isTranslationCompleted && isNotaryCompleted
             }
             ButtonCustom(
                 "Отправить документы",
@@ -268,17 +276,28 @@ fun DocumentScreen(
 
                     Spacer(modifier = Modifier.height(6.dp))
 
-                    Text(
-                        text = "1. Нажимайте на кнопки последовательно - каждая станет доступна после выполнения предыдущего шага.\n\n" +
+                    val stepsText = when {
+                        isSimplified -> "1. Нажимайте на кнопки последовательно - каждая станет доступна после выполнения предыдущего шага.\n\n" +
+                                "2. Упрощённый порядок для Беларуси:\n" +
+                                "   • Перевод на русский язык\n" +
+                                "   • Заверка перевода у нотариуса\n" +
+                                "   • В конце - отправка документов"
+                        needApostille -> "1. Нажимайте на кнопки последовательно - каждая станет доступна после выполнения предыдущего шага.\n\n" +
                                 "2. Порядок действий зависит от выбранной на предыдущем экране страны:\n" +
-                                if (needApostille) "   🔹 Требуется АПОСТИЛЬ\n" +
-                                        "   • Затем перевод на русский язык\n" +
-                                        "   • Затем заверка перевода у нотариуса\n" +
-                                        "   • В конце - отправка документов"
-                                else "   🔸 Требуется КОНСУЛЬСКАЯ ЛЕГАЛИЗАЦИЯ\n" +
-                                        "   • Затем перевод на русский язык\n" +
-                                        "   • Затем заверка перевода у нотариуса\n" +
-                                        "   • В конце - отправка документов",
+                                "   🔹 Требуется АПОСТИЛЬ\n" +
+                                "   • Затем перевод на русский язык\n" +
+                                "   • Затем заверка перевода у нотариуса\n" +
+                                "   • В конце - отправка документов"
+                        else -> "1. Нажимайте на кнопки последовательно - каждая станет доступна после выполнения предыдущего шага.\n\n" +
+                                "2. Порядок действий зависит от выбранной на предыдущем экране страны:\n" +
+                                "   🔸 Требуется КОНСУЛЬСКАЯ ЛЕГАЛИЗАЦИЯ\n" +
+                                "   • Затем перевод на русский язык\n" +
+                                "   • Затем заверка перевода у нотариуса\n" +
+                                "   • В конце - отправка документов"
+                    }
+
+                    Text(
+                        text = stepsText,
                         fontFamily = RadioCanadaRegular,
                         fontSize = 13.sp,
                         color = Color.DarkGray,
@@ -289,48 +308,67 @@ fun DocumentScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    if (needApostille) {
-                        Text(
-                            text = "Что такое апостиль?",
-                            fontFamily = RadioCanadaSemiBold,
-                            fontSize = 14.sp,
-                            color = Color.Black,
-                            textAlign = TextAlign.Left,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-
-                        Spacer(modifier = Modifier.height(4.dp))
-
-                        Text(
-                            text = "Апостиль — это специальный штамп, который подтверждает подлинность подписи и печати на официальном документе для его использования за границей. Упрощает признание документов в странах-участницах Гаагской конвенции 1961 года.",
-                            fontFamily = RadioCanadaRegular,
-                            fontSize = 12.sp,
-                            color = Color.Gray,
-                            textAlign = TextAlign.Left,
-                            lineHeight = 16.sp,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    } else {
-                        Text(
-                            text = "Что такое консульская легализация?",
-                            fontFamily = RadioCanadaSemiBold,
-                            fontSize = 14.sp,
-                            color = Color.Black,
-                            textAlign = TextAlign.Left,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-
-                        Spacer(modifier = Modifier.height(4.dp))
-
-                        Text(
-                            text = "Консульская легализация — это процедура подтверждения подлинности документов в странах, не участвующих в Гаагской конвенции. Требует последовательного заверения в нескольких инстанциях: нотариус → Минюст → Консульство страны назначения. Более длительная и сложная процедура, чем апостиль.",
-                            fontFamily = RadioCanadaRegular,
-                            fontSize = 12.sp,
-                            color = Color.Gray,
-                            textAlign = TextAlign.Left,
-                            lineHeight = 16.sp,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                    when {
+                        isSimplified -> {
+                            Text(
+                                text = "Что такое упрощённый порядок?",
+                                fontFamily = RadioCanadaSemiBold,
+                                fontSize = 14.sp,
+                                color = Color.Black,
+                                textAlign = TextAlign.Left,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = "Для граждан Беларуси действует упрощённый порядок в рамках Союзного государства. Достаточно нотариально заверенного перевода документов на русский язык. Апостиль и консульская легализация не требуются.",
+                                fontFamily = RadioCanadaRegular,
+                                fontSize = 12.sp,
+                                color = Color.Gray,
+                                textAlign = TextAlign.Left,
+                                lineHeight = 16.sp,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                        needApostille -> {
+                            Text(
+                                text = "Что такое апостиль?",
+                                fontFamily = RadioCanadaSemiBold,
+                                fontSize = 14.sp,
+                                color = Color.Black,
+                                textAlign = TextAlign.Left,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = "Апостиль — это специальный штамп, который подтверждает подлинность подписи и печати на официальном документе для его использования за границей. Упрощает признание документов в странах-участницах Гаагской конвенции 1961 года.",
+                                fontFamily = RadioCanadaRegular,
+                                fontSize = 12.sp,
+                                color = Color.Gray,
+                                textAlign = TextAlign.Left,
+                                lineHeight = 16.sp,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
+                        else -> {
+                            Text(
+                                text = "Что такое консульская легализация?",
+                                fontFamily = RadioCanadaSemiBold,
+                                fontSize = 14.sp,
+                                color = Color.Black,
+                                textAlign = TextAlign.Left,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = "Консульская легализация — это процедура подтверждения подлинности документов в странах, не участвующих в Гаагской конвенции. Требует последовательного заверения в нескольких инстанциях: нотариус → Минюст → Консульство страны назначения. Более длительная и сложная процедура, чем апостиль.",
+                                fontFamily = RadioCanadaRegular,
+                                fontSize = 12.sp,
+                                color = Color.Gray,
+                                textAlign = TextAlign.Left,
+                                lineHeight = 16.sp,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(20.dp))

@@ -70,22 +70,15 @@ class PalataViewModel @Inject constructor(
     }
 
     fun transition(navController: NavHostController? = null){
-        // Проверяем, выбрана ли страна
         if(_fieldsPalata.value.countryId != -1){
-            // получение выбранной страны
             val selectedCountry = _countries.value?.find { it.id == _fieldsPalata.value.countryId }
 
-            // нужен ли апостиль
             val needApostille = selectedCountry?.legal == "Апостиль"
+            val isSimplified = selectedCountry?.legal == "Упрощённый порядок"  // для Беларуси
 
             _appStateSave.value = AppState.Success
 
-            // передача параметра на экран DocumentScreen
-            navController?.navigate(NavRoutes.docWithParam(needApostille)) {
-                popUpTo(navController.graph.startDestinationId) {
-                    inclusive = true
-                }
-            }
+            navController?.navigate(NavRoutes.docWithParam(needApostille, isSimplified))
         }
         else{
             _fieldsPalata.value = _fieldsPalata.value.copy(errorCountry = true)

@@ -99,13 +99,16 @@ fun NavigHost() {
         composable(
             route = NavRoutes.docWithParam,
             arguments = listOf(
-                navArgument("needApostille") { type = NavType.BoolType }
+                navArgument("needApostille") { type = NavType.BoolType },
+                navArgument("isSimplified") { type = NavType.BoolType }
             )
         ) { backStackEntry ->
             val needApostille = backStackEntry.arguments?.getBoolean("needApostille") ?: false
+            val isSimplified = backStackEntry.arguments?.getBoolean("isSimplified") ?: false
             DocumentScreen(
                 navController = navController,
-                needApostille = needApostille
+                needApostille = needApostille,
+                isSimplified = isSimplified
             )
         }
         composable(route = NavRoutes.step3) {
