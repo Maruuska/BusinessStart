@@ -7,8 +7,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -127,13 +130,14 @@ fun RightScreen(
 
         Row(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min),
             verticalAlignment = Alignment.Top
         ) {
             Box(
                 modifier = Modifier
                     .width(3.dp)
-                    .height(64.dp)
+                    .fillMaxHeight()
                     .background(ActiveBlue)
             )
             Spacer(modifier = Modifier.width(12.dp))
@@ -178,13 +182,37 @@ fun RightScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(290.dp)
-                )  {
+                ) {
+                    // Информация о количестве элементов
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 12.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Список прав (${rights.size})",
+                            fontFamily = RadioCanadaRegular,
+                            fontSize = 13.sp,
+                            color = Color(0xFF696969)
+                        )
+
+                        if (rights.size > 4) {
+                            Text(
+                                text = "↓ прокрутите вниз ↓",
+                                fontFamily = RadioCanadaRegular,
+                                fontSize = 11.sp,
+                                color = ActiveBlue
+                            )
+                        }
+                    }
+
                     LazyColumn(
                         modifier = Modifier.weight(1f),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         items(rights) { right ->
-
                             val isSelected = selectedRights.contains(right.id)
 
                             Row(
@@ -327,7 +355,6 @@ fun RightScreen(
                             }
                         }
                     }
-
                 }
             }
         }
