@@ -65,11 +65,11 @@ fun AnketaScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 70.dp, start = 25.dp, end = 25.dp, bottom = 15.dp),
+            .padding(top = 60.dp, start = 25.dp, end = 25.dp, bottom = 15.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = "Заполнение анкеты банков",
+            text = "Заполните анкету банков",
             fontFamily = RadioCanadaSemiBold,
             fontSize = 18.sp,
             color = Color.Black,
@@ -82,7 +82,7 @@ fun AnketaScreen(
         ) {
             item {
                 Text(
-                    text = "Полное наименование ООО",
+                    text = "Полное наименование компании",
                     fontFamily = RadioCanadaRegular,
                     fontSize = 16.sp,
                     color = Color.Black,
@@ -95,14 +95,13 @@ fun AnketaScreen(
                     )
                 }
 
-                // вывод о неправильном формате наименования
                 if (stateField.errorName) {
                     Box(
                         modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Наименование должно содержать \"Общество с ограниченной ответственностью\"",
+                            text = "Поле обязательно для заполнения",
                             color = Color.Red,
                             fontSize = 12.sp,
                             fontFamily = RadioCanadaRegular,
@@ -118,7 +117,7 @@ fun AnketaScreen(
                     anketaViewModel.countries.value?.find { it.id == stateField.countryId }
 
                 Text(
-                    text = "Страна материнской компании",
+                    text = "Страна регистрации иностранного учредителя",
                     fontFamily = RadioCanadaRegular,
                     fontSize = 16.sp,
                     color = Color.Black,

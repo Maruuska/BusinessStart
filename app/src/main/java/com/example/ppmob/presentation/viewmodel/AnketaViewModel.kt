@@ -5,17 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ppmob.domain.model.Activity
-import com.example.ppmob.domain.model.CodeCountry
 import com.example.ppmob.domain.model.Country
-import com.example.ppmob.domain.model.Form
 import com.example.ppmob.domain.model.Rezult
 import com.example.ppmob.domain.state.AnketaState
 import com.example.ppmob.domain.state.AppState
-import com.example.ppmob.domain.state.StatementState
 import com.example.ppmob.domain.usecase.GetActivitysUseCase
-import com.example.ppmob.domain.usecase.GetCodeCountryUseCase
 import com.example.ppmob.domain.usecase.GetCountriesUseCase
-import com.example.ppmob.domain.usecase.GetFormsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -48,6 +43,7 @@ class AnketaViewModel @Inject constructor(
 
     fun updateState(newState: AnketaState) {
         _fields.value = newState
+        validateFieldImmediately(newState)
     }
 
     init {
@@ -69,7 +65,6 @@ class AnketaViewModel @Inject constructor(
                         AppState.Error(result.exception.message ?: "ошибка получения стран")
                 }
             }
-
         }
     }
 
@@ -88,7 +83,34 @@ class AnketaViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
 
+    // Динамическая валидация отдельного поля при изменении
+    private fun validateFieldImmediately(state: AnketaState) {
+        val currentState = _fields.value
+        val nameError = state.name.isBlank()
+        val fioError = state.fio.isBlank()
+        val sourceError = state.source.isBlank()
+        val incomeError = state.income == 0
+        val countryError = state.countryId == -1
+        val activityError = state.activityId == -1
+
+        if (currentState.errorName != nameError ||
+            currentState.fioError != fioError ||
+            currentState.sourceError != sourceError ||
+            currentState.incomeError != incomeError ||
+            currentState.countryError != countryError ||
+            currentState.activityError != activityError) {
+
+            _fields.value = currentState.copy(
+                errorName = nameError,
+                fioError = fioError,
+                sourceError = sourceError,
+                incomeError = incomeError,
+                countryError = countryError,
+                activityError = activityError
+            )
         }
     }
 
@@ -104,75 +126,53 @@ class AnketaViewModel @Inject constructor(
 
     fun verificationFields(): Boolean {
         var isValid = true
+        val currentState = _fields.value
 
-        // Сбросить ошибки
-        _fields.value = _fields.value.copy(
-            errorName = false,
-            countryError = false,
-            activityError = false,
-            fioError = false,
-            sourceError = false,
-            incomeError = false
-        )
-
-        // Проверка наименования на русском
-        val requiredText = "Общество с ограниченной ответственностью"
-
-        if (_fields.value.name.isBlank()) {
-            _fields.value = _fields.value.copy(errorName = true)
-            _appStateSave.value = AppState.Error("поле имя пустое")
+        val isValidName = currentState.name.isNotBlank()
+        if (!isValidName) {
+            _fields.value = currentState.copy(errorName = true)
             isValid = false
-        } else if (!_fields.value.name.contains(requiredText, ignoreCase = true)) {
-            _fields.value = _fields.value.copy(errorName = true)
-            _appStateSave.value = AppState.Error("поле имя не содержит ооо")
-            isValid = false
-        } else {
-            _fields.value = _fields.value.copy(errorName = false)
         }
 
-        // Проверка фио
-        if (_fields.value.fio.isBlank()) {
-            _fields.value.fioError = true
-            _appStateSave.value = AppState.Error("поле фио пустое")
+        val isValidFio = currentState.fio.isNotBlank()
+        if (!isValidFio) {
+            _fields.value = _fields.value.copy(fioError = true)
             isValid = false
-        } else {
-            _fields.value.fioError = false
         }
 
-        // Проверка источника средств
-        if (_fields.value.source.isBlank()) {
-            _fields.value.sourceError = true
-            _appStateSave.value = AppState.Error("поле источник пустое")
+        val isValidSource = currentState.source.isNotBlank()
+        if (!isValidSource) {
+            _fields.value = _fields.value.copy(sourceError = true)
             isValid = false
-        } else {
-            _fields.value.sourceError = false
         }
 
-        // Проверка дохода
-        if (_fields.value.income == 0) {
-            _fields.value.incomeError = true
-            _appStateSave.value = AppState.Error("поле доход пустое")
+        val isValidIncome = currentState.income != 0
+        if (!isValidIncome) {
+            _fields.value = _fields.value.copy(incomeError = true)
             isValid = false
-        } else {
-            _fields.value.incomeError = false
         }
 
-        // Проверка кода страны
-        if (_fields.value.countryId == -1) {
-            _fields.value.countryError = true
-            _appStateSave.value = AppState.Error("поле страна пустое")
+        val isValidCountry = currentState.countryId != -1
+        if (!isValidCountry) {
+            _fields.value = _fields.value.copy(countryError = true)
             isValid = false
-        } else {
-            _fields.value.countryError = false
         }
 
-        // Проверка формы
-        if (_fields.value.activityId == -1) {
-            _fields.value.activityError = true
-            _appStateSave.value = AppState.Error("поле форма пустое")
+        val isValidActivity = currentState.activityId != -1
+        if (!isValidActivity) {
+            _fields.value = _fields.value.copy(activityError = true)
             isValid = false
-        } else {
-            _fields.value.activityError = false
+        }
+
+        if (isValid) {
+            _fields.value = _fields.value.copy(
+                errorName = false,
+                fioError = false,
+                sourceError = false,
+                incomeError = false,
+                countryError = false,
+                activityError = false
+            )
         }
 
         return isValid
