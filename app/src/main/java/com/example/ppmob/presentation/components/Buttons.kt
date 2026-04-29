@@ -136,7 +136,7 @@ fun ButtonCustomOutline(
             .clickable(enabled = enbl) { onClick() },
         contentAlignment = Alignment.Center
     ) {
-        Row(
+        Row(modifier= Modifier.padding(start = 4.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
