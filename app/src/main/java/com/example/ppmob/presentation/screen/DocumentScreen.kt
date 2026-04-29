@@ -151,7 +151,6 @@ fun DocumentScreen(
             }
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Кнопка апостилирования (только если нужен апостиль и не упрощённый порядок)
             if (needApostille && !isSimplified) {
                 ButtonCustom(
                     "Апостилировать",

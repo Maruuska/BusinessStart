@@ -3,6 +3,7 @@ package com.example.ppmob.presentation.screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -30,6 +32,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
@@ -41,6 +45,7 @@ import com.example.ppmob.presentation.components.OutlinedTextFieldDropDown
 import com.example.ppmob.presentation.viewmodel.ApostilViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
+import com.example.ppmob.ui.theme.RadioCanadaBold
 import com.example.ppmob.ui.theme.RadioCanadaMedium
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
@@ -58,6 +63,9 @@ fun ApostilScreen(
     var isDocumentsSent by remember { mutableStateOf(false) }
     var isDocumentsTranslated by remember { mutableStateOf(false) }
 
+    // Состояние для диалога с инструкцией
+    var showHelpDialog by remember { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -65,13 +73,33 @@ fun ApostilScreen(
             .padding(top = 70.dp, start = 25.dp, end = 25.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = "Апостилирование или консульская легализация",
-            fontFamily = RadioCanadaSemiBold,
-            fontSize = 18.sp,
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Апостилирование или\nконсульская легализация",
+                fontFamily = RadioCanadaSemiBold,
+                fontSize = 17.sp,
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+                lineHeight = 20.sp,
+                modifier = Modifier.weight(1f, fill = false)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Image(
+                painter = painterResource(id = R.drawable.help),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(28.dp)
+                    .clickable {
+                        showHelpDialog = true
+                    },
+            )
+        }
         Spacer(modifier = Modifier.height(40.dp))
 
         when (appState) {
@@ -93,7 +121,6 @@ fun ApostilScreen(
             }
 
             is AppState.Success -> {
-
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
@@ -101,23 +128,25 @@ fun ApostilScreen(
                     Image(
                         painter = painterResource(id = R.drawable.info),
                         contentDescription = "",
-                        modifier = Modifier.size(35.dp)
+                        modifier = Modifier.size(24.dp)
                     )
                     Text(
-                        text = "Данный этап может занимать больше всего времени, поэтому важно внимательно подойти к нему и предшествующему первому этапу. В случае ошибки вы потеряете до месяца на повторный процесс.",
-                        fontFamily = RadioCanadaRegular,
+                        text = "Выберите страну учредителя, затем отметьте галочками выполненные действия",
+                        fontFamily = RadioCanadaMedium,
                         fontSize = 13.sp,
-                        color = Color.Black,
+                        color = Color(0xFF555555),
                         textAlign = TextAlign.Left,
-
-                        modifier = Modifier.padding(start = 12.dp)
+                        lineHeight = 18.sp,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(start = 10.dp)
                     )
                 }
 
                 Spacer(modifier = Modifier.height(35.dp))
 
                 Text(
-                    text = "Выберите страну регистрации компании",
+                    text = "Выберите страну регистрации иностранного учредителя",
                     fontFamily = RadioCanadaRegular,
                     fontSize = 17.sp,
                     color = Color.Black,
@@ -159,7 +188,7 @@ fun ApostilScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Необходимо указать страну",
+                            text = "Выберите страну учредителя",
                             color = Color.Red,
                             fontSize = 12.sp,
                             fontFamily = RadioCanadaRegular
@@ -168,6 +197,8 @@ fun ApostilScreen(
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
+
+                // Подсказка о типе легализации
                 if (selectCountry?.legal == "Апостиль") {
                     Row(
                         modifier = Modifier
@@ -186,14 +217,14 @@ fun ApostilScreen(
                             text = "Требуется апостиль. Проставляется в стране выдачи документа. Не требует дальнейшей консульской легализации",
                             fontFamily = RadioCanadaRegular,
                             fontSize = 12.sp,
-                            color = Color(0xFF696969),
+                            color = Color(0xFF2E7D32),
                             textAlign = TextAlign.Left,
                             lineHeight = 16.sp,
                             modifier = Modifier.weight(1f)
                         )
                     }
                 }
-                else if(selectCountry?.legal== "Консульская легализация"){
+                else if(selectCountry?.legal == "Консульская легализация"){
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -209,11 +240,12 @@ fun ApostilScreen(
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
                             text = "Требуется консульская легализация:\n" +
-                                    "1) заверение в МИД страны\n" +
-                                    "2) заверение в консульстве РФ в стране исхода",
+                                    "1) заверение у нотариуса\n" +
+                                    "2) заверение в МИД страны\n" +
+                                    "3) заверение в консульстве РФ",
                             fontFamily = RadioCanadaRegular,
                             fontSize = 12.sp,
-                            color = Color(0xFF696969),
+                            color = Color(0xFF2E7D32),
                             textAlign = TextAlign.Left,
                             lineHeight = 16.sp,
                             modifier = Modifier.weight(1f)
@@ -230,7 +262,7 @@ fun ApostilScreen(
                         painter = painterResource(
                             id = if (isDocumentsSent) R.drawable.square2 else R.drawable.square
                         ),
-                        contentDescription = if (isDocumentsSent) "Выбрано" else "Не выбрано",
+                        contentDescription = "",
                         modifier = Modifier
                             .size(22.dp)
                             .clickable {
@@ -240,7 +272,7 @@ fun ApostilScreen(
                     Text(
                         text = "Документы направлены на апостиль/легализацию",
                         fontFamily = RadioCanadaRegular,
-                        fontSize = 13.sp,
+                        fontSize = 14.sp,
                         color = Color.Black,
                         textAlign = TextAlign.Left,
                         lineHeight = 18.sp,
@@ -259,7 +291,7 @@ fun ApostilScreen(
                         painter = painterResource(
                             id = if (isDocumentsTranslated) R.drawable.square2 else R.drawable.square
                         ),
-                        contentDescription = if (isDocumentsTranslated) "Выбрано" else "Не выбрано",
+                        contentDescription = "",
                         modifier = Modifier
                             .size(22.dp)
                             .clickable {
@@ -269,7 +301,7 @@ fun ApostilScreen(
                     Text(
                         text = "Документы переведены и заверены нотариально",
                         fontFamily = RadioCanadaRegular,
-                        fontSize = 13.sp,
+                        fontSize = 14.sp,
                         color = Color.Black,
                         textAlign = TextAlign.Left,
                         lineHeight = 18.sp,
@@ -329,6 +361,79 @@ fun ApostilScreen(
 
                     is AppState.Success -> {
                         navController.navigate(NavRoutes.statement)
+                    }
+                }
+            }
+        }
+    }
+
+    if (showHelpDialog) {
+        Dialog(
+            onDismissRequest = { showHelpDialog = false },
+            properties = DialogProperties(
+                dismissOnBackPress = true,
+                dismissOnClickOutside = true
+            )
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color.White, shape = RoundedCornerShape(16.dp))
+                    .padding(20.dp)
+            ) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "Апостиль",
+                        fontFamily = RadioCanadaSemiBold,
+                        fontSize = 15.sp,
+                        color = Color.Black,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Это специальный штамп, который подтверждает подлинность подписи и печати на официальном документе для его использования за границей. Упрощает признание документов в странах-участницах Гаагской конвенции 1961 года.",
+                        fontFamily = RadioCanadaRegular,
+                        fontSize = 13.sp,
+                        color = Color(0xFF555555),
+                        lineHeight = 18.sp,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Text(
+                        text = "Консульская легализация",
+                        fontFamily = RadioCanadaSemiBold,
+                        fontSize = 15.sp,
+                        color = Color.Black,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "Это процедура подтверждения подлинности документов в странах, не участвующих в Гаагской конвенции. Требует последовательного заверения в нескольких инстанциях: нотариус → Минюст → Консульство страны назначения. Более длительная и сложная процедура, чем апостиль.",
+                        fontFamily = RadioCanadaRegular,
+                        fontSize = 13.sp,
+                        color = Color(0xFF555555),
+                        lineHeight = 18.sp,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    ButtonCustom(
+                        "Понятно",
+                        true,
+                        ActiveBlue,
+                        NoActiveBlue,
+                        14.sp,
+                        12.dp,
+                        120.dp,
+                        40.dp
+                    ) {
+                        showHelpDialog = false
                     }
                 }
             }
