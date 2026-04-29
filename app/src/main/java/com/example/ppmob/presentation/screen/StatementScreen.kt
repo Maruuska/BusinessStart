@@ -89,7 +89,7 @@ fun StatementScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = "Заполнение заявления по форме № 11БС-Учет",
+            text = "Заполните заявление по форме № 11БС-Учет",
             fontFamily = RadioCanadaSemiBold,
             fontSize = 18.sp,
             color = Color.Black,
@@ -134,7 +134,7 @@ fun StatementScreen(
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
-                            text = "Наименование должно содержать \"Общество с ограниченной ответственностью\"",
+                            text = "Поле обязательно для заполнения",
                             color = Color.Red,
                             fontSize = 12.sp,
                             fontFamily = RadioCanadaRegular,

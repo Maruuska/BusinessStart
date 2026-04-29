@@ -5,14 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ppmob.domain.model.CodeCountry
-import com.example.ppmob.domain.model.Country
 import com.example.ppmob.domain.model.Form
 import com.example.ppmob.domain.model.Rezult
 import com.example.ppmob.domain.state.AppState
-import com.example.ppmob.domain.state.CountryState
 import com.example.ppmob.domain.state.StatementState
 import com.example.ppmob.domain.usecase.GetCodeCountryUseCase
-import com.example.ppmob.domain.usecase.GetCountriesUseCase
 import com.example.ppmob.domain.usecase.GetFormsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,6 +42,7 @@ class StatementViewModel @Inject constructor(
 
     fun updateState(newState: StatementState) {
         _fields.value = newState
+        validateFieldImmediately(newState)
     }
 
     init {
@@ -91,88 +89,85 @@ class StatementViewModel @Inject constructor(
     fun save() {
         viewModelScope.launch {
             if (verificationFields()) {
-
                 _appStateSave.value = AppState.Success
-
             } else {
                 _appStateSave.value = AppState.Error("ошибка при создании заявления")
             }
         }
     }
 
+    // Динамическая валидация отдельного поля при изменении
+    private fun validateFieldImmediately(state: StatementState) {
+        val currentState = _fields.value
+        val nameError = state.name.isBlank()
+        val nameLatError = state.nameLat.isBlank() || !isValidLatinText(state.nameLat)
+        val fioError = state.fio.isBlank()
+        val codeError = state.codeCountryId == -1
+        val formError = state.formId == -1
+
+        if (currentState.errorName != nameError ||
+            currentState.errorNameLat != nameLatError ||
+            currentState.fioError != fioError ||
+            currentState.codeError != codeError ||
+            currentState.formError != formError) {
+
+            _fields.value = currentState.copy(
+                errorName = nameError,
+                errorNameLat = nameLatError,
+                fioError = fioError,
+                codeError = codeError,
+                formError = formError
+            )
+        }
+    }
 
     fun verificationFields(): Boolean {
         var isValid = true
+        val currentState = _fields.value
 
-        // Сбросить ошибки
-        _fields.value = _fields.value.copy(
-            errorName = false,
-            errorNameLat = false,
-            codeError = false,
-            fioError = false,
-            formError = false
-        )
-
-        // Проверка наименования на русском
-        val requiredText = "Общество с ограниченной ответственностью"
-
-        if (_fields.value.name.isBlank()) {
-            _fields.value = _fields.value.copy(errorName = true)
-            _appStateSave.value = AppState.Error("поле имя пустое")
+        val isValidName = currentState.name.isNotBlank()
+        if (!isValidName) {
+            _fields.value = currentState.copy(errorName = true)
             isValid = false
-        } else if (!_fields.value.name.contains(requiredText, ignoreCase = true)) {
-            _fields.value = _fields.value.copy(errorName = true)
-            _appStateSave.value = AppState.Error("поле имя не содержит ооо")
-            isValid = false
-        } else {
-            _fields.value = _fields.value.copy(errorName = false)
         }
 
-
-        // Проверка наименования на латинице (только английские буквы)
-        if (_fields.value.nameLat.isBlank()) {
+        val isValidNameLat = currentState.nameLat.isNotBlank() && isValidLatinText(currentState.nameLat)
+        if (!isValidNameLat) {
             _fields.value = _fields.value.copy(errorNameLat = true)
-            _appStateSave.value = AppState.Error("поле имя лат пустое")
             isValid = false
-        } else if (!isValidLatinText(_fields.value.nameLat)) {
-            _fields.value = _fields.value.copy(errorNameLat = true)
-            _appStateSave.value = AppState.Error("ошибка в латинском названии")
-            isValid = false
-        } else {
-            _fields.value = _fields.value.copy(errorNameLat = false)
         }
 
-        // Проверка фио
-        if (_fields.value.fio.isBlank()) {
-            _fields.value.fioError = true
-            _appStateSave.value = AppState.Error("поле фио пустое")
+        val isValidFio = currentState.fio.isNotBlank()
+        if (!isValidFio) {
+            _fields.value = _fields.value.copy(fioError = true)
             isValid = false
-        } else {
-            _fields.value.fioError = false
         }
 
-        // Проверка кода страны
-        if (_fields.value.codeCountryId == -1) {
-            _fields.value.codeError = true
-            _appStateSave.value = AppState.Error("поле код страны пустое")
+        val isValidCode = currentState.codeCountryId != -1
+        if (!isValidCode) {
+            _fields.value = _fields.value.copy(codeError = true)
             isValid = false
-        } else {
-            _fields.value.codeError = false
         }
 
-        // Проверка формы
-        if (_fields.value.formId == -1) {
-            _fields.value.formError = true
-            _appStateSave.value = AppState.Error("поле форма пустое")
+        val isValidForm = currentState.formId != -1
+        if (!isValidForm) {
+            _fields.value = _fields.value.copy(formError = true)
             isValid = false
-        } else {
-            _fields.value.formError = false
+        }
+
+        if (isValid) {
+            _fields.value = _fields.value.copy(
+                errorName = false,
+                errorNameLat = false,
+                fioError = false,
+                codeError = false,
+                formError = false
+            )
         }
 
         return isValid
     }
 
-    // проверка строки на содержание только латинских букв
     private fun isValidLatinText(text: String): Boolean {
         val latinRegex = Regex("^[A-Za-z\\s\\-]+$")
         return text.matches(latinRegex)
