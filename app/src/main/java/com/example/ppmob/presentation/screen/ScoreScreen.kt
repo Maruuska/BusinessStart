@@ -76,11 +76,11 @@ fun ScoreScreen(
     fun navigateToBankDetail(bankName: String) {
         when (bankName.lowercase()) {
             "сбербанк" -> navController.navigate(NavRoutes.sberScreen)
-            "т-банк" -> navController.navigate("tbank_screen")
-            "альфа-банк" -> navController.navigate("alfa_screen")
-            "втб" -> navController.navigate("vtb_screen")
-            "райффайзенбанк" -> navController.navigate("raiffeisen_screen")
-            "открытие" -> navController.navigate("otkritie_screen")
+            "т-банк" -> navController.navigate(NavRoutes.tbankScreen)
+            "альфа-банк" -> navController.navigate(NavRoutes.alfaScreen)
+            "втб" -> navController.navigate(NavRoutes.vtbScreen)
+            "райффайзенбанк" -> navController.navigate(NavRoutes.raiffeisenScreen)
+            "открытие" -> navController.navigate(NavRoutes.otkritieScreen)
         }
     }
 
@@ -92,7 +92,7 @@ fun ScoreScreen(
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(top = 80.dp, start = 20.dp, end = 20.dp),
+                .padding(top = 60.dp, start = 20.dp, end = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -108,18 +108,17 @@ fun ScoreScreen(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.info),
-                    contentDescription = "",
-                    modifier = Modifier.size(35.dp)
-                )
                 Text(
-                    text = "Банки часто отказывают иностранцам без объяснения причин. Отправляйте анкеты в 2–3 банка одновременно — это не обязывает вас открывать счет, но экономит время при отказе",
+                    text = "Нажмите на карточку банка, чтобы выбрать его — вы сможете отправить заявку сразу в несколько банков\n\n" +
+                            "Нажмите «Подробнее» на карточке, чтобы узнать, какие документы нужны для открытия счета в этом банке",
                     fontFamily = RadioCanadaRegular,
                     fontSize = 13.sp,
-                    color = Color.Black,
+                    color = Color(0xFF555555),
                     textAlign = TextAlign.Left,
-                    modifier = Modifier.padding(start = 12.dp)
+                    lineHeight = 18.sp,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 12.dp)
                 )
             }
 
