@@ -38,10 +38,19 @@ class PalataViewModel @Inject constructor(
 
     fun updateState(newState: CountryState) {
         _fieldsPalata.value = newState
+        validateCountry(newState.countryId)
     }
 
     init {
         loadingCountries()
+    }
+
+    private fun validateCountry(countryId: Int) {
+        if (countryId == -1) {
+            _fieldsPalata.value = _fieldsPalata.value.copy(errorCountry = true)
+        } else {
+            _fieldsPalata.value = _fieldsPalata.value.copy(errorCountry = false)
+        }
     }
 
     private fun loadingCountries() {
@@ -61,20 +70,25 @@ class PalataViewModel @Inject constructor(
     }
 
     fun transition(navController: NavHostController? = null){
-        if(_fieldsPalata.value.countryId!=-1){
-            // Получаем выбранную страну
+        // Проверяем, выбрана ли страна
+        if(_fieldsPalata.value.countryId != -1){
+            // получение выбранной страны
             val selectedCountry = _countries.value?.find { it.id == _fieldsPalata.value.countryId }
 
-            // Определяем, нужен ли апостиль (legal == "Апостиль")
+            // нужен ли апостиль
             val needApostille = selectedCountry?.legal == "Апостиль"
 
             _appStateSave.value = AppState.Success
 
-            // Передаем параметр на экран DocumentScreen
-            navController?.navigate(NavRoutes.docWithParam(needApostille))
+            // передача параметра на экран DocumentScreen
+            navController?.navigate(NavRoutes.docWithParam(needApostille)) {
+                popUpTo(navController.graph.startDestinationId) {
+                    inclusive = true
+                }
+            }
         }
         else{
-            _fieldsPalata.value.errorCountry=true
+            _fieldsPalata.value = _fieldsPalata.value.copy(errorCountry = true)
             _appStateSave.value = AppState.Error("страна не выбрана")
         }
     }

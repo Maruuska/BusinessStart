@@ -68,7 +68,7 @@ fun PalataScreen(
             color = Color.Black,
             textAlign = TextAlign.Center,
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         LazyColumn(
             modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally
@@ -94,9 +94,9 @@ fun PalataScreen(
 
                     is AppState.Success -> {
                         Text(
-                            text = "Необходимые документы для регистрации:",
+                            text = "Для регистрации вам нужно будет предоставить:",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 17.sp,
+                            fontSize = 16.sp,
                             color = Color.Black,
                             textAlign = TextAlign.Left,
                             modifier = Modifier.fillMaxWidth()
@@ -115,7 +115,7 @@ fun PalataScreen(
                             Text(
                                 text = "Разрешение на пребывание в РФ",
                                 fontFamily = RadioCanadaRegular,
-                                fontSize = 14.sp,
+                                fontSize = 13.sp,
                                 color = Color.Black,
                                 textAlign = TextAlign.Left,
                                 modifier = Modifier.padding(start = 12.dp)
@@ -134,7 +134,7 @@ fun PalataScreen(
                             Text(
                                 text = "Патент или разрешение на ведение коммерческой деятельности в России",
                                 fontFamily = RadioCanadaRegular,
-                                fontSize = 14.sp,
+                                fontSize = 13.sp,
                                 color = Color.Black,
                                 textAlign = TextAlign.Left,
                                 lineHeight = 14.sp,
@@ -142,11 +142,11 @@ fun PalataScreen(
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(30.dp))
+                        Spacer(modifier = Modifier.height(25.dp))
                         Text(
-                            text = "Страна проживания",
+                            text = "Выберите страну проживания",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 17.sp,
+                            fontSize = 16.sp,
                             color = Color.Black,
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -199,7 +199,7 @@ fun PalataScreen(
                         Text(
                             text = "Резиденту необходимо предоставить:",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 17.sp,
+                            fontSize = 16.sp,
                             color = Color.Black,
                             textAlign = TextAlign.Left,
                             modifier = Modifier.fillMaxWidth()
@@ -221,7 +221,8 @@ fun PalataScreen(
                                 fontSize = 14.sp,
                                 color = Color.Black,
                                 textAlign = TextAlign.Left,
-                                modifier = Modifier.padding(start = 12.dp)
+                                modifier = Modifier.padding(start = 12.dp),
+                                lineHeight = 13.sp,
                             )
                         }
                         Spacer(modifier = Modifier.height(3.dp))
@@ -240,7 +241,7 @@ fun PalataScreen(
                                 fontSize = 14.sp,
                                 color = Color.Black,
                                 textAlign = TextAlign.Left,
-                                lineHeight = 14.sp,
+                                lineHeight = 13.sp,
                                 modifier = Modifier.padding(start = 12.dp)
                             )
                         }
@@ -249,13 +250,13 @@ fun PalataScreen(
                         Image(
                             painter = painterResource(id = R.drawable.table),
                             contentDescription = "",
-                            modifier = Modifier.size(300.dp)
+                            modifier = Modifier.size(230.dp)
                         )
 
                         when (appStateSave) {
                             is AppState.Loading -> {
                                 ButtonCustom(
-                                    "Предоставить документы",
+                                    "Подготовить документы",
                                     false,
                                     ActiveBlue,
                                     NoActiveBlue,
@@ -270,7 +271,7 @@ fun PalataScreen(
 
                             is AppState.Initializing -> {
                                 ButtonCustom(
-                                    "Предоставить документы",
+                                    "Подготовить документы",
                                     true,
                                     ActiveBlue,
                                     NoActiveBlue,
@@ -285,7 +286,7 @@ fun PalataScreen(
 
                             is AppState.Error -> {
                                 ButtonCustom(
-                                    "Предоставить документы",
+                                    "Подготовить документы",
                                     true,
                                     ActiveBlue,
                                     NoActiveBlue,
@@ -299,7 +300,6 @@ fun PalataScreen(
                             }
 
                             is AppState.Success -> {
-                                //navController.navigate(NavRoutes.step21)
                             }
                         }
                     }
