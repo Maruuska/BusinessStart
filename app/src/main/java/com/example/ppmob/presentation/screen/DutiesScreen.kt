@@ -7,8 +7,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,7 +45,6 @@ import com.example.ppmob.domain.state.AppState
 import com.example.ppmob.presentation.components.ButtonCustom
 import com.example.ppmob.presentation.components.OutlinedTextFieldNormal
 import com.example.ppmob.presentation.viewmodel.DutiesViewModel
-import com.example.ppmob.presentation.viewmodel.RightsViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
 import com.example.ppmob.ui.theme.RadioCanadaBold
@@ -54,15 +55,14 @@ import com.example.ppmob.ui.theme.RadioCanadaRegular
 @Composable
 fun DutiesScreen(
     navController: NavHostController,
-    dutiesViewModel: DutiesViewModel=hiltViewModel(),
+    dutiesViewModel: DutiesViewModel = hiltViewModel(),
 ) {
-
     val appState by dutiesViewModel.appState.collectAsState()
     val appStateSave by dutiesViewModel.appStateSave.collectAsState()
     val duties = dutiesViewModel.duties.value ?: emptyList()
 
-    // Состояние для отслеживания выбранных прав
-    var selectedRights by remember { mutableStateOf(mutableSetOf<Int>()) }
+    // Состояние для отслеживания выбранных обязанностей
+    var selectedDuties by remember { mutableStateOf(mutableSetOf<Int>()) }
 
     // Состояние для диалога
     var showDialog by remember { mutableStateOf(false) }
@@ -73,7 +73,7 @@ fun DutiesScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 80.dp, start = 25.dp, end = 25.dp),
+            .padding(top = 70.dp, start = 25.dp, end = 25.dp),
         horizontalAlignment = Alignment.Start,
     ) {
 
@@ -83,10 +83,10 @@ fun DutiesScreen(
             modifier = Modifier
                 .size(30.dp)
                 .clickable {
-                    navController.popBackStack()  // возврат назад без пересоздания экрана
+                    navController.popBackStack()
                 }
         )
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -125,7 +125,7 @@ fun DutiesScreen(
                 newDutyName = ""
             }
         }
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(25.dp))
 
         when (appState) {
             is AppState.Loading -> {
@@ -156,14 +156,38 @@ fun DutiesScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(290.dp)
-                )  {
+                ) {
+                    // Информация о количестве элементов
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 12.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Список обязанностей (${duties.size})",
+                            fontFamily = RadioCanadaRegular,
+                            fontSize = 13.sp,
+                            color = Color(0xFF696969)
+                        )
+
+                        if (duties.size > 4) {
+                            Text(
+                                text = "↓ прокрутите вниз ↓",
+                                fontFamily = RadioCanadaRegular,
+                                fontSize = 11.sp,
+                                color = ActiveBlue
+                            )
+                        }
+                    }
+
                     LazyColumn(
                         modifier = Modifier.weight(1f),
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        items(duties) { duties ->
-
-                            val isSelected = selectedRights.contains(duties.id)
+                        items(duties) { duty ->
+                            val isSelected = selectedDuties.contains(duty.id)
 
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -177,17 +201,17 @@ fun DutiesScreen(
                                     modifier = Modifier
                                         .size(22.dp)
                                         .clickable {
-                                            selectedRights = if (isSelected) {
-                                                selectedRights.toMutableSet()
-                                                    .apply { remove(duties.id) }
+                                            selectedDuties = if (isSelected) {
+                                                selectedDuties.toMutableSet()
+                                                    .apply { remove(duty.id) }
                                             } else {
-                                                selectedRights.toMutableSet()
-                                                    .apply { add(duties.id) }
+                                                selectedDuties.toMutableSet()
+                                                    .apply { add(duty.id) }
                                             }
                                         }
                                 )
                                 Text(
-                                    text = duties.name,
+                                    text = duty.name,
                                     fontFamily = RadioCanadaRegular,
                                     fontSize = 14.sp,
                                     color = Color.Black,
@@ -305,7 +329,6 @@ fun DutiesScreen(
                             }
                         }
                     }
-
                 }
             }
         }
