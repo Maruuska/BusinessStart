@@ -281,7 +281,7 @@ fun OfficeScreen(
                                     }
                                 }
                             }
- 
+
                             if (stateField.errorActivity) {
                                 Box(
                                     modifier = Modifier.fillMaxWidth(),

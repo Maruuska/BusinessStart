@@ -38,12 +38,10 @@ fun OneFounderScreen(navController: NavHostController) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .padding(top = 70.dp, start = 30.dp, end = 30.dp),
+            .padding(top = 60.dp, start = 30.dp, end = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        LazyColumn(
-
-        ) {
+        LazyColumn() {
             item {
 
                 Column(
@@ -55,23 +53,6 @@ fun OneFounderScreen(navController: NavHostController) {
                         contentDescription = "",
                         alignment = Alignment.Center,
                         modifier = Modifier.size(60.dp)
-                    )
-
-                    Spacer(modifier = Modifier.height(20.dp))
-
-                    Text(
-                        text = "Необходимо принять решение о",
-                        fontFamily = RadioCanadaMedium,
-                        fontSize = 18.sp,
-                        color = Color.Black,
-                        textAlign = TextAlign.Center
-                    )
-                    Text(
-                        text = "создании ООО",
-                        fontFamily = RadioCanadaMedium,
-                        fontSize = 18.sp,
-                        color = Color.Black,
-                        textAlign = TextAlign.Center
                     )
                 }
                 Spacer(modifier = Modifier.height(30.dp))
@@ -91,7 +72,7 @@ fun OneFounderScreen(navController: NavHostController) {
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = "Решение единственного",
+                            text = "В реальной регистрации вам",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 16.sp,
                             color = Color.Black,
@@ -99,7 +80,7 @@ fun OneFounderScreen(navController: NavHostController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                         Text(
-                            text = "учредителя ООО \"Название\"",
+                            text = "потребуется подготовить",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 16.sp,
                             color = Color.Black,
@@ -107,7 +88,7 @@ fun OneFounderScreen(navController: NavHostController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                         Text(
-                            text = "№ 1",
+                            text = "«Решение единственного учредителя»",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 16.sp,
                             color = Color.Black,
@@ -117,7 +98,7 @@ fun OneFounderScreen(navController: NavHostController) {
                         Spacer(modifier = Modifier.height(16.dp))
 
                         Text(
-                            text = "Укажите:",
+                            text = "В этом документе необходимо указать:",
                             fontFamily = RadioCanadaBold,
                             fontSize = 14.sp,
                             color = Color.Black,
@@ -125,7 +106,7 @@ fun OneFounderScreen(navController: NavHostController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                         Text(
-                            text = "• ФИО, паспортные данные, информацию о прописке",
+                            text = "• Свои ФИО, паспортные данные и адрес регистрации",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 14.sp,
                             color = Color.DarkGray,
@@ -134,7 +115,7 @@ fun OneFounderScreen(navController: NavHostController) {
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
-                            text = "В свободной форме напишите:",
+                            text = "А также письменно зафиксировать:",
                             fontFamily = RadioCanadaBold,
                             fontSize = 14.sp,
                             color = Color.Black,
@@ -143,7 +124,7 @@ fun OneFounderScreen(navController: NavHostController) {
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "• Что приняли решение о создании ООО",
+                            text = "• Факт принятия решения о создании ООО",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 14.sp,
                             color = Color.DarkGray,
@@ -151,7 +132,7 @@ fun OneFounderScreen(navController: NavHostController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                         Text(
-                            text = "• Название ООО: полное и сокращенное",
+                            text = "• Полное и сокращённое название компании",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 14.sp,
                             color = Color.DarkGray,
@@ -159,7 +140,7 @@ fun OneFounderScreen(navController: NavHostController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                         Text(
-                            text = "• Юридический адрес",
+                            text = "• Юридический адрес (с помещением под «офис»)",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 14.sp,
                             color = Color.DarkGray,
@@ -167,7 +148,7 @@ fun OneFounderScreen(navController: NavHostController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                         Text(
-                            text = "• Размер уставного капитала",
+                            text = "• Размер уставного капитала (минимум 10 000 ₽)",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 14.sp,
                             color = Color.DarkGray,
@@ -175,7 +156,7 @@ fun OneFounderScreen(navController: NavHostController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                         Text(
-                            text = "• Срок перечисления взноса в уставный капитал",
+                            text = "• Срок, в который вы внесёте уставный капитал",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 14.sp,
                             color = Color.DarkGray,
@@ -183,7 +164,7 @@ fun OneFounderScreen(navController: NavHostController) {
                             modifier = Modifier.fillMaxWidth()
                         )
                         Text(
-                            text = "• Отразите в решении, что будет утвержден Устав общества",
+                            text = "• Утверждение Устава компании (основного документа)",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 14.sp,
                             color = Color.DarkGray,
@@ -204,10 +185,10 @@ fun OneFounderScreen(navController: NavHostController) {
                         NoActiveBlue,
                         16.sp,
                         14.dp,
-                        130.dp,
+                        160.dp,
                         45.dp
                     ) {
-                        navController.popBackStack()  // возврат назад без пересоздания экрана
+                        navController.popBackStack()
                     }
                 }
                 Column(
