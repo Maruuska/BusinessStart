@@ -1,12 +1,5 @@
 package com.example.ppmob.presentation.screen
 
-import android.content.ContentValues
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.Build
-import android.os.Environment
-import android.provider.MediaStore
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.DropdownMenu
@@ -28,30 +22,23 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.artguess.presentation.navigation.NavRoutes
-import com.example.ppmob.R
 import com.example.ppmob.domain.state.AppState
 import com.example.ppmob.presentation.components.ButtonCustom
-import com.example.ppmob.presentation.components.OutlinedTextFieldDigital
-import com.example.ppmob.presentation.components.OutlinedTextFieldDropDown
+import com.example.ppmob.presentation.components.CustomDropDownField
 import com.example.ppmob.presentation.components.OutlinedTextFieldNormal
 import com.example.ppmob.presentation.components.OutlinedTextFieldNormalDigital
 import com.example.ppmob.presentation.viewmodel.AnketaViewModel
-import com.example.ppmob.presentation.viewmodel.StatementViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Composable
 fun AnketaScreen(
@@ -124,19 +111,33 @@ fun AnketaScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                Column {
-                    OutlinedTextFieldDropDown(
-                        selectCountry?.name ?: "Выберите страну"
-                    ) {
-                        expandedCountry = it
-                    }
-                    // выпадающее меню
+
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    CustomDropDownField(
+                        value = selectCountry?.name ?: "",
+                        placeholder = "Выберите страну",
+                        onExpandedChange = { expandedCountry = it }
+                    )
+
                     DropdownMenu(
                         expanded = expandedCountry,
-                        onDismissRequest = { expandedCountry = false }) {
+                        onDismissRequest = { expandedCountry = false },
+                        modifier = Modifier
+                            .background(Color.White)
+                            .heightIn(max = 300.dp)
+                            .fillMaxWidth(),
+                        offset = DpOffset(x = 0.dp, y = 0.dp)
+                    ) {
                         anketaViewModel.countries.value!!.forEach { code ->
                             DropdownMenuItem(
-                                text = { Text(code.name) },
+                                text = {
+                                    Text(
+                                        text = code.name,
+                                        color = Color.Black,
+                                        fontSize = 14.sp,
+                                        fontFamily = RadioCanadaRegular
+                                    )
+                                },
                                 onClick = {
                                     anketaViewModel.updateState(
                                         stateField.copy(countryId = code.id)
@@ -174,18 +175,33 @@ fun AnketaScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                Column {
-                    OutlinedTextFieldDropDown(
-                        selectActivity?.name ?: "Выберите код"
-                    ) {
-                        expandedActivity = it
-                    }
+
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    CustomDropDownField(
+                        value = selectActivity?.name ?: "",
+                        placeholder = "Выберите код",
+                        onExpandedChange = { expandedActivity = it }
+                    )
+
                     DropdownMenu(
                         expanded = expandedActivity,
-                        onDismissRequest = { expandedActivity = false }) {
+                        onDismissRequest = { expandedActivity = false },
+                        modifier = Modifier
+                            .background(Color.White)
+                            .heightIn(max = 300.dp)
+                            .fillMaxWidth(),
+                        offset = DpOffset(x = 0.dp, y = 0.dp)
+                    ) {
                         anketaViewModel.activitys.value!!.forEach { activity ->
                             DropdownMenuItem(
-                                text = { Text(activity.name) },
+                                text = {
+                                    Text(
+                                        text = activity.name,
+                                        color = Color.Black,
+                                        fontSize = 14.sp,
+                                        fontFamily = RadioCanadaRegular
+                                    )
+                                },
                                 onClick = {
                                     anketaViewModel.updateState(
                                         stateField.copy(activityId = activity.id)

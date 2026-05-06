@@ -3,23 +3,18 @@ package com.example.ppmob.presentation.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -33,9 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -43,6 +36,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ppmob.R
@@ -148,42 +142,54 @@ fun OutlinedTextFieldPassword(
 }
 
 @Composable
-fun OutlinedTextFieldDropDown(value: String, onExpandedChange: (Boolean) -> Unit) {
-    val focusManager = LocalFocusManager.current
-    OutlinedTextField(
-        value = value,
-        onValueChange = {},
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(17.dp),
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedLabelColor = Color.Gray,
-            disabledTextColor = Color.Gray,
-            unfocusedLabelColor = Color.Gray,
-            errorLabelColor = Color.Gray,
-            unfocusedBorderColor = Color.Transparent,
-            focusedBorderColor = Color.Transparent,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
-            focusedContainerColor = Color(0xFFE7E7E9), // цвет поля при фокусе
-            unfocusedContainerColor = Color(0xFFE7E7E9), // цвет поля без фокуса
-            focusedSupportingTextColor = Color.Gray,
-            unfocusedSupportingTextColor = Color.Gray
-        ),
-        keyboardActions = KeyboardActions(
-            onNext = { focusManager.moveFocus(FocusDirection.Down) }
-        ),
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-        trailingIcon = {
-            IconButton(onClick = { onExpandedChange(true) }) {
+fun CustomDropDownField(
+    value: String,
+    placeholder: String,
+    onExpandedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(
+                color = Color(0xFFE7E7E9),
+                shape = RoundedCornerShape(17.dp)
+            )
+            .clickable { onExpandedChange(true) }
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = if (value.isNotEmpty()) value else placeholder,
+                color = if (value.isNotEmpty()) Color.Black else Color.Gray,
+                fontSize = 14.sp,
+                fontFamily = RadioCanadaRegular,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 8.dp),
+                maxLines = Int.MAX_VALUE,
+                softWrap = true,
+                overflow = TextOverflow.Visible
+            )
+
+            IconButton(
+                onClick = { onExpandedChange(true) },
+                modifier = Modifier.size(32.dp)
+            ) {
                 Icon(
                     painter = painterResource(R.drawable.down),
                     contentDescription = "",
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(20.dp),
+                    tint = Color.Gray
                 )
             }
-        },
-        readOnly = true,
-    )
+        }
+    }
 }
 
 @Composable

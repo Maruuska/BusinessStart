@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -30,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -40,12 +42,10 @@ import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.R
 import com.example.ppmob.domain.state.AppState
 import com.example.ppmob.presentation.components.ButtonCustom
-import com.example.ppmob.presentation.components.ButtonCustomOutline
-import com.example.ppmob.presentation.components.OutlinedTextFieldDropDown
+import com.example.ppmob.presentation.components.CustomDropDownField
 import com.example.ppmob.presentation.viewmodel.ApostilViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
-import com.example.ppmob.ui.theme.RadioCanadaBold
 import com.example.ppmob.ui.theme.RadioCanadaMedium
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
@@ -158,19 +158,32 @@ fun ApostilScreen(
                 val selectCountry =
                     apostilViewModel.countries.value?.find { it.id == stateField.countryId }
 
-                Column {
-                    OutlinedTextFieldDropDown(
-                        selectCountry?.name ?: "Выберите страну"
-                    ) {
-                        expanded = it
-                    }
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    CustomDropDownField(
+                        value = selectCountry?.name ?: "",
+                        placeholder = "Выберите страну",
+                        onExpandedChange = { expanded = it }
+                    )
+
                     DropdownMenu(
                         expanded = expanded,
-                        onDismissRequest = { expanded = false }) {
-
-                        apostilViewModel.countries.value!!.forEach { country ->
+                        onDismissRequest = { expanded = false },
+                        modifier = Modifier
+                            .background(Color.White)
+                            .heightIn(max = 300.dp)
+                            .fillMaxWidth(),
+                        offset = DpOffset(x = 0.dp, y = 0.dp)
+                    ) {
+                        apostilViewModel.countries.value?.forEach { country ->
                             DropdownMenuItem(
-                                text = { Text(country.name) },
+                                text = {
+                                    Text(
+                                        text = country.name,
+                                        color = Color.Black,
+                                        fontSize = 14.sp,
+                                        fontFamily = RadioCanadaRegular
+                                    )
+                                },
                                 onClick = {
                                     apostilViewModel.updateState(
                                         stateField.copy(countryId = country.id)

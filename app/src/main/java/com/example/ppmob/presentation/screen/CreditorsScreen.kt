@@ -118,7 +118,6 @@ fun CreditorsScreen(navController: NavHostController) {
                     )
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Заголовки с одинаковыми весами
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()

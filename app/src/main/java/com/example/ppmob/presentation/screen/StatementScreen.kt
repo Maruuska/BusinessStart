@@ -10,13 +10,12 @@ import android.provider.MediaStore
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -32,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,8 +40,7 @@ import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.R
 import com.example.ppmob.domain.state.AppState
 import com.example.ppmob.presentation.components.ButtonCustom
-import com.example.ppmob.presentation.components.ButtonCustomOutline
-import com.example.ppmob.presentation.components.OutlinedTextFieldDropDown
+import com.example.ppmob.presentation.components.CustomDropDownField
 import com.example.ppmob.presentation.components.OutlinedTextFieldNormal
 import com.example.ppmob.presentation.viewmodel.StatementViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
@@ -242,20 +241,33 @@ fun StatementScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                Column {
-                    OutlinedTextFieldDropDown(
-                        selectCode?.code ?: "Выберите код"
-                    ) {
-                        expandedCode = it
-                    }
-                    // выпадающее меню
+
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    CustomDropDownField(
+                        value = selectCode?.code ?: "",
+                        placeholder = "Выберите код",
+                        onExpandedChange = { expandedCode = it }
+                    )
+
                     DropdownMenu(
                         expanded = expandedCode,
-                        onDismissRequest = { expandedCode = false }) {
-                        // перебор списка кодов из viewModel
+                        onDismissRequest = { expandedCode = false },
+                        modifier = Modifier
+                            .background(Color.White)
+                            .heightIn(max = 300.dp)
+                            .fillMaxWidth(),
+                        offset = DpOffset(x = 0.dp, y = 0.dp)
+                    ) {
                         statementViewModel.codeCountries.value!!.forEach { code ->
                             DropdownMenuItem(
-                                text = { Text(code.code) },
+                                text = {
+                                    Text(
+                                        text = code.code,
+                                        color = Color.Black,
+                                        fontSize = 14.sp,
+                                        fontFamily = RadioCanadaRegular
+                                    )
+                                },
                                 onClick = {
                                     statementViewModel.updateState(
                                         stateField.copy(codeCountryId = code.id)
@@ -294,20 +306,33 @@ fun StatementScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(10.dp))
-                Column {
-                    OutlinedTextFieldDropDown(
-                        selectForm?.name ?: "Выберите форму"
-                    ) {
-                        expandedForm = it
-                    }
-                    // выпадающее меню
+
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    CustomDropDownField(
+                        value = selectForm?.name ?: "",
+                        placeholder = "Выберите форму",
+                        onExpandedChange = { expandedForm = it }
+                    )
+
                     DropdownMenu(
                         expanded = expandedForm,
-                        onDismissRequest = { expandedForm = false }) {
-                        // перебор списка форм из viewModel
+                        onDismissRequest = { expandedForm = false },
+                        modifier = Modifier
+                            .background(Color.White)
+                            .heightIn(max = 300.dp)
+                            .fillMaxWidth(),
+                        offset = DpOffset(x = 0.dp, y = 0.dp)
+                    ) {
                         statementViewModel.forms.value!!.forEach { form ->
                             DropdownMenuItem(
-                                text = { Text(form.name) },
+                                text = {
+                                    Text(
+                                        text = form.name,
+                                        color = Color.Black,
+                                        fontSize = 14.sp,
+                                        fontFamily = RadioCanadaRegular
+                                    )
+                                },
                                 onClick = {
                                     statementViewModel.updateState(
                                         stateField.copy(formId = form.id)

@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,20 +28,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.artguess.presentation.navigation.NavRoutes
 import com.example.ppmob.R
 import com.example.ppmob.domain.state.AppState
 import com.example.ppmob.presentation.components.ButtonCustom
-import com.example.ppmob.presentation.components.OutlinedTextFieldDropDown
-import com.example.ppmob.presentation.viewmodel.OfficeViewModel
+import com.example.ppmob.presentation.components.CustomDropDownField
 import com.example.ppmob.presentation.viewmodel.PalataViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue
-import com.example.ppmob.ui.theme.RadioCanadaMedium
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
 
@@ -156,20 +155,32 @@ fun PalataScreen(
                         val selectCountry =
                             palataViewModel.countries.value?.find { it.id == stateField.countryId }
 
-                        Column {
-                            OutlinedTextFieldDropDown(
-                                selectCountry?.name ?: "Выберите страну"
-                            ) {
-                                expanded = it
-                            }
-                            // выпадающее меню
+                        Column(modifier = Modifier.fillMaxWidth()) {
+                            CustomDropDownField(
+                                value = selectCountry?.name ?: "",
+                                placeholder = "Выберите страну",
+                                onExpandedChange = { expanded = it }
+                            )
+
                             DropdownMenu(
                                 expanded = expanded,
-                                onDismissRequest = { expanded = false }) {
-
-                                palataViewModel.countries.value!!.forEach { country ->
+                                onDismissRequest = { expanded = false },
+                                modifier = Modifier
+                                    .background(Color.White)
+                                    .heightIn(max = 300.dp)
+                                    .fillMaxWidth(),
+                                offset = DpOffset(x = 0.dp, y = 0.dp)
+                            ) {
+                                palataViewModel.countries.value?.forEach { country ->
                                     DropdownMenuItem(
-                                        text = { Text(country.name) },
+                                        text = {
+                                            Text(
+                                                text = country.name,
+                                                color = Color.Black,
+                                                fontSize = 14.sp,
+                                                fontFamily = RadioCanadaRegular
+                                            )
+                                        },
                                         onClick = {
                                             palataViewModel.updateState(
                                                 stateField.copy(countryId = country.id)
@@ -300,6 +311,18 @@ fun PalataScreen(
                             }
 
                             is AppState.Success -> {
+                                ButtonCustom(
+                                    "Подготовить документы",
+                                    true,
+                                    ActiveBlue,
+                                    NoActiveBlue,
+                                    16.sp,
+                                    14.dp,
+                                    270.dp,
+                                    45.dp
+                                ) {
+                                    palataViewModel.transition(navController)
+                                }
                             }
                         }
                     }
@@ -310,7 +333,6 @@ fun PalataScreen(
                         .background(Color.Transparent)
                 ) { }
             }
-
         }
     }
 }
