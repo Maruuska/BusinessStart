@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,8 +38,10 @@ import com.example.ppmob.presentation.components.ButtonCustomOutline2
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.ActiveGreen
 import com.example.ppmob.ui.theme.NoActiveGreen
+import com.example.ppmob.ui.theme.RadioCanadaMedium
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
+import com.example.ppmob.ui.theme.WarningYellow
 
 @Composable
 fun NotifyScreen(navController: NavHostController) {
@@ -86,20 +89,23 @@ fun NotifyScreen(navController: NavHostController) {
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.Top
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.info),
                     contentDescription = "",
-                    modifier = Modifier.size(35.dp)
+                    modifier = Modifier.size(24.dp)
                 )
                 Text(
-                    text = "В течение трех дней с момента принятия решения о прекращении существования юрлица нужно уведомить об этом ФНС по специальной форме",
+                    text = "В течение трёх дней с момента принятия решения о ликвидации нужно уведомить об этом ФНС по специальной форме",
                     fontFamily = RadioCanadaRegular,
                     fontSize = 13.sp,
-                    color = Color.Black,
+                    color = Color(0xFF555555),
                     textAlign = TextAlign.Left,
-                    modifier = Modifier.padding(start = 12.dp)
+                    lineHeight = 18.sp,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 12.dp)
                 )
             }
 
@@ -126,7 +132,32 @@ fun NotifyScreen(navController: NavHostController) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(30.dp))
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+       ,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.warning),
+                    contentDescription = "Подсказка",
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = "Публикации обязательны. Пропуск этого этапа — причина для отказа ФНС. Нажмите на квадратик рядом с каждым пунктом, чтобы подтвердить",
+                    fontFamily = RadioCanadaMedium,
+                    fontSize = 13.sp,
+                    color = WarningYellow,
+                    textAlign = TextAlign.Left,
+                    lineHeight = 18.sp,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
 
             CheckboxRow(
                 text = "Опубликовано в «Вестнике государственной регистрации»",
@@ -134,7 +165,6 @@ fun NotifyScreen(navController: NavHostController) {
                 onCheckedChange = { isPublishedBulletin = it }
             )
             Spacer(modifier = Modifier.height(13.dp))
-
 
             CheckboxRow(
                 text = "Опубликовано в ЕФРСФДЮЛ",
@@ -148,30 +178,6 @@ fun NotifyScreen(navController: NavHostController) {
                 isChecked = isNotifiedCreditors,
                 onCheckedChange = { isNotifiedCreditors = it }
             )
-            Spacer(modifier = Modifier.height(30.dp))
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.Top
-            ) {
-                Box(
-                    modifier = Modifier
-                        .width(3.dp)
-                        .height(33.dp)
-                        .background(ActiveBlue)
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                Text(
-                    text = "Публикации обязательны. Пропуск этого этапа — причина для отказа ФНС",
-                    fontFamily = RadioCanadaRegular,
-                    fontSize = 12.sp,
-                    color = Color(0xFF696969),
-                    textAlign = TextAlign.Left,
-                    lineHeight = 16.sp,
-                    modifier = Modifier.weight(1f)
-                )
-            }
             Spacer(modifier = Modifier.height(30.dp))
 
             ButtonCustom(

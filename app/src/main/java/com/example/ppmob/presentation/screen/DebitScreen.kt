@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,6 +40,7 @@ import com.example.ppmob.ui.theme.NoActiveGreen
 import com.example.ppmob.ui.theme.RadioCanadaMedium
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
+import com.example.ppmob.ui.theme.WarningYellow
 
 @Composable
 fun DebitScreen(navController: NavHostController) {
@@ -112,8 +114,33 @@ fun DebitScreen(navController: NavHostController) {
                     lineHeight = 15.sp
                 )
             }
-            Spacer(modifier = Modifier.height(35.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.warning),
+                    contentDescription = "",
+                    modifier = Modifier.size(24.dp)
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = "Как отметить работу с дебиторами? Нажмите на кнопку «Сформировать акт сверки» для каждого дебитора",
+                    fontFamily = RadioCanadaMedium,
+                    fontSize = 13.sp,
+                    color = WarningYellow,
+                    textAlign = TextAlign.Left,
+                    lineHeight = 18.sp,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // Заголовки таблицы
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -151,7 +178,7 @@ fun DebitScreen(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
-                verticalAlignment = Alignment.Top,
+                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
@@ -166,7 +193,8 @@ fun DebitScreen(navController: NavHostController) {
                     fontFamily = RadioCanadaRegular,
                     fontSize = 15.sp,
                     color = Color.Black,
-                    modifier = Modifier.weight(1f).padding(start = 22.dp)
+                    modifier = Modifier.weight(1f),
+                    textAlign = TextAlign.Center
                 )
                 ButtonCustom2(
                     label = "Сформировать акт сверки",
@@ -188,7 +216,7 @@ fun DebitScreen(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
-                verticalAlignment = Alignment.Top,
+                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
@@ -203,7 +231,8 @@ fun DebitScreen(navController: NavHostController) {
                     fontFamily = RadioCanadaRegular,
                     fontSize = 15.sp,
                     color = Color.Black,
-                    modifier = Modifier.weight(1f).padding(start = 22.dp)
+                    modifier = Modifier.weight(1f),
+                    textAlign = TextAlign.Center
                 )
                 ButtonCustom2(
                     label = "Сформировать акт сверки",
@@ -225,7 +254,7 @@ fun DebitScreen(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
-                verticalAlignment = Alignment.Top,
+                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 Text(
@@ -240,7 +269,8 @@ fun DebitScreen(navController: NavHostController) {
                     fontFamily = RadioCanadaRegular,
                     fontSize = 15.sp,
                     color = Color.Black,
-                    modifier = Modifier.weight(1f).padding(start = 22.dp)
+                    modifier = Modifier.weight(1f),
+                    textAlign = TextAlign.Center
                 )
                 ButtonCustom2(
                     label = "Сформировать акт сверки",
@@ -258,6 +288,7 @@ fun DebitScreen(navController: NavHostController) {
             Divider(color = Color.LightGray, thickness = 1.dp)
 
             Spacer(modifier = Modifier.height(40.dp))
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -277,7 +308,7 @@ fun DebitScreen(navController: NavHostController) {
                     lineHeight = 15.sp
                 )
             }
-            Spacer(modifier = Modifier.height(45.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
             ButtonCustom(
                 label = "Далее",
