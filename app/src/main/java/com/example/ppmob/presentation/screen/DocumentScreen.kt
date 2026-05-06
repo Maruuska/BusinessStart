@@ -149,7 +149,21 @@ fun DocumentScreen(
                     modifier = Modifier.weight(1f)
                 )
             }
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                text = "(Нажимайте на кнопки последовательно — каждая станет доступна после выполнения предыдущего шага)",
+                fontFamily = RadioCanadaRegular,
+                fontSize = 11.sp,
+                color = Color.Gray,
+                textAlign = TextAlign.Center,
+                lineHeight = 16.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 12.dp)
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
 
             if (needApostille && !isSimplified) {
                 ButtonCustom(

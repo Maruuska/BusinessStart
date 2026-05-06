@@ -31,6 +31,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -58,12 +59,36 @@ fun TestsScreen(
             .padding(top = 65.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(
-            text = "Проверка знаний",
-            fontFamily = RadioCanadaSemiBold,
-            fontSize = 18.sp,
-            color = Color.Black
-        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            Image(
+                painter = painterResource(id = R.drawable.back),
+                contentDescription = "Назад",
+                modifier = Modifier
+                    .size(25.dp)
+                    .clickable {
+                        navController.navigate(NavRoutes.menu)
+                    }
+            )
+
+            Text(
+                text = "Проверка знаний",
+                fontFamily = RadioCanadaSemiBold,
+                fontSize = 18.sp,
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.weight(1f)
+            )
+            Spacer(modifier = Modifier.size(30.dp))
+        }
+
         Spacer(modifier = Modifier.height(50.dp))
 
         Column(

@@ -156,7 +156,6 @@ fun MenuItem(
                 fontFamily = RadioCanadaRegular,
                 fontSize = 12.sp,
                 color = Color.White.copy(alpha = 0.85f),
-                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 lineHeight = 12.sp
             )

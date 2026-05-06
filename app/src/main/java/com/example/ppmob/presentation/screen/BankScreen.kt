@@ -96,7 +96,7 @@ fun BankScreen(
             )
             Spacer(modifier = Modifier.width(4.dp))
             Image(
-                painter = painterResource(id = R.drawable.info),
+                painter = painterResource(id = R.drawable.question),
                 contentDescription = "Инструкция",
                 modifier = Modifier
                     .size(25.dp)
