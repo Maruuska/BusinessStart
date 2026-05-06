@@ -41,6 +41,7 @@ import com.example.ppmob.ui.theme.RadioCanadaBold
 import com.example.ppmob.ui.theme.RadioCanadaMedium
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
+import com.example.ppmob.ui.theme.WarningYellow
 
 @Composable
 fun BalanceScreen(
@@ -124,24 +125,27 @@ fun BalanceScreen(
             Spacer(modifier = Modifier.height(25.dp))
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.info),
                     contentDescription = "",
-                    modifier = Modifier.size(30.dp)
+                    modifier = Modifier.size(24.dp),
                 )
+                Spacer(modifier = Modifier.width(12.dp))
                 Text(
-                    text = "Проверьте автоматически подставленные суммы",
+                    text = "Как рассчитать баланс? Введите суммы в поля для каждой позиции. Калькулятор автоматически посчитает итоговую стоимость чистых активов",
                     fontFamily = RadioCanadaMedium,
-                    fontSize = 15.sp,
-                    color = Color.Black,
+                    fontSize = 13.sp,
+                    color = WarningYellow,
                     textAlign = TextAlign.Left,
-                    modifier = Modifier.padding(start = 12.dp),
-                    lineHeight = 15.sp
+                    lineHeight = 18.sp,
+                    modifier = Modifier.weight(1f)
                 )
             }
+
             Spacer(modifier = Modifier.height(35.dp))
 
             Row(
@@ -156,18 +160,18 @@ fun BalanceScreen(
                     fontFamily = RadioCanadaMedium,
                     fontSize = 16.sp,
                     color = Color.Black,
-                    modifier = Modifier.weight(0.8f), // Соответствует весу в BalanceRowItem
+                    modifier = Modifier.weight(0.8f),
                     textAlign = TextAlign.Center,
-                    maxLines = 1 // Запрещаем перенос
+                    maxLines = 1
                 )
                 Text(
                     text = "Наименование",
                     fontFamily = RadioCanadaMedium,
                     fontSize = 16.sp,
                     color = Color.Black,
-                    modifier = Modifier.weight(1.5f), // Соответствует весу в BalanceRowItem
+                    modifier = Modifier.weight(1.5f),
                     textAlign = TextAlign.Center,
-                    maxLines = 1 // Запрещаем перенос
+                    maxLines = 1
                 )
                 Text(
                     text = "Сумма (₽)",
@@ -176,7 +180,7 @@ fun BalanceScreen(
                     color = Color.Black,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center,
-                    maxLines = 1 // Запрещаем перенос
+                    maxLines = 1
                 )
             }
 
@@ -252,7 +256,7 @@ fun BalanceScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Имущества недостаточно для покрытия долгов.",
+                        text = "⚠️ Имущества недостаточно для покрытия долгов.",
                         color = Color.Red,
                         fontSize = 12.sp,
                         fontFamily = RadioCanadaRegular,

@@ -122,7 +122,7 @@ fun DebitScreen(navController: NavHostController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.warning),
+                    painter = painterResource(id = R.drawable.info),
                     contentDescription = "",
                     modifier = Modifier.size(24.dp)
                 )

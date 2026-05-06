@@ -96,7 +96,7 @@ fun CreditorsScreen(navController: NavHostController) {
                             modifier = Modifier.size(30.dp)
                         )
                         Text(
-                            text = "Долги раздаются в соответствии с составленным промежуточным ЛБ и очередью, установленной ст. 64 ГК РФ.",
+                            text = "Долги раздаются в соответствии с составленным промежуточным балансом и очередью, установленной ст. 64 ГК РФ.",
                             fontFamily = RadioCanadaMedium,
                             fontSize = 13.sp,
                             color = Color.Black,

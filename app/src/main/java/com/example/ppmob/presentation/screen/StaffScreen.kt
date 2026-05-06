@@ -26,7 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -43,8 +42,6 @@ import com.example.ppmob.ui.theme.NoActiveBlue
 import com.example.ppmob.ui.theme.RadioCanadaMedium
 import com.example.ppmob.ui.theme.RadioCanadaRegular
 import com.example.ppmob.ui.theme.RadioCanadaSemiBold
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
 fun StaffScreen(navController: NavHostController) {
@@ -57,7 +54,6 @@ fun StaffScreen(navController: NavHostController) {
         if (messageText.isNotBlank() && !isSending) {
             isSending = true
             showNotification = true
-            // Убрана задержка и автоматическое скрытие уведомления
         }
     }
 
@@ -100,7 +96,17 @@ fun StaffScreen(navController: NavHostController) {
                     lineHeight = 15.sp
                 )
             }
-            Spacer(modifier = Modifier.height(35.dp))
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Text(
+                text = "Нажмите на поле ввода и напишите сообщение",
+                fontFamily = RadioCanadaRegular,
+                fontSize = 13.sp,
+                color = Color.Gray,
+                textAlign = TextAlign.Left,
+                lineHeight = 15.sp
+            )
+            Spacer(modifier = Modifier.height(15.dp))
 
             Box(
                 modifier = Modifier
@@ -148,20 +154,27 @@ fun StaffScreen(navController: NavHostController) {
                                 Box(
                                     modifier = Modifier.fillMaxSize()
                                 ) {
-                                    Column {
+                                    if (messageText.isEmpty()) {
                                         Text(
-                                            text = "Уважаемые коллеги!",
+                                            text = "Введите текст сообщения...",
                                             fontSize = 14.sp,
                                             fontFamily = RadioCanadaRegular,
-                                            color = Color.Black
+                                            color = Color.Gray
                                         )
-                                        if (messageText.isNotEmpty()) {
+                                    } else {
+                                        Column {
+                                            Text(
+                                                text = "Уважаемые коллеги!",
+                                                fontSize = 14.sp,
+                                                fontFamily = RadioCanadaRegular,
+                                                color = Color.Black
+                                            )
+                                            Spacer(modifier = Modifier.height(4.dp))
                                             Text(
                                                 text = messageText,
                                                 fontSize = 14.sp,
                                                 fontFamily = RadioCanadaRegular,
-                                                color = Color.Black,
-                                                modifier = Modifier.padding(top = 4.dp)
+                                                color = Color.Black
                                             )
                                         }
                                     }
@@ -194,7 +207,7 @@ fun StaffScreen(navController: NavHostController) {
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "Сообщение отправлено",
+                        text = "✓ Сообщение отправлено",
                         fontFamily = RadioCanadaRegular,
                         fontSize = 13.sp,
                         color = Color(0xFF2E7D32),
