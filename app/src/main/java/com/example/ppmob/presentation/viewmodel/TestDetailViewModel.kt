@@ -99,23 +99,11 @@ class TestDetailViewModel @Inject constructor(
                 correctAnswerText = ""
             )
         } else {
-            // тест завершен
             _uiState.value = _uiState.value.copy(
                 isFinished = true
             )
         }
     }
-
-//    fun resetForRetry() {
-//        _uiState.value = _uiState.value.copy(
-//            currentQuestionIndex = 0,
-//            selectedAnswer = null,
-//            isAnswerChecked = false,
-//            showResultMessage = false,
-//            isAnswerCorrect = false,
-//            isFinished = false
-//        )
-//    }
 
     // получение результата теста
     fun getTestResult(): Pair<Int, Int> {

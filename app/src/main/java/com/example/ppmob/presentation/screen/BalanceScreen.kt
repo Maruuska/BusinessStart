@@ -310,8 +310,7 @@ fun BalanceRowItem(
                 .weight(0.8f)
                 .height(35.dp)
                 .clip(RoundedCornerShape(10.dp))
-                .background(Color(0xFFE8E8E8))
-                .padding(horizontal = 12.dp),
+                .background(Color(0xFFE8E8E8)),
             contentAlignment = Alignment.Center
         ) {
             Text(

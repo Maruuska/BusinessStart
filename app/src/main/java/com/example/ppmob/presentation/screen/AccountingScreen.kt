@@ -54,7 +54,6 @@ import com.example.ppmob.domain.state.AppState
 import com.example.ppmob.presentation.components.ButtonCustom
 import com.example.ppmob.presentation.components.ButtonCustomOutline
 import com.example.ppmob.presentation.components.CustomDropDownField
-import com.example.ppmob.presentation.components.OutlinedTextFieldDropDown
 import com.example.ppmob.presentation.viewmodel.AccountingViewModel
 import com.example.ppmob.ui.theme.ActiveBlue
 import com.example.ppmob.ui.theme.NoActiveBlue

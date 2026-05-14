@@ -16,7 +16,6 @@ object ApiInterfaceService {
 
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor { chain ->
-                // обязательные заголовки Supabase
                 val requestBuilder = chain.request().newBuilder()
                     .addHeader("apikey", API_KEY)
                     .addHeader("Authorization", "Bearer $API_KEY")

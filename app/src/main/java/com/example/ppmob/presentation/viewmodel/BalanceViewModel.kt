@@ -24,11 +24,4 @@ class BalanceViewModel @Inject constructor() : ViewModel() {
         updatedRows[index] = updatedRows[index].copy(sum = newSum)
         _fieldsBalance.value = currentState.copy(rows = updatedRows)
     }
-
-    fun updateRowType(index: Int, newType: String) {
-        val currentState = _fieldsBalance.value
-        val updatedRows = currentState.rows.toMutableList()
-        updatedRows[index] = updatedRows[index].copy(type = newType)
-        _fieldsBalance.value = currentState.copy(rows = updatedRows)
-    }
 }

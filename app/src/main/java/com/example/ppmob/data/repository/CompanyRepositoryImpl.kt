@@ -19,7 +19,6 @@ class CompanyRepositoryImpl @Inject constructor(
     private val apiInterface: ApiInterface
 ): CompanyRepository {
 
-    // переопределение абстрактной функции для создания компании
     override suspend fun createCompany(
         name: String,
         shortName: String,
@@ -46,7 +45,6 @@ class CompanyRepositoryImpl @Inject constructor(
         }
     }
 
-    // переопределение абстрактной функции для получения списка адресов
     override suspend fun getAddresses(): Rezult<List<Address>> {
         return try {
             val adressDto = apiInterface.getAddresses()
@@ -57,7 +55,6 @@ class CompanyRepositoryImpl @Inject constructor(
         }
     }
 
-    // переопределение абстрактной функции для получения списка видов деятельности
     override suspend fun getActivitys(): Rezult<List<Activity>> {
         return try {
             val activitysDto = apiInterface.getActivitys()

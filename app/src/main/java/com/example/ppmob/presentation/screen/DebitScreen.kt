@@ -5,15 +5,16 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -59,7 +60,7 @@ fun DebitScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(top = 80.dp, start = 20.dp, end = 20.dp),
+                .padding(top = 50.dp, start = 20.dp, end = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -73,13 +74,14 @@ fun DebitScreen(navController: NavHostController) {
 
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Min),
                 verticalAlignment = Alignment.Top
             ) {
                 Box(
                     modifier = Modifier
                         .width(3.dp)
-                        .height(55.dp)
+                        .fillMaxHeight()
                         .background(ActiveBlue)
                 )
                 Spacer(modifier = Modifier.width(12.dp))
@@ -184,14 +186,14 @@ fun DebitScreen(navController: NavHostController) {
                 Text(
                     text = "ООО «Ромашка»",
                     fontFamily = RadioCanadaRegular,
-                    fontSize = 15.sp,
+                    fontSize = 11.sp,
                     color = Color.Black,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
                     text = "150 000",
                     fontFamily = RadioCanadaRegular,
-                    fontSize = 15.sp,
+                    fontSize = 13.sp,
                     color = Color.Black,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
@@ -222,14 +224,14 @@ fun DebitScreen(navController: NavHostController) {
                 Text(
                     text = "ИП Петров",
                     fontFamily = RadioCanadaRegular,
-                    fontSize = 15.sp,
+                    fontSize = 11.sp,
                     color = Color.Black,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
                     text = "50 000",
                     fontFamily = RadioCanadaRegular,
-                    fontSize = 15.sp,
+                    fontSize = 13.sp,
                     color = Color.Black,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center
@@ -260,14 +262,14 @@ fun DebitScreen(navController: NavHostController) {
                 Text(
                     text = "ООО «Сникерс»",
                     fontFamily = RadioCanadaRegular,
-                    fontSize = 15.sp,
+                    fontSize = 11.sp,
                     color = Color.Black,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
                     text = "98 000",
                     fontFamily = RadioCanadaRegular,
-                    fontSize = 15.sp,
+                    fontSize = 13.sp,
                     color = Color.Black,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center

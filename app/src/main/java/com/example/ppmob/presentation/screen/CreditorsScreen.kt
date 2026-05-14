@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
@@ -72,7 +71,7 @@ fun CreditorsScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(top = 70.dp, start = 20.dp, end = 20.dp),
+                .padding(top = 50.dp, start = 20.dp, end = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
@@ -105,7 +104,7 @@ fun CreditorsScreen(navController: NavHostController) {
                             lineHeight = 15.sp
                         )
                     }
-                    Spacer(modifier = Modifier.height(35.dp))
+                    Spacer(modifier = Modifier.height(25.dp))
 
                     Text(
                         text = "Перед вами — список кредиторов в случайном порядке. Расставьте их в правильной очерёдности",
@@ -127,7 +126,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "Номер",
                             fontFamily = RadioCanadaMedium,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(1f)
@@ -138,7 +137,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "Кредитор",
                             fontFamily = RadioCanadaMedium,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(2f)
@@ -149,7 +148,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "Сумма (₽)",
                             fontFamily = RadioCanadaMedium,
-                            fontSize = 16.sp,
+                            fontSize = 15.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(1f)
@@ -163,13 +162,13 @@ fun CreditorsScreen(navController: NavHostController) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp),
+                            .padding(vertical = 2.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
                             text = "1",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(1f)
@@ -180,7 +179,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "Зарплата сотрудников",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(2f)
@@ -191,7 +190,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "200 000",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(1f)
@@ -214,7 +213,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "2",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(1f)
@@ -225,7 +224,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "Налоги",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(2f)
@@ -236,7 +235,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "50 000",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(1f)
@@ -259,7 +258,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "3",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(1f)
@@ -270,7 +269,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "Вред жизни и здоровью",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(2f)
@@ -281,7 +280,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "20 000",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(1f)
@@ -304,7 +303,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "4",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(1f)
@@ -315,7 +314,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "Прочие кредиторы",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(2f)
@@ -326,7 +325,7 @@ fun CreditorsScreen(navController: NavHostController) {
                         Text(
                             text = "100 000",
                             fontFamily = RadioCanadaRegular,
-                            fontSize = 15.sp,
+                            fontSize = 13.sp,
                             color = Color.Black,
                             modifier = Modifier
                                 .weight(1f)
@@ -342,7 +341,7 @@ fun CreditorsScreen(navController: NavHostController) {
                     Text(
                         text = "Введите ответ, например: 1234",
                         fontFamily = RadioCanadaRegular,
-                        fontSize = 16.sp,
+                        fontSize = 15.sp,
                         color = Color.Black,
                         modifier = Modifier.fillMaxWidth()
                     )
